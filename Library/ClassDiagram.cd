@@ -3,7 +3,7 @@
   <Class Name="Library.LibraryItem">
     <Position X="1.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAACAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAIAAAACAEAAIAAAAA=</HashCode>
       <FileName>LibraryItem.cs</FileName>
     </TypeIdentifier>
   </Class>
