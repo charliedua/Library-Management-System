@@ -3,21 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+/// <summary>
+/// The main namespace
+/// </summary>
 namespace Library
 {
     /// <summary>
     /// The base Class for almost everything in this library.
     /// </summary>
-    public abstract class LibraryItem
+    public abstract class LibraryItem : Entity
     {
+        /// <summary>
+        /// the status of the item (available or not).
+        /// </summary>
         private bool _acquired;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LibraryItem"/> class.
+        /// </summary>
+        /// <param name="name">The name of the item.</param>
         public LibraryItem(string name)
         {
+            _acquired = false;
             Name = name;
         }
 
-        public bool Take()
+        /// <summary>
+        /// To or acquire the resource required.
+        /// </summary>
+        /// <returns>
+        /// the status is it was possible or not.
+        /// </returns>
+        public virtual bool Take()
         {
             throw new NotImplementedException();
         }
@@ -28,16 +45,16 @@ namespace Library
         /// <returns>
         /// the status is it was possible or not
         /// </returns>
-        public bool Give()
+        public virtual bool Give()
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// To or acquire the resource required.
+        /// Determines whether this instance is available.
         /// </summary>
         /// <returns>
-        /// the status is it was possible or not.
+        ///   <c>true</c> if this instance is available; otherwise, <c>false</c>.
         /// </returns>
         public bool IsAvailable()
         {
