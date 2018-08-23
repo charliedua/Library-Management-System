@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Library
 {
-    public class Computer : IssuableItem, IIssuable
+    public class Computer : LibraryItem
     {
         /// <summary>
         /// The maximum booking time for computer in hrs
@@ -16,12 +16,12 @@ namespace Library
         {
         }
 
-        public override bool Give()
+        public bool Give()
         {
             throw new NotImplementedException();
         }
 
-        public override bool Take()
+        public bool Take()
         {
             throw new NotImplementedException();
         }

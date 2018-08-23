@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Library
 {
-    public class Shelf : NotissuableItem
+    public class Shelf : LibraryItem
     {
         private List<Book> _books;
 

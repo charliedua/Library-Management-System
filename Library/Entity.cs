@@ -9,13 +9,9 @@ namespace Library
     {
         protected string _identifier;
 
-        public Entity(string identifier)
+        public Entity(string name, string identifier)
         {
             _identifier = identifier;
-        }
-
-        public Entity(string name, string identifier) : this(identifier)
-        {
         }
 
         protected string _name;
@@ -26,17 +22,11 @@ namespace Library
             set => _name = value;
         }
 
-        public string Identifier
-        {
-            get => _identifier;
-            set => _identifier = value;
-        }
-
         /// <summary>
         /// Verifies the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public bool Verify(string id) => id == _identifier;
+        public bool AreYou(string id) => id == _identifier;
     }
 }
