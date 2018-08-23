@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Library;
 
 namespace CustomProgram__Library_Management
 {
@@ -18,7 +20,8 @@ namespace CustomProgram__Library_Management
         private static void Main(string[] args)
         {
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            Console.WriteLine("Hello World!");
+            string a = JsonConvert.SerializeObject(new User("andy", "132"));
+            Console.WriteLine(a);
         }
     }
 }

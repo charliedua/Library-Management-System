@@ -10,9 +10,12 @@
   <Class Name="Library.User">
     <Position X="9.5" Y="4" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAAAIAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAQAAAAAAABAIKAAAAAAAAAAAAAIAAAAA=</HashCode>
       <FileName>User\User.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="UserAccount" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Library.Book">
     <Position X="2.5" Y="6.75" Width="1.5" />
@@ -22,7 +25,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Manager">
-    <Position X="12.25" Y="6.75" Width="1.5" />
+    <Position X="12.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>User\Manager.cs</FileName>
@@ -58,62 +61,62 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Student">
-    <Position X="8.75" Y="6.75" Width="1.5" />
+    <Position X="8.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>User\Student.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Member">
-    <Position X="10.5" Y="6.75" Width="1.5" />
+    <Position X="10.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>User\Member.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.UniMember">
-    <Position X="9.5" Y="9.25" Width="1.5" />
+    <Position X="9.5" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>User\UniMember.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.ExternalMember">
-    <Position X="11.5" Y="9.25" Width="1.5" />
+    <Position X="11.5" Y="9.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>User\ExternalMember.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Server">
-    <Position X="11.75" Y="1.75" Width="1.5" />
+    <Position X="12.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Server\Server.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Storage">
-    <Position X="11.75" Y="3.5" Width="1.5" />
+    <Position X="12.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Server\Storage.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Database">
-    <Position X="13.5" Y="3.5" Width="2.25" />
+    <Position X="14" Y="3.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Server\Database.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Librarian">
-    <Position X="13.75" Y="9.25" Width="1.5" />
+    <Position X="13.75" Y="9.75" Width="1.5" />
     <InheritanceLine Type="Library.Manager" FixedFromPoint="true">
       <Path>
-        <Point X="13" Y="7.747" />
-        <Point X="13" Y="8.875" />
-        <Point X="14.5" Y="8.875" />
-        <Point X="14.5" Y="9.25" />
+        <Point X="13" Y="8.482" />
+        <Point X="13" Y="9.375" />
+        <Point X="14.5" Y="9.375" />
+        <Point X="14.5" Y="9.75" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -128,5 +131,19 @@
       <FileName>Items\Shelf.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Library.UserAccount">
+    <Position X="16" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>User\Account.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Library.Permissions">
+    <Position X="16.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAgAAEAAEAIAAAAAAAAAAA=</HashCode>
+      <FileName>Permissions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

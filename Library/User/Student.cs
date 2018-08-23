@@ -7,5 +7,8 @@ namespace Library
 {
     public class Student : User
     {
+        public Student(string name, string identifier) : base(name, identifier)
+        {
+        }
     }
 }

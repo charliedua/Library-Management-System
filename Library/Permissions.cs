@@ -5,8 +5,12 @@ using System.Text;
 
 namespace Library
 {
-    public abstract class Server
+    public enum Permissions
     {
-        public abstract bool Connect();
+        FullControl,
+        Create,
+        Read,
+        Update,
+        Delete
     }
 }
