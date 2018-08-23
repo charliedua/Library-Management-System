@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Library
 {
-    public abstract class Server : Entity
+    public abstract class Server
     {
     }
 }
