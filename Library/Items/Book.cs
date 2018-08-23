@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Library
 {
-    public class Book : LibraryItem
+    public class Book : LibraryItem, IIssuable
     {
         private bool _acquired;
         private string _author;

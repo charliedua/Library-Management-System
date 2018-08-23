@@ -5,10 +5,13 @@ using System.Text;
 
 namespace Library
 {
-    public class Room : LibraryItem
+    public class Room : LibraryItem, IIssuable
     {
+        private bool _acquired;
+
         public Room(string name, string identifier) : base(name, identifier)
         {
+            _acquired = false;
         }
 
         public bool Give()

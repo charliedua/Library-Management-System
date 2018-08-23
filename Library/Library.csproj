@@ -61,12 +61,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="User\Account.cs" />
-    <Compile Include="Book.cs" />
+    <Compile Include="Items\IIssuable.cs" />
+    <Compile Include="User\UserAccount.cs" />
+    <Compile Include="Items\Book.cs" />
     <Compile Include="Items\Computer.cs" />
-    <Compile Include="Permissions.cs" />
+    <Compile Include="User\Permissions.cs" />
     <Compile Include="Server\Database.cs" />
-    <Compile Include="Entity.cs" />
+    <Compile Include="Items\Entity.cs" />
     <Compile Include="User\ExternalMember.cs" />
     <Compile Include="Interfaces\IIssueable.cs" />
     <Compile Include="User\Librarian.cs" />

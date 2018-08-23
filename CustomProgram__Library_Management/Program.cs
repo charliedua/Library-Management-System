@@ -20,8 +20,15 @@ namespace CustomProgram__Library_Management
         private static void Main(string[] args)
         {
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            string a = JsonConvert.SerializeObject(new User("andy", "132"));
-            Console.WriteLine(a);
+            User user = new User("Charlie", "101983924");
+            user.CreateAccount("new account");
+            Database.Save(user);
+            user = null;
+            user = JsonConvert.DeserializeObject<User>(Database.Load());
+            Console.WriteLine(user.Identifier);
+            Console.WriteLine(user.Name);
+            Console.WriteLine(user.Account.Password);
+            Console.WriteLine("Finished!");
         }
     }
 }

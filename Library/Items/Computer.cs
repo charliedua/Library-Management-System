@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Library
 {
-    public class Computer : LibraryItem
+    public class Computer : LibraryItem, IIssuable
     {
         /// <summary>
         /// The maximum booking time for computer in hrs

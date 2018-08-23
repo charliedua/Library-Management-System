@@ -7,6 +7,7 @@ namespace Library
 {
     public enum Permissions
     {
+        minimal,
         FullControl,
         Create,
         Read,

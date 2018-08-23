@@ -8,13 +8,15 @@ namespace Library
     public abstract class Entity
     {
         protected string _identifier;
+        protected string _name;
 
         public Entity(string name, string identifier)
         {
             _identifier = identifier;
+            _name = name;
         }
 
-        protected string _name;
+        public string Identifier { get => _identifier; set => _identifier = value; }
 
         public string Name
         {
