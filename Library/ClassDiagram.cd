@@ -10,12 +10,11 @@
   <Class Name="Library.User">
     <Position X="10" Y="4" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAQAAAAAAABAICAAAAAAAAEAAAAIAAAEA=</HashCode>
+      <HashCode>AAAAAAAAAAAAQAQIAAAABAICAAAAAACAEAAAAoAAAEA=</HashCode>
       <FileName>User\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Account" />
-      <Property Name="Permissions" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Library.Book">
@@ -27,16 +26,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.Manager">
-    <Position X="12.75" Y="7.25" Width="1.5" />
-    <InheritanceLine Type="Library.User" ManuallyRouted="true">
-      <Path>
-        <Point X="11" Y="6.464" />
-        <Point X="11" Y="6.939" />
-        <Point X="12.627" Y="6.939" />
-        <Point X="12.627" Y="7.866" />
-        <Point X="12.75" Y="7.866" />
-      </Path>
-    </InheritanceLine>
+    <Position X="12.25" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>User\Manager.cs</FileName>
@@ -74,43 +64,27 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.Student">
-    <Position X="9.25" Y="7.25" Width="1.5" />
-    <InheritanceLine Type="Library.User" ManuallyRouted="true">
-      <Path>
-        <Point X="11" Y="6.464" />
-        <Point X="11" Y="6.925" />
-        <Point X="10" Y="6.925" />
-        <Point X="10" Y="7.25" />
-      </Path>
-    </InheritanceLine>
+    <Position X="8.75" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>User\Student.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Member">
-    <Position X="11" Y="7.25" Width="1.5" />
-    <InheritanceLine Type="Library.User" ManuallyRouted="true" FixedFromPoint="true">
-      <Path>
-        <Point X="11" Y="6.464" />
-        <Point X="11" Y="6.928" />
-        <Point X="11.75" Y="6.928" />
-        <Point X="11.75" Y="7.25" />
-      </Path>
-    </InheritanceLine>
+    <Position X="10.5" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>User\Member.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.UniMember">
-    <Position X="9.25" Y="9.25" Width="1.5" />
+    <Position X="9.25" Y="10" Width="1.5" />
     <InheritanceLine Type="Library.Member" FixedFromPoint="true">
       <Path>
-        <Point X="11.312" Y="8.483" />
-        <Point X="11.312" Y="8.875" />
-        <Point X="10" Y="8.875" />
-        <Point X="10" Y="9.25" />
+        <Point X="10.812" Y="9.233" />
+        <Point X="10.812" Y="9.625" />
+        <Point X="10" Y="9.625" />
+        <Point X="10" Y="10" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -119,13 +93,13 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Library.ExternalMember">
-    <Position X="11.25" Y="9.25" Width="1.75" />
+    <Position X="11" Y="10" Width="1.75" />
     <InheritanceLine Type="Library.Member" FixedFromPoint="true">
       <Path>
-        <Point X="11.312" Y="8.483" />
-        <Point X="11.312" Y="8.875" />
-        <Point X="12.125" Y="8.875" />
-        <Point X="12.125" Y="9.25" />
+        <Point X="10.812" Y="9.233" />
+        <Point X="10.812" Y="9.625" />
+        <Point X="11.875" Y="9.625" />
+        <Point X="11.875" Y="10" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -134,20 +108,20 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Server">
-    <Position X="15.5" Y="1.25" Width="1.5" />
+    <Position X="17.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Server\Server.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Storage">
-    <Position X="13.5" Y="3" Width="1.5" />
+    <Position X="15.25" Y="4.5" Width="1.5" />
     <InheritanceLine Type="Library.Server" FixedToPoint="true">
       <Path>
-        <Point X="16.25" Y="2.353" />
-        <Point X="16.25" Y="2.625" />
-        <Point X="14.25" Y="2.625" />
-        <Point X="14.25" Y="3" />
+        <Point X="18" Y="3.853" />
+        <Point X="18" Y="4.125" />
+        <Point X="16" Y="4.125" />
+        <Point X="16" Y="4.5" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -156,20 +130,20 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Database">
-    <Position X="15.5" Y="3" Width="2.75" />
+    <Position X="17.25" Y="4.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAgIAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgIAgAAAAAAAAAAAAgIAAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Server\Database.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Librarian">
-    <Position X="13.25" Y="9.25" Width="1.5" />
+    <Position X="13.25" Y="10" Width="1.5" />
     <InheritanceLine Type="Library.Manager" FixedFromPoint="true">
       <Path>
-        <Point X="13.5" Y="8.482" />
-        <Point X="13.5" Y="8.875" />
-        <Point X="14" Y="8.875" />
-        <Point X="14" Y="9.25" />
+        <Point X="13" Y="9.232" />
+        <Point X="13" Y="9.625" />
+        <Point X="14" Y="9.625" />
+        <Point X="14" Y="10" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -185,14 +159,35 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Library.UserAccount">
-    <Position X="12.75" Y="4.5" Width="1.75" />
+    <Position X="13.25" Y="4.5" Width="1.75" />
     <Members>
       <Method Name="GetSha256Hash" Hidden="true" />
       <Method Name="VerifySha256Hash" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAQAAIAIAAAAAAAACAAIAAAAAAgA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAAAAAQACIAAAAAAAAAACAAIAAAAAAgA=</HashCode>
       <FileName>User\UserAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Inventory">
+    <Position X="11.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAABAAAAAAAAEAAAAAAAg=</HashCode>
+      <FileName>Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Utility">
+    <Position X="13.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Utility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Staff">
+    <Position X="14" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Staff.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Library.IIssuable">

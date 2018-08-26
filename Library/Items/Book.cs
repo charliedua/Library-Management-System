@@ -20,9 +20,17 @@ namespace Library
             set { _author = value; }
         }
 
+        /// <summary>
+        /// Gives this book.
+        /// </summary>
+        /// <returns></returns>
         public bool Give()
         {
-            throw new NotImplementedException();
+            if (_acquired)
+            {
+                _acquired = false;
+            }
+            return _acquired;
         }
 
         public bool IsAvailable()
@@ -30,9 +38,14 @@ namespace Library
             return _acquired;
         }
 
+        /// <summary>
+        /// Takes this book and set the status.
+        /// </summary>
+        /// <returns>the status of the take</returns>
         public bool Take()
         {
-            throw new NotImplementedException();
+            _acquired = IsAvailable();
+            return _acquired;
         }
     }
 }

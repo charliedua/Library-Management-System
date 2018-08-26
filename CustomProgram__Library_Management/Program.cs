@@ -24,7 +24,7 @@ namespace CustomProgram__Library_Management
             user.CreateAccount("new account");
             Database.Save(user);
             user = null;
-            user = JsonConvert.DeserializeObject<User>(Database.Load());
+            user = Database.Load<User>();
             Console.WriteLine(user.Identifier);
             Console.WriteLine(user.Name);
             Console.WriteLine(user.Account.Password);
