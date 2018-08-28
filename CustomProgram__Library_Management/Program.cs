@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Library;
+using System;
 
 namespace CustomProgram__Library_Management
 {
@@ -22,9 +17,8 @@ namespace CustomProgram__Library_Management
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
             User user = new User("Charlie", "101983924");
             user.CreateAccount("new account");
-            Database.Save(user);
+            user.sa
             user = null;
-            user = Database.Load<User>();
             Console.WriteLine(user.Identifier);
             Console.WriteLine(user.Name);
             Console.WriteLine(user.Account.Password);

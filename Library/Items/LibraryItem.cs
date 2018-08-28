@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-/// <summary>
+﻿/// <summary>
 /// The main namespace
 /// </summary>
 namespace Library
@@ -22,3 +17,10 @@ namespace Library
         }
     }
 }
+
+/*
+ Database<LibraryItem> database = new Database<LibraryItem>();
+            database.Connect();
+            database.Save("Items", new string[] { "" }, new string[] { });
+
+     */

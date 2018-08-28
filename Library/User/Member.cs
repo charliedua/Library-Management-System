@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Library
+﻿namespace Library
 {
-    public class Member : User
+    public class Member
     {
         public Member(string name, string identifier) : base(name, identifier)
         {

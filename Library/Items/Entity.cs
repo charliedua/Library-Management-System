@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Library
+﻿namespace Library
 {
     public abstract class Entity
     {
@@ -30,5 +25,16 @@ namespace Library
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         public bool AreYou(string id) => id == _identifier;
+
+        /// <summary>
+        /// Loads this instance from db.
+        /// </summary>
+        /// <returns></returns>
+        public abstract LibraryItem Load();
+
+        /// <summary>
+        /// Saves this instance to db.
+        /// </summary>
+        public abstract void Save();
     }
 }

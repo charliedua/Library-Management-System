@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
-using System.Data.SQLite;
 
 namespace Library
 {
@@ -11,9 +7,9 @@ namespace Library
     {
         private UserAccount _account;
 
-        private bool _hasAccount;
+        private bool _hasAccount = false;
         private Inventory _inventory;
-        private bool _isAuthenticated;
+        private bool _isAuthenticated = false;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
@@ -21,13 +17,11 @@ namespace Library
         /// <param name="name">The name.</param>
         public User(string name, string identifier) : base(name, identifier)
         {
-            _account = new UserAccount();
             _isAuthenticated = false;
             _hasAccount = false;
-            Permissions = new List<Permissions>() { Library.Permissions.minimal };
+            Permissions = new List<Permissions>() { Library.Permissions.None };
         }
 
-        [JsonConstructor]
         public User(string name, string identifier, UserAccount account, Permissions[] perms) : this(name, identifier)
         {
             Permissions = new List<Permissions>(perms);
@@ -52,6 +46,8 @@ namespace Library
         }
 
         public List<Permissions> Permissions { get; set; }
+
+        #region Permission Stuff
 
         /// <summary>
         /// Authenticates user with the specified password.
@@ -95,5 +91,30 @@ namespace Library
         {
             return Permissions.Contains(perm);
         }
+
+        #endregion Permission Stuff
+
+        #region Saving And Loading
+
+        /// <summary>
+        /// Loads this instance from db.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override LibraryItem Load()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Saves this instance to db.
+        /// </summary>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override void Save()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion Saving And Loading
     }
 }

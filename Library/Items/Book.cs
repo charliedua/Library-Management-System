@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Library
 {
-    public class Book : LibraryItem, IIssuable
+    public class Book : IIssuable
     {
         private bool _acquired;
         private string _author;
@@ -13,6 +10,8 @@ namespace Library
         public Book(string name, string identifier) : base(name, identifier)
         {
         }
+
+        public bool Acquired { get => _acquired; set => _acquired = value; }
 
         public string Author
         {
@@ -36,6 +35,26 @@ namespace Library
         public bool IsAvailable()
         {
             return _acquired;
+        }
+
+        /// <summary>
+        /// Loads this instance from db.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public LibraryItem Load()
+        {
+            Database<LibraryItem> database = new Database<LibraryItem>();
+            database.Load("Books", string.Format("{0}", ))
+        }
+
+        /// <summary>
+        /// Saves this instance to db.
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Save()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

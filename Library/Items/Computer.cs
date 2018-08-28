@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Library
 {
-    public class Computer : LibraryItem, IIssuable
+    public class Computer : IIssuable
     {
         /// <summary>
         /// The maximum booking time for computer in hrs

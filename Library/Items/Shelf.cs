@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Library
 {
-    public class Shelf : LibraryItem
+    public class Shelf
     {
         private List<Book> _books;
 
@@ -17,6 +14,16 @@ namespace Library
 
         public Shelf(string name, string _identifier) : base(name, _identifier)
         {
+        }
+
+        public override LibraryItem Load()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Save()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

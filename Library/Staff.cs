@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Library
+﻿namespace Library
 {
-    public class Staff : User
+    public class Staff
     {
         public Staff(string name, string identifier) : base(name, identifier)
         {

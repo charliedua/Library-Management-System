@@ -1,192 +1,120 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+
+//using Dapper;
 
 namespace Library
 {
-    /// <summary>
-    /// methods for a file db maintained by json
-    /// </summary>
-    /// <seealso cref="Library.Server" />
-    public class Database : Server
+    public class Database<T>
     {
+        /// <summary>
+        /// The connection string
+        /// </summary>
+        private string _connectionString;
+
+        /// <summary>
+        /// The connection
+        /// </summary>
+        private IDbConnection conn;
+
         /// <summary>
         /// The status of server.
         /// </summary>
-        private bool _connected;
-
-        /// <summary>
-        /// Loads the Object of Type T async.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static T Load<T>()
+        private bool _connected
         {
-            return JsonConvert.DeserializeObject<T>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\users.json", Encoding.ASCII));
-        }
-
-        public static T Load<T>(string filename)
-        {
-            return JsonConvert.DeserializeObject<T>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\" + filename, Encoding.ASCII));
-        }
-
-        /// <summary>
-        /// Loads the Object of Type T async.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path">The path.</param>
-        /// <returns></returns>
-        public static async Task<T> LoadAsync<T>(string path)
-        {
-            return await Task.Run(() =>
+            get
             {
-                return JsonConvert.DeserializeObject<T>(File.ReadAllText(path, Encoding.ASCII));
-            });
-        }
-
-        /// <summary>
-        /// Loads the Object of Type T async.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="filename">The filename.</param>
-        /// <param name="temp">The temporary.</param>
-        /// <returns></returns>
-        public static async Task<T> LoadAsync<T>(string filename, int temp = 0)
-        {
-            return await Task.Run(() =>
-            {
-                return JsonConvert.DeserializeObject<T>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\" + filename, Encoding.ASCII));
-            });
-        }
-
-        /// <summary>
-        /// Loads the Object of Type T async.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public async static Task<T> LoadAsync<T>()
-        {
-            return await Task.Run(() =>
-            {
-                return JsonConvert.DeserializeObject<T>(File.ReadAllText(Directory.GetCurrentDirectory() + @"\users.json", Encoding.ASCII));
-            });
-        }
-
-        /// <summary>
-        /// Saves the specified object to users.json in CWD.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        public static void Save<T>(T obj)
-        {
-            string path = Directory.GetCurrentDirectory() + @"\users.json";
-            if (!File.Exists(path))
-            {
-                File.Create(path);
+                return conn.State == ConnectionState.Open;
             }
-            File.WriteAllText(path, JsonConvert.SerializeObject(obj), Encoding.ASCII);
         }
 
         /// <summary>
-        /// Saves the object to the specified path.
+        /// The save helper method
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path">The path.</param>
-        /// <param name="obj">The object.</param>
-        public static void Save<T>(string path, T obj)
-        {
-            if (!File.Exists(path))
-            {
-                File.Create(path);
-            }
-            File.WriteAllText(path, JsonConvert.SerializeObject(obj), Encoding.ASCII);
-        }
+        private readonly Action<IDbConnection> SaveHelper;
 
         /// <summary>
-        /// Saves the specified object to the filename specified in CWD.
+        /// The load helper method
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        /// <param name="filename">The filename.</param>
-        public static void Save<T>(T obj, string filename)
-        {
-            string path = Directory.GetCurrentDirectory() + @"\" + filename;
-            if (!File.Exists(path))
-            {
-                File.Create(path);
-            }
-            File.WriteAllText(path, JsonConvert.SerializeObject(obj), Encoding.ASCII);
-        }
+        private readonly Func<IDbConnection, T> LoadHelper;
 
         /// <summary>
-        /// Saves the specified object to users.json in CWD async.
+        /// Initializes a new instance of the <see cref="Database{T}"/> class.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        public static async void SaveAsync<T>(T obj)
+        /// <param name="save">The save.</param>
+        /// <param name="savload">The savload.</param>
+        /// <param name="connStr">The connection string.</param>
+        public Database(string connStr = "Data Source=.\\Library.db;Version=3;")
         {
-            await Task.Run(() =>
-            {
-                string path = Directory.GetCurrentDirectory() + @"\users.json";
-                if (!File.Exists(path))
-                {
-                    File.Create(path);
-                }
-                File.WriteAllText(path, JsonConvert.SerializeObject(obj), Encoding.ASCII);
-            });
+            SaveHelper = save;
+            LoadHelper = load;
+            _connectionString = connStr;
         }
 
         /// <summary>
-        /// Saves the specified object to the path specified.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path">The path.</param>
-        /// <param name="obj">The object.</param>
-        public static async void SaveAsync<T>(string path, T obj)
-        {
-            await Task.Run(() =>
-             {
-                 if (!File.Exists(path))
-                 {
-                     File.Create(path);
-                 }
-                 File.WriteAllText(path, JsonConvert.SerializeObject(obj), Encoding.ASCII);
-             });
-        }
-
-        /// <summary>
-        /// Saves the Object to file async.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        /// <param name="filename">The filename.</param>
-        public static async void SaveAsync<T>(T obj, string filename)
-        {
-            await Task.Run(() =>
-            {
-                string path = Directory.GetCurrentDirectory() + @"\" + filename;
-                if (!File.Exists(path))
-                {
-                    File.Create(path);
-                }
-                File.WriteAllText(path, JsonConvert.SerializeObject(obj), Encoding.ASCII);
-            });
-        }
-
-        /// <summary>
-        /// Connects to server.
+        /// initiates the connection to server.
         /// </summary>
         /// <returns>
         /// status of <c>connection</c>
         /// </returns>
-        public override bool Connect()
+        /// <exception cref="FileNotFoundException"></exception>
+        public bool Connect()
         {
-            _connected = true;
+            conn = new SQLiteConnection(_connectionString);
             return _connected;
+        }
+
+        /// <summary>
+        /// Loads from the specified table name.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="whereClause">The where clause.</param>
+        /// <returns></returns>
+        public IDataReader Load(string tableName, string whereClause = "1 == 1")
+        {
+            using (conn)
+            {
+                string query = string.Format("select * from `{0}` where {1}", tableName, whereClause);
+                IDbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                return cmd.ExecuteReader();
+            }
+        }
+
+        /// <summary>
+        /// Saves to the specified table.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="coloumnNames">The coloumn names.</param>
+        /// <param name="values">The values.</param>
+        public void Save(string tableName, string[] coloumnNames, string[] values)
+        {
+            using (conn)
+            {
+                string cols = AggreegateAllInStrArr(coloumnNames);
+                string valuesStr = AggreegateAllInStrArr(values);
+                string query = string.Format("insert into `{0}` ({1}) values ({2})", tableName, cols, valuesStr);
+                IDbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// Aggreegates all in string array.
+        /// </summary>
+        /// <param name="arr">The string array.</param>
+        /// <returns></returns>
+        private string AggreegateAllInStrArr(string[] arr)
+        {
+            string final = "";
+            foreach (string item in arr)
+            {
+                final += item;
+            }
+            return final;
         }
     }
 }
