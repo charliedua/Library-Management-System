@@ -30,11 +30,15 @@
         /// Loads this instance from db.
         /// </summary>
         /// <returns></returns>
-        public abstract LibraryItem Load();
+        public void Load()
+        {
+        }
 
         /// <summary>
         /// Saves this instance to db.
         /// </summary>
-        public abstract void Save();
+        public static void Save()
+        {
+        }
     }
 }

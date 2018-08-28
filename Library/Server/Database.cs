@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Library
 {
-    public class Database<T>
+    public class Database
     {
         /// <summary>
         /// The connection string
@@ -31,16 +31,6 @@ namespace Library
         }
 
         /// <summary>
-        /// The save helper method
-        /// </summary>
-        private readonly Action<IDbConnection> SaveHelper;
-
-        /// <summary>
-        /// The load helper method
-        /// </summary>
-        private readonly Func<IDbConnection, T> LoadHelper;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Database{T}"/> class.
         /// </summary>
         /// <param name="save">The save.</param>
@@ -48,8 +38,6 @@ namespace Library
         /// <param name="connStr">The connection string.</param>
         public Database(string connStr = "Data Source=.\\Library.db;Version=3;")
         {
-            SaveHelper = save;
-            LoadHelper = load;
             _connectionString = connStr;
         }
 

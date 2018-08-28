@@ -3,112 +3,12 @@
   <Class Name="Library.User">
     <Position X="6" Y="4.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAQAQIAAAABAICAAAAAACAEAAAAoAAAEA=</HashCode>
+      <HashCode>AAAAAAAAAAAAQAQIAAAABAICAAAAAAAAEAAAAIAAAEA=</HashCode>
       <FileName>User\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Account" />
     </ShowAsAssociation>
-  </Class>
-  <Class Name="Library.Book">
-    <Position X="2.5" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgIABAAAAAAAAgAAAAAAAAAAIAAAACAEAAIAAAAA=</HashCode>
-      <FileName>Items\Book.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Library.Manager">
-    <Position X="12.25" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>User\Manager.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.Computer">
-    <Position X="0.75" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAUAAAAAAAA=</HashCode>
-      <FileName>Items\Computer.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Library.Entity">
-    <Position X="4.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAoIAAAAAAAAAAAAAAgAQIAAAAAAAAAAAAQAAAAAA=</HashCode>
-      <FileName>Items\Entity.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.Room">
-    <Position X="4.5" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAACAEAAAAAAAA=</HashCode>
-      <FileName>Items\Room.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Library.Student">
-    <Position X="8.75" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>User\Student.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.Member">
-    <Position X="10.5" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>User\Member.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.UniMember">
-    <Position X="9.25" Y="10.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>User\UniMember.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.ExternalMember">
-    <Position X="11" Y="10.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>User\ExternalMember.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.Server">
-    <Position X="23.25" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Server\Server.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.Storage">
-    <Position X="23.25" Y="3.5" Width="1.5" />
-    <InheritanceLine Type="Library.Server" FixedToPoint="true">
-      <Path>
-        <Point X="24" Y="3.103" />
-        <Point X="24" Y="3.5" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Server\Storage.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.Librarian">
-    <Position X="13.25" Y="10.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>User\Librarian.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.Shelf">
-    <Position X="6.5" Y="8.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAgICAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Items\Shelf.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="Library.UserAccount">
     <Position X="9" Y="4.5" Width="1.75" />
@@ -124,61 +24,46 @@
   <Class Name="Library.Inventory">
     <Position X="9.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAABAAAAAAAAEAAAAAAAg=</HashCode>
-      <FileName>Inventory.cs</FileName>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAACAABAAAAAAAAEAAAAAAAg=</HashCode>
+      <FileName>User\Inventory.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Library.Utility">
-    <Position X="11.25" Y="1" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
-      <FileName>Utility.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.Staff">
-    <Position X="14" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Staff.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Library.Database&lt;T&gt;">
+  <Class Name="Library.Database">
     <Position X="11.25" Y="2.5" Width="2.75" />
     <Members>
       <Method Name="AggreegateAllInStrArr" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAEAAgIAACAQAAAAKAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgIAAAAAAAAAAAEAAgIAAAAQAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>Server\Database.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.LibraryItem">
     <Position X="3" Y="4.25" Width="1.75" />
-    <InheritanceLine Type="Library.Entity" ManuallyRouted="true">
-      <Path>
-        <Point X="5" Y="3.468" />
-        <Point X="5" Y="3.885" />
-        <Point X="3.875" Y="3.885" />
-        <Point X="3.875" Y="4.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Items\LibraryItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Entity">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAoIAAAAAAAAAAAAAAgAQIAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Items\Entity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Library.IIssuable">
     <Position X="14.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAACAEAAAAAAAA=</HashCode>
-      <FileName>Items\IIssuable.cs</FileName>
+      <FileName>Interfaces\IIssuable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Library.ICanIssue">
     <Position X="1.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ICanIssue.cs</FileName>
+      <HashCode>AAAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAhAAAAA=</HashCode>
+      <FileName>Interfaces\ICanIssue.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="Library.Permissions">

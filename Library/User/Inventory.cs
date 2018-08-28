@@ -7,6 +7,8 @@ namespace Library
     {
         private readonly List<LibraryItem> _items;
 
+        public int NumberOfItems { get => _items.Count; }
+
         public Inventory()
         {
             _items = new List<LibraryItem>();
@@ -20,6 +22,11 @@ namespace Library
             return a.Count() > 0;
         }
 
+        public bool Has(LibraryItem item)
+        {
+            return _items.Find(x => x == item) != null;
+        }
+
         public void Put(LibraryItem item)
         {
             _items.Add(item);
@@ -29,6 +36,7 @@ namespace Library
         {
             if (Has(item.Identifier))
             {
+                _items.Remove(item);
             }
         }
     }

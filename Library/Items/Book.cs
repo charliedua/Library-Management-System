@@ -7,7 +7,7 @@ namespace Library
         private bool _acquired;
         private string _author;
 
-        public Book(string name, string identifier) : base(name, identifier)
+        public Book(string name, string identifier)
         {
         }
 
@@ -45,7 +45,8 @@ namespace Library
         public LibraryItem Load()
         {
             Database<LibraryItem> database = new Database<LibraryItem>();
-            database.Load("Books", string.Format("{0}", ))
+            //database.Load("Books", string.Format("{0} == {1}", this.))
+            return null;
         }
 
         /// <summary>

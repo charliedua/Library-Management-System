@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Library
@@ -6,9 +7,7 @@ namespace Library
     public class User : Entity
     {
         private UserAccount _account;
-
-        private bool _hasAccount = false;
-        private Inventory _inventory;
+        private bool _hasAccount;
         private bool _isAuthenticated = false;
 
         /// <summary>
@@ -28,22 +27,7 @@ namespace Library
             _account = account;
         }
 
-        public UserAccount Account
-        {
-            get => _account;
-            set => _account = value;
-        }
-
-        /// <summary>
-        /// inventory of things the user has acquired.
-        /// </summary>
-        /// <value>
-        /// The inventory.
-        /// </value>
-        public Inventory Inventory
-        {
-            get => _inventory; set => _inventory = value;
-        }
+        public UserAccount Account { get => _account; set => _account = value; }
 
         public List<Permissions> Permissions { get; set; }
 
@@ -93,28 +77,5 @@ namespace Library
         }
 
         #endregion Permission Stuff
-
-        #region Saving And Loading
-
-        /// <summary>
-        /// Loads this instance from db.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public override LibraryItem Load()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// Saves this instance to db.
-        /// </summary>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public override void Save()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        #endregion Saving And Loading
     }
 }

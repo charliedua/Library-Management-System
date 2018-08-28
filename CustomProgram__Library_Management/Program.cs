@@ -17,7 +17,7 @@ namespace CustomProgram__Library_Management
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
             User user = new User("Charlie", "101983924");
             user.CreateAccount("new account");
-            user.sa
+            user.Save();
             user = null;
             Console.WriteLine(user.Identifier);
             Console.WriteLine(user.Name);

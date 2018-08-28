@@ -14,7 +14,7 @@ namespace Library
 
         public static bool Login(string _identifier, string password)
         {
-            List<User> users = Database.Load<List<User>>("users.json");
+            List<User> users = Database<List<User>>.Load<List<User>>("users.json");
             var temp = users.Find(x => x.AreYou(_identifier));
             return temp != null ? temp.Authenticate(password) : false;
         }
