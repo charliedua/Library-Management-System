@@ -21,6 +21,13 @@ namespace Library
             Permissions = new List<Permissions>() { Library.Permissions.None };
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="identifier">The identifier.</param>
+        /// <param name="account">The account.</param>
+        /// <param name="perms">The array of Permissions.</param>
         public User(string name, string identifier, UserAccount account, Permissions[] perms) : this(name, identifier)
         {
             Permissions = new List<Permissions>(perms);
@@ -77,5 +84,19 @@ namespace Library
         }
 
         #endregion Permission Stuff
+
+        #region Database Stuff
+
+        public override void Load(string ident)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Database Stuff
     }
 }

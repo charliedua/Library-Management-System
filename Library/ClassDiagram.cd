@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="Library.User">
-    <Position X="6" Y="4.25" Width="2" />
+    <Position X="5.5" Y="4.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAQAQIAAAABAICAAAAAAAAEAAAAIAAAEA=</HashCode>
+      <HashCode>AAAAgIAAAAAAQAQIAAAABAICAAAAAAAAEAAAAIAAAEA=</HashCode>
       <FileName>User\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -11,7 +11,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Library.UserAccount">
-    <Position X="9" Y="4.5" Width="1.75" />
+    <Position X="8.75" Y="4.75" Width="1.75" />
     <Members>
       <Method Name="GetSha256Hash" Hidden="true" />
       <Method Name="VerifySha256Hash" Hidden="true" />
@@ -22,14 +22,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Inventory">
-    <Position X="9.5" Y="1" Width="1.5" />
+    <Position X="13.25" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAAAAAAAAAACAABAAAAAAAAEAAAAAAAg=</HashCode>
       <FileName>User\Inventory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Database">
-    <Position X="11.25" Y="2.5" Width="2.75" />
+    <Position X="9.75" Y="0.5" Width="1.5" />
     <Members>
       <Method Name="AggreegateAllInStrArr" Hidden="true" />
     </Members>
@@ -41,33 +41,19 @@
   <Class Name="Library.LibraryItem">
     <Position X="3" Y="4.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Items\LibraryItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Entity">
-    <Position X="4.25" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAoIAAAAAAAAAAAAAAgAQIAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Items\Entity.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Library.IIssuable">
-    <Position X="14.25" Y="1" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAACAEAAAAAAAA=</HashCode>
-      <FileName>Interfaces\IIssuable.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Library.ICanIssue">
-    <Position X="1.75" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAhAAAAA=</HashCode>
-      <FileName>Interfaces\ICanIssue.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Enum Name="Library.Permissions">
-    <Position X="7.75" Y="1" Width="1.5" />
+    <Position X="11.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAgAAEAAEAIAAAAAAEAAAA=</HashCode>
       <FileName>User\Permissions.cs</FileName>

@@ -15,14 +15,13 @@ namespace CustomProgram__Library_Management
         private static void Main(string[] args)
         {
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            User user = new User("Charlie", "101983924");
-            user.CreateAccount("new account");
-            user.Save();
-            user = null;
-            Console.WriteLine(user.Identifier);
-            Console.WriteLine(user.Name);
-            Console.WriteLine(user.Account.Password);
-            Console.WriteLine("Finished!");
+            LibraryItem item = new LibraryItem("Katie", "new");
+            item.Save();
+            item = null;
+            item = new LibraryItem("new");
+            Console.WriteLine(item.Name);
+            Console.WriteLine(item.Identifier);
+            Console.ReadLine();
         }
     }
 }

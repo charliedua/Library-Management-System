@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.IO;
 
@@ -36,9 +37,10 @@ namespace Library
         /// <param name="save">The save.</param>
         /// <param name="savload">The savload.</param>
         /// <param name="connStr">The connection string.</param>
-        public Database(string connStr = "Data Source=.\\Library.db;Version=3;")
+        public Database(string connStr = "Data Source=.//Library.db;Version=3;")
         {
             _connectionString = connStr;
+            conn = new SQLiteConnection(_connectionString);
         }
 
         /// <summary>
@@ -50,8 +52,14 @@ namespace Library
         /// <exception cref="FileNotFoundException"></exception>
         public bool Connect()
         {
-            conn = new SQLiteConnection(_connectionString);
-            return _connected;
+            conn.Open();
+            return true;
+        }
+
+        public bool Disconnect()
+        {
+            conn.Close();
+            return true;
         }
 
         /// <summary>
@@ -60,15 +68,13 @@ namespace Library
         /// <param name="tableName">Name of the table.</param>
         /// <param name="whereClause">The where clause.</param>
         /// <returns></returns>
-        public IDataReader Load(string tableName, string whereClause = "1 == 1")
+        public IDataReader Load(string tableName, string whereClause = "1 = 1")
         {
-            using (conn)
-            {
-                string query = string.Format("select * from `{0}` where {1}", tableName, whereClause);
-                IDbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = query;
-                return cmd.ExecuteReader();
-            }
+            Connect();
+            string query = string.Format("select * from `{0}` where {1}", tableName, whereClause);
+            IDbCommand cmd = conn.CreateCommand();
+            cmd.CommandText = query;
+            return cmd.ExecuteReader();
         }
 
         /// <summary>
@@ -79,15 +85,14 @@ namespace Library
         /// <param name="values">The values.</param>
         public void Save(string tableName, string[] coloumnNames, string[] values)
         {
-            using (conn)
-            {
-                string cols = AggreegateAllInStrArr(coloumnNames);
-                string valuesStr = AggreegateAllInStrArr(values);
-                string query = string.Format("insert into `{0}` ({1}) values ({2})", tableName, cols, valuesStr);
-                IDbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = query;
-                cmd.ExecuteNonQuery();
-            }
+            Connect();
+            string cols = AggreegateAllInStrArr(coloumnNames);
+            string valuesStr = AggreegateAllInStrArr(values);
+            string query = string.Format("insert into `{0}` ({1}) values ({2})", tableName, cols, valuesStr);
+            IDbCommand cmd = conn.CreateCommand();
+            cmd.CommandText = query;
+            cmd.ExecuteNonQuery();
+            Disconnect();
         }
 
         /// <summary>
@@ -98,10 +103,16 @@ namespace Library
         private string AggreegateAllInStrArr(string[] arr)
         {
             string final = "";
-            foreach (string item in arr)
+            for (int i = 0; i < arr.Length - 1; i++)
             {
-                final += item;
+                if (arr.Length > 0)
+                {
+                    final += '\'' + arr[i] + "', ";
+                }
+                else
+                    break;
             }
+            final += '\'' + arr[arr.Length - 1] + '\'';
             return final;
         }
     }

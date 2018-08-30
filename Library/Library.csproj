@@ -67,10 +67,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ICanIssue.cs" />
     <Compile Include="Items\Entity.cs" />
     <Compile Include="User\Inventory.cs" />
-    <Compile Include="Interfaces\IIssuable.cs" />
     <Compile Include="User\UserAccount.cs" />
     <Compile Include="User\Permissions.cs" />
     <Compile Include="Server\Database.cs" />
@@ -82,7 +80,7 @@
     <None Include="App.config" />
     <None Include="ClassDiagram.cd" />
     <None Include="Library.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

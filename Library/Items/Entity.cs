@@ -1,4 +1,6 @@
-﻿namespace Library
+﻿using System;
+
+namespace Library
 {
     public abstract class Entity
     {
@@ -9,6 +11,15 @@
         {
             _identifier = identifier;
             _name = name;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class from Database.
+        /// </summary>
+        /// <param name="ident">The identifier.</param>
+        public Entity(string ident)
+        {
+            Load(ident);
         }
 
         public string Identifier { get => _identifier; set => _identifier = value; }
@@ -29,16 +40,11 @@
         /// <summary>
         /// Loads this instance from db.
         /// </summary>
-        /// <returns></returns>
-        public void Load()
-        {
-        }
+        public abstract void Load(string ident);
 
         /// <summary>
         /// Saves this instance to db.
         /// </summary>
-        public static void Save()
-        {
-        }
+        public abstract void Save();
     }
 }
