@@ -12,6 +12,8 @@ namespace Library
     /// </summary>
     public class LibraryItem : Entity
     {
+        protected override string TABLE_NAME => "Items";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LibraryItem"/> class.
         /// </summary>
@@ -32,12 +34,11 @@ namespace Library
         /// Loads this instance from db.
         /// </summary>
         /// <param name="ident"></param>
-        /// <returns></returns>
         public override void Load(string ident)
         {
             Database database = new Database();
 
-            SQLiteDataReader reader = (SQLiteDataReader)database.Load("Items", string.Format("Identifier = '{0}'", ident));
+            SQLiteDataReader reader = (SQLiteDataReader)database.LoadReader("Items", string.Format("Identifier = '{0}'", ident));
             if (reader.HasRows)
             {
                 reader.Read();
@@ -55,9 +56,8 @@ namespace Library
         public override void Save()
         {
             string[] colVals = new string[] { _identifier, _name };
-            string[] colnames = new string[] { "Identifier", "Name" };
             Database database = new Database();
-            database.Save("Items", colnames, colVals);
+            database.Save(TABLE_NAME, COL_NAMES.ToArray(), colVals);
         }
     }
 }

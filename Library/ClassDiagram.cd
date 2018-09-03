@@ -3,7 +3,7 @@
   <Class Name="Library.User">
     <Position X="5.5" Y="4.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAQAQIAAAABAICAAAAAAAAEAAAAIAAAEA=</HashCode>
+      <HashCode>AAAAAIAAAAAARAQIAAAABAICAAAAAAAAEAAAAIAAAEA=</HashCode>
       <FileName>User\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -29,26 +29,26 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Database">
-    <Position X="9.75" Y="0.5" Width="1.5" />
+    <Position X="8.25" Y="0.5" Width="1.5" />
     <Members>
       <Method Name="AggreegateAllInStrArr" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAEAAgIAAAAQAAAAIAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAgIAAAAAAAAAAAEAAgIAAAAQAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>Server\Database.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.LibraryItem">
     <Position X="3" Y="4.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Items\LibraryItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Entity">
     <Position X="4.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAoIAAAAAAAAAAAAAAgAQIAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <HashCode>AAAAIIAAAAAABEAAAAAAgAQIAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Items\Entity.cs</FileName>
     </TypeIdentifier>
   </Class>

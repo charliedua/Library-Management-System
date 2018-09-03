@@ -1,14 +1,24 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.SQLite;
 
 namespace Library
 {
     public class User : Entity
     {
         private UserAccount _account;
-        private bool _hasAccount;
-        private bool _isAuthenticated = false;
+        protected bool _hasAccount = false;
+        protected bool _isAuthenticated = false;
+        protected override string TABLE_NAME => "Users";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class From the database.
+        /// </summary>
+        /// <param name="identifier">The identifier.</param>
+        public User(string identifier) : base(ident: identifier) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
@@ -34,8 +44,20 @@ namespace Library
             _account = account;
         }
 
+        /// <summary>
+        /// Gets or sets the account.
+        /// </summary>
+        /// <value>
+        /// The account.
+        /// </value>
         public UserAccount Account { get => _account; set => _account = value; }
 
+        /// <summary>
+        /// Gets or sets the permissions.
+        /// </summary>
+        /// <value>
+        /// The permissions.
+        /// </value>
         public List<Permissions> Permissions { get; set; }
 
         #region Permission Stuff
@@ -89,12 +111,22 @@ namespace Library
 
         public override void Load(string ident)
         {
-            throw new NotImplementedException();
+            Database database = new Database();
+            SQLiteDataReader reader = database.LoadReader(TABLE_NAME, string.Format("Identifier = {0}", ident));
+            if (reader.HasRows)
+            {
+                reader.Read();
+                _identifier = reader.GetString(1);
+                _name = reader.GetString(2);
+            }
+            database.Disconnect();
         }
 
         public override void Save()
         {
-            throw new NotImplementedException();
+            string[] colVals = new string[] { _identifier, _name };
+            Database database = new Database();
+            database.Save(TABLE_NAME, COL_NAMES.ToArray(), colVals);
         }
 
         #endregion Database Stuff

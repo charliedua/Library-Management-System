@@ -68,13 +68,13 @@ namespace Library
         /// <param name="tableName">Name of the table.</param>
         /// <param name="whereClause">The where clause.</param>
         /// <returns></returns>
-        public IDataReader Load(string tableName, string whereClause = "1 = 1")
+        public SQLiteDataReader LoadReader(string tableName, string whereClause = "1 = 1")
         {
             Connect();
             string query = string.Format("select * from `{0}` where {1}", tableName, whereClause);
             IDbCommand cmd = conn.CreateCommand();
             cmd.CommandText = query;
-            return cmd.ExecuteReader();
+            return (SQLiteDataReader)cmd.ExecuteReader();
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Library
         public void Save(string tableName, string[] coloumnNames, string[] values)
         {
             Connect();
-            string cols = AggreegateAllInStrArr(coloumnNames);
+            string cols = AggreegateAllInStrArr(coloumnNames, with: '`');
             string valuesStr = AggreegateAllInStrArr(values);
             string query = string.Format("insert into `{0}` ({1}) values ({2})", tableName, cols, valuesStr);
             IDbCommand cmd = conn.CreateCommand();
@@ -100,19 +100,19 @@ namespace Library
         /// </summary>
         /// <param name="arr">The string array.</param>
         /// <returns></returns>
-        private string AggreegateAllInStrArr(string[] arr)
+        private string AggreegateAllInStrArr(string[] arr, char with = '\'')
         {
             string final = "";
             for (int i = 0; i < arr.Length - 1; i++)
             {
                 if (arr.Length > 0)
                 {
-                    final += '\'' + arr[i] + "', ";
+                    final += with + arr[i] + with + ", ";
                 }
                 else
                     break;
             }
-            final += '\'' + arr[arr.Length - 1] + '\'';
+            final += with + arr[arr.Length - 1] + with;
             return final;
         }
     }

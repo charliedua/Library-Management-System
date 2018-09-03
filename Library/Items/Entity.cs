@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Library
 {
@@ -7,6 +8,21 @@ namespace Library
         protected string _identifier;
         protected string _name;
 
+        /// <summary>
+        /// The table name
+        /// </summary>
+        protected virtual string TABLE_NAME { get; }
+
+        /// <summary>
+        /// The col names in the table
+        /// </summary>
+        protected readonly List<string> COL_NAMES = new List<string>() { "Identifier", "Name" };
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="identifier">The identifier.</param>
         public Entity(string name, string identifier)
         {
             _identifier = identifier;
@@ -22,8 +38,24 @@ namespace Library
             Load(ident);
         }
 
-        public string Identifier { get => _identifier; set => _identifier = value; }
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public string Identifier
+        {
+            get => _identifier;
+            set => _identifier = value;
+        }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name
         {
             get => _name;
