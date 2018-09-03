@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 
@@ -13,6 +14,8 @@ namespace Library
     public class LibraryItem : Entity
     {
         protected override string TABLE_NAME => "Items";
+
+        protected List<Permissions> PermissionsRequired = new List<Permissions>() { Permissions.Read };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LibraryItem"/> class.
@@ -29,6 +32,8 @@ namespace Library
         public LibraryItem(string ident) : base(ident)
         {
         }
+
+        #region Database Stuff
 
         /// <summary>
         /// Loads this instance from db.
@@ -59,12 +64,7 @@ namespace Library
             Database database = new Database();
             database.Save(TABLE_NAME, COL_NAMES.ToArray(), colVals);
         }
+
+        #endregion Database Stuff
     }
 }
-
-/*
- Database<LibraryItem> database = new Database<LibraryItem>();
-            database.Connect();
-            database.Save("Items", new string[] { "" }, new string[] { });
-
-     */

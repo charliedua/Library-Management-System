@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Library
 {
@@ -47,7 +46,10 @@ namespace Library
         public string Identifier
         {
             get => _identifier;
-            set => _identifier = value;
+            set
+            {
+                _identifier = value;
+            }
         }
 
         /// <summary>
@@ -69,6 +71,8 @@ namespace Library
         /// <returns></returns>
         public bool AreYou(string id) => id == _identifier;
 
+        #region Database Stuff
+
         /// <summary>
         /// Loads this instance from db.
         /// </summary>
@@ -78,5 +82,7 @@ namespace Library
         /// Saves this instance to db.
         /// </summary>
         public abstract void Save();
+
+        #endregion Database Stuff
     }
 }

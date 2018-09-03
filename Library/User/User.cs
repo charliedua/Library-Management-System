@@ -26,8 +26,6 @@ namespace Library
         /// <param name="name">The name.</param>
         public User(string name, string identifier) : base(name, identifier)
         {
-            _isAuthenticated = false;
-            _hasAccount = false;
             Permissions = new List<Permissions>() { Library.Permissions.None };
         }
 

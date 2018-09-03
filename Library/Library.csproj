@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\DoesNotHavePermissionException.cs" />
     <Compile Include="Items\Entity.cs" />
     <Compile Include="User\Inventory.cs" />
     <Compile Include="User\UserAccount.cs" />
