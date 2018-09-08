@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SQLite;
@@ -8,28 +9,17 @@ using System.IO;
 
 namespace Library
 {
-    public class Database
+    public class Database : IDisposable
     {
         /// <summary>
         /// The connection string
         /// </summary>
-        private string _connectionString;
+        private readonly string _connectionString;
 
         /// <summary>
         /// The connection
         /// </summary>
         private IDbConnection conn;
-
-        /// <summary>
-        /// The status of server.
-        /// </summary>
-        private bool _connected
-        {
-            get
-            {
-                return conn.State == ConnectionState.Open;
-            }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Database{T}"/> class.
@@ -44,22 +34,57 @@ namespace Library
         }
 
         /// <summary>
+        /// The status of server.
+        /// </summary>
+        private bool _connected => conn.State == ConnectionState.Open;
+
+        /// <summary>
         /// initiates the connection to server.
         /// </summary>
         /// <returns>
         /// status of <c>connection</c>
         /// </returns>
-        /// <exception cref="FileNotFoundException"></exception>
         public bool Connect()
         {
             conn.Open();
             return true;
         }
 
+        /// <summary>
+        /// Closses the connection to the server.
+        /// </summary>
+        /// <returns>
+        /// status of <c>connection</c>
+        /// </returns>
         public bool Disconnect()
         {
             conn.Close();
             return true;
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            conn.Dispose();
+        }
+
+        /// <summary>
+        /// Gets the last identifier.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <returns></returns>
+        public int GetLastInsertedID(string tableName)
+        {
+            Connect();
+            IDbCommand cmd = conn.CreateCommand();
+            string query = string.Format("select max(ID) from `{0}`;", tableName);
+            cmd.CommandText = query;
+            int id;
+            id = (int)((long)cmd.ExecuteScalar());
+            Disconnect();
+            return id;
         }
 
         /// <summary>
@@ -83,11 +108,11 @@ namespace Library
         /// <param name="tableName">Name of the table.</param>
         /// <param name="coloumnNames">The coloumn names.</param>
         /// <param name="values">The values.</param>
-        public void Save(string tableName, string[] coloumnNames, string[] values)
+        public void Save(string tableName, List<string> coloumnNames, List<string> values)
         {
             Connect();
-            string cols = AggreegateAllInStrArr(coloumnNames, with: '`');
-            string valuesStr = AggreegateAllInStrArr(values);
+            string cols = AggreegateAllInStrArr(coloumnNames.ToArray(), with: '`');
+            string valuesStr = AggreegateAllInStrArr(values.ToArray());
             string query = string.Format("insert into `{0}` ({1}) values ({2})", tableName, cols, valuesStr);
             IDbCommand cmd = conn.CreateCommand();
             cmd.CommandText = query;
@@ -107,7 +132,15 @@ namespace Library
             {
                 if (arr.Length > 0)
                 {
-                    final += with + arr[i] + with + ", ";
+                    if (int.TryParse(arr[i], out int a))
+                    {
+                        final += a.ToString();
+                    }
+                    else
+                    {
+                        final += with + arr[i] + with;
+                    }
+                    final += ", ";
                 }
                 else
                     break;

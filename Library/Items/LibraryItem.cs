@@ -13,25 +13,29 @@ namespace Library
     /// </summary>
     public class LibraryItem : Entity
     {
-        protected override string TABLE_NAME => "Items";
-
-        protected List<Permissions> PermissionsRequired = new List<Permissions>() { Permissions.Read };
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LibraryItem"/> class.
         /// </summary>
         /// <param name="name">The name of the item.</param>
-        public LibraryItem(string name, string identifier) : base(name, identifier)
+        public LibraryItem(string name) : base(name)
         {
+            Database database = new Database();
+            _id = database.GetLastInsertedID(TABLE_NAME) + 1;
+            database.Dispose();
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LibraryItem"/> class from the database.
         /// </summary>
         /// <param name="ident">The identifier.</param>
-        public LibraryItem(string ident) : base(ident)
+        public LibraryItem(int ident) : base(ident)
         {
         }
+
+        /// <summary>
+        /// The table name
+        /// </summary>
+        protected override string TABLE_NAME => "Items";
 
         #region Database Stuff
 
@@ -39,16 +43,16 @@ namespace Library
         /// Loads this instance from db.
         /// </summary>
         /// <param name="ident"></param>
-        public override void Load(string ident)
+        public override void Load(int ident)
         {
             Database database = new Database();
 
-            SQLiteDataReader reader = (SQLiteDataReader)database.LoadReader("Items", string.Format("Identifier = '{0}'", ident));
+            SQLiteDataReader reader = database.LoadReader("Items", string.Format("ID = '{0}'", ident));
             if (reader.HasRows)
             {
                 reader.Read();
-                _identifier = reader.GetString(1);
-                _name = reader.GetString(2);
+                _id = reader.GetInt32(0);
+                _name = reader.GetString(1);
             }
 
             reader.Close();
@@ -60,9 +64,9 @@ namespace Library
         /// </summary>
         public override void Save()
         {
-            string[] colVals = new string[] { _identifier, _name };
+            List<string> colVals = new List<string>() { _id.ToString(), _name };
             Database database = new Database();
-            database.Save(TABLE_NAME, COL_NAMES.ToArray(), colVals);
+            database.Save(TABLE_NAME, COL_NAMES, colVals);
         }
 
         #endregion Database Stuff

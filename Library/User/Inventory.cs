@@ -14,7 +14,7 @@ namespace Library
             _items = new List<LibraryItem>();
         }
 
-        public bool Has(string id)
+        public bool Has(int id)
         {
             var a = from LibraryItem x in _items
                     where x.AreYou(id)
@@ -34,7 +34,7 @@ namespace Library
 
         public void Take(LibraryItem item)
         {
-            if (Has(item.Identifier))
+            if (Has(item.ID))
             {
                 _items.Remove(item);
             }

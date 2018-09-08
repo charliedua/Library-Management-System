@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Data.SQLite;
 
 namespace Library
 {
-    public abstract class Entity
+    public abstract class Entity : ISavable
     {
-        protected string _identifier;
+        protected int _id;
         protected string _name;
 
         /// <summary>
@@ -15,16 +16,14 @@ namespace Library
         /// <summary>
         /// The col names in the table
         /// </summary>
-        protected readonly List<string> COL_NAMES = new List<string>() { "Identifier", "Name" };
+        protected readonly List<string> COL_NAMES = new List<string>() { "ID", "Name" };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="identifier">The identifier.</param>
-        public Entity(string name, string identifier)
+        public Entity(string name)
         {
-            _identifier = identifier;
             _name = name;
         }
 
@@ -32,9 +31,10 @@ namespace Library
         /// Initializes a new instance of the <see cref="Entity"/> class from Database.
         /// </summary>
         /// <param name="ident">The identifier.</param>
-        public Entity(string ident)
+        public Entity(int ident)
         {
-            Load(ident);
+            Database database = new Database();
+            Load(database.LoadReader(TABLE_NAME, string.Format("ID = {0}", ident)));
         }
 
         /// <summary>
@@ -43,13 +43,10 @@ namespace Library
         /// <value>
         /// The identifier.
         /// </value>
-        public string Identifier
+        public int ID
         {
-            get => _identifier;
-            set
-            {
-                _identifier = value;
-            }
+            get => _id;
+            set => _id = value;
         }
 
         /// <summary>
@@ -68,21 +65,20 @@ namespace Library
         /// Verifies the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        public bool AreYou(string id) => id == _identifier;
+        public bool AreYou(int id) => id == _id;
 
-        #region Database Stuff
+        #region Legacy Support
 
-        /// <summary>
-        /// Loads this instance from db.
-        /// </summary>
-        public abstract void Load(string ident);
+        public Entity Load(SQLiteDataReader ident)
+        {
+            throw new System.NotImplementedException();
+        }
 
-        /// <summary>
-        /// Saves this instance to db.
-        /// </summary>
-        public abstract void Save();
+        public void Save()
+        {
+            throw new System.NotImplementedException();
+        }
 
-        #endregion Database Stuff
+        #endregion Legacy Support
     }
 }

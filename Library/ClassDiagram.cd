@@ -1,62 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="Library.User">
-    <Position X="5.5" Y="4.25" Width="2" />
+    <Position X="5.5" Y="4.5" Width="2.5" />
+    <Members>
+      <Property Name="TABLE_NAME" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAQEQIAAAABAICAAAAAAAAEAAAAIAAAEA=</HashCode>
+      <HashCode>AAAAgIAIAAAAQEQIAAAABAICAAAAAAAEEAAIAoAAAEA=</HashCode>
       <FileName>User\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Account" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.UserAccount">
-    <Position X="8.75" Y="4.75" Width="1.75" />
+    <Position X="9.25" Y="5.25" Width="2.25" />
     <Members>
       <Method Name="GetSha256Hash" Hidden="true" />
       <Method Name="VerifySha256Hash" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAQACIAAAAAAAAAACAAIAAAAAAgA=</HashCode>
+      <HashCode>AAQAAIAAAAAAAAAAAQACIAAAAAAAAAACAAIABAAAAgA=</HashCode>
       <FileName>User\UserAccount.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Inventory">
-    <Position X="13.25" Y="0.5" Width="2" />
+    <Position X="13.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAAAAAAAAAACAABAAAAAAAAEAAAAAAAg=</HashCode>
       <FileName>User\Inventory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Database">
-    <Position X="8.25" Y="0.5" Width="1.5" />
+    <Position X="6.5" Y="0.5" Width="2.5" />
     <Members>
       <Method Name="AggreegateAllInStrArr" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAQAAIAAAAAABAAAAEAAgIAAAAQAAAAIAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAIAAACAABAAAAEAAgIAAAAQAAAAIAAABAAAAAAA=</HashCode>
       <FileName>Server\Database.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.LibraryItem">
-    <Position X="3" Y="4.25" Width="1.75" />
+    <Position X="2" Y="4.5" Width="3" />
+    <Members>
+      <Property Name="TABLE_NAME" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <HashCode>AAAAgIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Items\LibraryItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Entity">
     <Position X="4.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Property Name="TABLE_NAME" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAoIAAAAAAAEAAAAAAgAQIAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <HashCode>AAAAoIAAAAAAgEAAAABAAAQIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Items\Entity.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
-  <Enum Name="Library.Permissions">
-    <Position X="11.5" Y="0.5" Width="1.5" />
+  <Interface Name="Library.ISavable">
+    <Position X="9.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAgAAEAAEAIAAAAAAEAAAA=</HashCode>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ISavable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Library.Permissions">
+    <Position X="11.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAEAAEAAAAAAAAEAAAA=</HashCode>
       <FileName>User\Permissions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Library.UserState">
+    <Position X="9.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAIAAAAAAAAAAAAAAAAEAAAABAAAAAAAAA=</HashCode>
+      <FileName>User\UserState.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

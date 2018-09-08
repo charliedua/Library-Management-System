@@ -15,12 +15,12 @@ namespace CustomProgram__Library_Management
         private static void Main(string[] args)
         {
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            LibraryItem item = new LibraryItem("Katie", "new");
+            LibraryItem item = new LibraryItem("Katie");
             item.Save();
             item = null;
             item = new LibraryItem("new");
             Console.WriteLine(item.Name);
-            Console.WriteLine(item.Identifier);
+            Console.WriteLine(item.ID);
             Console.ReadLine();
         }
     }

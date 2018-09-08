@@ -9,7 +9,7 @@ namespace Library.Tests
         public void NotHasTest()
         {
             Inventory inventory = new Inventory();
-            Assert.IsFalse(inventory.Has("bizare"));
+            Assert.IsFalse(inventory.Has(12));
         }
     }
 }

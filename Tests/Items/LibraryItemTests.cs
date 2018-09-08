@@ -14,10 +14,9 @@ namespace Library.Tests
         [TestMethod()]
         public void SaveLoadTest()
         {
-            LibraryItem item = new LibraryItem("cat", "1457");
+            LibraryItem item = new LibraryItem("cat");
             item.Save();
-            item = null;
-            item = new LibraryItem("1457");
+            item = new LibraryItem(item.ID);
             Assert.AreEqual(item.Name, "cat");
         }
     }

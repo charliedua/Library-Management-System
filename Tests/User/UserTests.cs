@@ -15,10 +15,9 @@ namespace Library.Tests
         [TestMethod()]
         public void SaveLoadTest()
         {
-            User user = new User("cat", "145");
+            User user = new User("cat");
             user.Save();
-            user = null;
-            user = new User("145");
+            user = new User(user.ID);
             Assert.AreEqual(user.Name, "cat");
         }
     }

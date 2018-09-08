@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -23,11 +24,20 @@ namespace Library
 
         public string Username => _username;
 
+        public UserState State { get; private set; }
+
         public bool VerifyPassword(string username, string pass)
         {
             return VerifySha256Hash(pass, _password);
         }
 
+        #region Encryption Stuff
+
+        /// <summary>
+        /// Gets the sha256 hash.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns></returns>
         private static string GetSha256Hash(string input)
         {
             using (SHA256 Sha256Hash = SHA256.Create())
@@ -51,7 +61,12 @@ namespace Library
             }
         }
 
-        // Verify a hash against a string.
+        /// <summary>
+        /// Verifies the sha256 hash against a string.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="hash">The hash.</param>
+        /// <returns></returns>
         private static bool VerifySha256Hash(string input, string hash)
         {
             // Hash the input.
@@ -61,6 +76,14 @@ namespace Library
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;
 
             return 0 == comparer.Compare(hashOfInput, hash);
+        }
+
+        #endregion Encryption Stuff
+
+        public void Save(List<string> COL_NAMES, List<string> colvalues)
+        {
+            COL_NAMES.AddRange(new string[] { "Username", "Password" });
+            colvalues.AddRange(new string[] { Username, Password });
         }
     }
 }

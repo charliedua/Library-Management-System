@@ -2,11 +2,9 @@
 {
     public enum Permissions
     {
-        None,
-        FullControl,
-        Create,
-        Read,
-        Update,
-        Delete
+        None = 0,
+        Create = 4,
+        Read = 2,
+        Delete = 1,
     }
 }
