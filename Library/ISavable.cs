@@ -9,11 +9,6 @@ namespace Library
     public interface ISavable
     {
         /// <summary>
-        /// Loads this instance from db.
-        /// </summary>
-        Entity Load(SQLiteDataReader ident);
-
-        /// <summary>
         /// Saves this instance to db.
         /// </summary>
         void Save();

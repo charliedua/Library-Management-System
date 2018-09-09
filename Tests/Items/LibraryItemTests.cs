@@ -16,7 +16,8 @@ namespace Library.Tests
         {
             LibraryItem item = new LibraryItem("cat");
             item.Save();
-            item = new LibraryItem(item.ID);
+            Database database = new Database();
+            item = LibraryItem.Load(database.LoadReader(item.TABLE_NAME, string.Format("ID = {0}", item.ID)));
             Assert.AreEqual(item.Name, "cat");
         }
     }

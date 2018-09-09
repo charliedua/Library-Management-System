@@ -21,7 +21,7 @@
       <Method Name="VerifySha256Hash" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAQAAIAAAAAAAAAAAQACIAAAAAAAAAACAAIABAAAAgA=</HashCode>
+      <HashCode>AAQAgIAAAAAAAAAAAQACIAAAAAAAAAACAAIABAAAAgA=</HashCode>
       <FileName>User\UserAccount.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -52,6 +52,7 @@
       <HashCode>AAAAgIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Items\LibraryItem.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.Entity">
     <Position X="4.5" Y="0.5" Width="1.5" />
@@ -59,7 +60,7 @@
       <Property Name="TABLE_NAME" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAoIAAAAAAgEAAAABAAAQIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAIIAAAAAAgEAAAABAAAQIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Items\Entity.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -67,7 +68,7 @@
   <Interface Name="Library.ISavable">
     <Position X="9.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ISavable.cs</FileName>
     </TypeIdentifier>
   </Interface>

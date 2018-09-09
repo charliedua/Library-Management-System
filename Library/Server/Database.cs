@@ -132,9 +132,9 @@ namespace Library
             {
                 if (arr.Length > 0)
                 {
-                    if (int.TryParse(arr[i], out int a))
+                    if (int.TryParse(arr[i], out int b))
                     {
-                        final += a.ToString();
+                        final += b.ToString();
                     }
                     else
                     {
@@ -145,7 +145,14 @@ namespace Library
                 else
                     break;
             }
-            final += with + arr[arr.Length - 1] + with;
+            if (int.TryParse(arr[arr.Length - 1], out int a))
+            {
+                final += a.ToString();
+            }
+            else
+            {
+                final += with + arr[arr.Length - 1] + with;
+            }
             return final;
         }
     }

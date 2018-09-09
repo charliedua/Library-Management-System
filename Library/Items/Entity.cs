@@ -11,7 +11,7 @@ namespace Library
         /// <summary>
         /// The table name
         /// </summary>
-        protected virtual string TABLE_NAME { get; }
+        public virtual string TABLE_NAME { get; }
 
         /// <summary>
         /// The col names in the table
@@ -28,13 +28,14 @@ namespace Library
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Entity"/> class from Database.
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// with complete params.
         /// </summary>
-        /// <param name="ident">The identifier.</param>
-        public Entity(int ident)
+        /// <param name="name">The name.</param>
+        /// <param name="ident">The ident.</param>
+        public Entity(string name, int ident) : this(name)
         {
-            Database database = new Database();
-            Load(database.LoadReader(TABLE_NAME, string.Format("ID = {0}", ident)));
+            _id = ident;
         }
 
         /// <summary>
@@ -67,18 +68,9 @@ namespace Library
         /// <param name="id">The identifier.</param>
         public bool AreYou(int id) => id == _id;
 
-        #region Legacy Support
-
-        public Entity Load(SQLiteDataReader ident)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        #endregion Legacy Support
+        /// <summary>
+        /// Saves this instance to db.
+        /// </summary>
+        public abstract void Save();
     }
 }

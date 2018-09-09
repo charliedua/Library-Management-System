@@ -17,8 +17,36 @@ namespace Library.Tests
         {
             User user = new User("cat");
             user.Save();
-            user = new User(user.ID);
+            Database database = new Database();
+            user = User.Load(database.LoadReader(user.TABLE_NAME, string.Format("ID = {0}", user.ID)));
             Assert.AreEqual(user.Name, "cat");
+        }
+
+        [TestMethod()]
+        public void LoginTest()
+        {
+            User user = new User("charlie");
+            user.CreateAccount("charlie", "password");
+            Assert.IsTrue(user.Login("charlie", "password"));
+        }
+
+        [TestMethod()]
+        public void CreateAccountTest()
+        {
+            User user = new User("charlie");
+            user.CreateAccount("charlie", "password");
+            Assert.AreEqual("charlie", user.Account.Username);
+        }
+
+        [TestMethod()]
+        public void LogoutTest()
+        {
+            User user = new User("charlie");
+            user.CreateAccount("charlie", "password");
+            user.Login("charlie", "password");
+            Assert.IsTrue(user.IsAuthenticated);
+            Assert.IsTrue(user.Logout());
+            Assert.IsFalse(user.IsAuthenticated);
         }
     }
 }

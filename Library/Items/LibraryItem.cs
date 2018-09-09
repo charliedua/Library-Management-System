@@ -11,7 +11,7 @@ namespace Library
     /// <summary>
     /// The base Class for almost everything in this library.
     /// </summary>
-    public class LibraryItem : Entity
+    public class LibraryItem : Entity, ISavable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LibraryItem"/> class.
@@ -24,18 +24,14 @@ namespace Library
             database.Dispose();
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LibraryItem"/> class from the database.
-        /// </summary>
-        /// <param name="ident">The identifier.</param>
-        public LibraryItem(int ident) : base(ident)
+        public LibraryItem(int id, string name) : base(name, id)
         {
         }
 
         /// <summary>
         /// The table name
         /// </summary>
-        protected override string TABLE_NAME => "Items";
+        public override string TABLE_NAME => "Items";
 
         #region Database Stuff
 
@@ -43,20 +39,18 @@ namespace Library
         /// Loads this instance from db.
         /// </summary>
         /// <param name="ident"></param>
-        public override void Load(int ident)
+        public static LibraryItem Load(SQLiteDataReader reader)
         {
-            Database database = new Database();
-
-            SQLiteDataReader reader = database.LoadReader("Items", string.Format("ID = '{0}'", ident));
+            LibraryItem item = null;
             if (reader.HasRows)
             {
                 reader.Read();
-                _id = reader.GetInt32(0);
-                _name = reader.GetString(1);
+                int _id = (int)(long)reader["ID"];
+                string _name = (string)reader["Name"];
+                item = new LibraryItem(_id, _name);
+                reader.Close();
             }
-
-            reader.Close();
-            database.Disconnect();
+            return item;
         }
 
         /// <summary>

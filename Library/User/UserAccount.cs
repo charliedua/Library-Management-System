@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -7,28 +8,84 @@ namespace Library
 {
     public class UserAccount
     {
-        private readonly string _password;
-        private readonly string _username;
+        private string _password;
+        private string _username;
 
-        public UserAccount(string username, string password)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserAccount"/> class.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="encrypt">if set to <c>true</c> [encrypt].</param>
+        public UserAccount(string username, string password, bool encrypt = true)
         {
             _username = username;
-            _password = GetSha256Hash(password);
+            _password = encrypt ? GetSha256Hash(password) : password;
         }
 
-        public UserAccount() : this("", "")
-        {
-        }
-
+        /// <summary>
+        /// Gets the password.
+        /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
         public string Password => _password;
 
-        public string Username => _username;
-
+        /// <summary>
+        /// Gets the state.
+        /// </summary>
+        /// <value>
+        /// The state.
+        /// </value>
         public UserState State { get; private set; }
 
+        /// <summary>
+        /// Gets the username.
+        /// </summary>
+        /// <value>
+        /// The username.
+        /// </value>
+        public string Username => _username;
+
+        #region Database stuff
+
+        /// <summary>
+        /// Loads account from the specified reader.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>the account</returns>
+        public static UserAccount Load(SQLiteDataReader reader)
+        {
+            string _username = (string)reader["Username"];
+
+            // the encrypted password from the database
+            string _password = (string)reader["Password"];
+
+            return new UserAccount(_username, _password, encrypt: false);
+        }
+
+        /// <summary>
+        /// changes the colnames and colvalues to accomodate the account details.
+        /// </summary>
+        /// <param name="COL_NAMES">The col names.</param>
+        /// <param name="colvalues">The colvalues.</param>
+        public void Save(List<string> COL_NAMES, List<string> colvalues)
+        {
+            COL_NAMES.AddRange(new string[] { "Username", "Password" });
+            colvalues.AddRange(new string[] { Username, Password });
+        }
+
+        #endregion Database stuff
+
+        /// <summary>
+        /// Verifies the password.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="pass">The pass.</param>
+        /// <returns></returns>
         public bool VerifyPassword(string username, string pass)
         {
-            return VerifySha256Hash(pass, _password);
+            return username == _username & VerifySha256Hash(pass, _password);
         }
 
         #region Encryption Stuff
@@ -79,11 +136,5 @@ namespace Library
         }
 
         #endregion Encryption Stuff
-
-        public void Save(List<string> COL_NAMES, List<string> colvalues)
-        {
-            COL_NAMES.AddRange(new string[] { "Username", "Password" });
-            colvalues.AddRange(new string[] { Username, Password });
-        }
     }
 }

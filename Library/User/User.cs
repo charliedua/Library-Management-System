@@ -21,7 +21,7 @@ namespace Library
         /// <summary>
         /// The is authenticated
         /// </summary>
-        protected bool _isAuthenticated = false;
+        private bool isAuthenticated = false;
 
         /// <summary>
         /// the inventory for the items in the library.
@@ -37,30 +37,22 @@ namespace Library
         private UserAccount _account;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="User" /> class From the database.
-        /// </summary>
-        /// <param name="identifier">The identifier.</param>
-        public User(int identifier) : base(identifier)
-        {
-            state = UserState.Idle;
-            COL_NAMES.AddRange(new string[] { "Permissions", "State" });
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
         public User(string name) : base(name)
         {
+            IsAuthenticated = false;
+            COL_NAMES.AddRange(new string[] { "Permissions", "State" });
             Database database = new Database();
             _id = database.GetLastInsertedID(TABLE_NAME) + 1;
+            database.Dispose();
             Permissions = new List<Permissions>() { Library.Permissions.None };
             state = UserState.Idle;
-            COL_NAMES.AddRange(new string[] { "Permissions", "State" });
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="User"/> class.
+        /// Initializes a new instance of the <see cref="User"/> class from the database.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="identifier">The identifier.</param>
@@ -68,6 +60,7 @@ namespace Library
         /// <param name="perms">The array of Permissions.</param>
         public User(string name, int id, UserAccount account, UserState state, List<Permissions> perms) : this(name)
         {
+            _hasAccount = account != null;
             Permissions = perms;
             this.state = state;
             _account = account;
@@ -92,7 +85,11 @@ namespace Library
         /// <summary>
         /// The table name
         /// </summary>
-        protected override string TABLE_NAME => "Users";
+        public override string TABLE_NAME => "Users";
+
+        #region Authentication stuff
+
+        public bool IsAuthenticated { get => isAuthenticated; set => isAuthenticated = value; }
 
         /// <summary>
         /// Creates the account.
@@ -117,19 +114,42 @@ namespace Library
         }
 
         /// <summary>
-        /// Authenticates user with the specified password.
+        /// Authenticates user with the specified username and password.
         /// </summary>
+        /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
-        /// <returns></returns>
-        public bool Authenticate(string password)
+        /// <returns>status</returns>
+        /// <exception cref="DoesNotHaveAccountException"></exception>
+        public bool Login(string username, string password)
         {
-            if (!_hasAccount && state != UserState.Idle)
+            if (!_hasAccount || state == UserState.Idle)
             {
                 throw new DoesNotHaveAccountException();
             }
-            _isAuthenticated = _account.VerifyPassword(Account.Username, password);
-            return _isAuthenticated;
+            state = UserState.LoggedIN;
+            IsAuthenticated = _account.VerifyPassword(username: username, pass: password);
+            return IsAuthenticated;
         }
+
+        /// <summary>
+        /// Logouts this user.
+        /// </summary>
+        /// <returns>success status</returns>
+        public bool Logout()
+        {
+            if (state == UserState.LoggedIN)
+            {
+                IsAuthenticated = false;
+                state = UserState.LoggedOut;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        #endregion Authentication stuff
 
         #region Permission Stuff
 
@@ -225,16 +245,28 @@ namespace Library
         /// <returns>the User</returns>
         public static User Load(SQLiteDataReader reader)
         {
+            User user = null;
             if (reader.HasRows)
             {
                 reader.Read();
-                int _id = reader.GetInt32(0);
-                string _name = reader.GetString(1);
-                List<Permissions> perms = IntToPerm(reader.GetInt32(2));
-                UserState state = (UserState)reader.GetInt32(3);
-                return new User(_name, _id, new UserAccount(), state, perms);
+                int _id = (int)(long)reader["ID"];
+                string _name = (string)reader["Name"];
+
+                // gets the int from db and converts to perm
+                List<Permissions> Permissions = IntToPerm((int)(long)reader["Permissions"]);
+
+                // gets the int from db and converts to state
+                UserState state = (UserState)(int)(long)reader["State"];
+                UserAccount _account = null;
+                if (state != UserState.Idle && state != UserState.CreatingAccount)
+                {
+                    _account = UserAccount.Load(reader);
+                }
+                bool _hasAccount = _account != null;
+                reader.Close();
+                return new User(_name, _id, _account, state, Permissions);
             }
-            return null;
+            return user;
         }
 
         /// <summary>
@@ -244,10 +276,13 @@ namespace Library
         /// <param name="colnames">The colnames.</param>
         /// <param name="colvalues">The colvalues.</param>
         /// <returns></returns>
-        public void Save()
+        public override void Save()
         {
             List<string> colvalues = new List<string>() { _id.ToString(), _name, PermToInt(Permissions).ToString(), ((int)state).ToString() };
-            Account.Save(COL_NAMES, colvalues);
+            if (state != UserState.Idle && state != UserState.CreatingAccount)
+            {
+                Account.Save(COL_NAMES, colvalues);
+            }
             Database database = new Database();
             database.Save(TABLE_NAME, COL_NAMES, colvalues);
             database.Dispose();
