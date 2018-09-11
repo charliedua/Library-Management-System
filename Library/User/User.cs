@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Library.Exceptions;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,27 +10,9 @@ namespace Library
     public class User : Entity, ISavable
     {
         /// <summary>
-        /// determines if the user has an account.
-        /// </summary>
-        protected bool _hasAccount = false;
-
-        /// <summary>
         /// The state of user.
         /// </summary>
         public UserState state;
-
-        /// <summary>
-        /// The is authenticated
-        /// </summary>
-        private bool isAuthenticated = false;
-
-        /// <summary>
-        /// the inventory for the items in the library.
-        /// </summary>
-        /// <value>
-        /// The inventory.
-        /// </value>
-        private Inventory Inventory { get; set; }
 
         /// <summary>
         /// The account
@@ -42,7 +25,8 @@ namespace Library
         /// <param name="name">The name.</param>
         public User(string name) : base(name)
         {
-            IsAuthenticated = false;
+            this.Inventory = new Inventory();
+
             COL_NAMES.AddRange(new string[] { "Permissions", "State" });
             Database database = new Database();
             _id = database.GetLastInsertedID(TABLE_NAME) + 1;
@@ -60,7 +44,6 @@ namespace Library
         /// <param name="perms">The array of Permissions.</param>
         public User(string name, int id, UserAccount account, UserState state, List<Permissions> perms) : this(name)
         {
-            _hasAccount = account != null;
             Permissions = perms;
             this.state = state;
             _account = account;
@@ -75,6 +58,20 @@ namespace Library
         public UserAccount Account { get => _account; set => _account = value; }
 
         /// <summary>
+        /// Gets the details.
+        /// </summary>
+        /// <value>
+        /// The details.
+        /// </value>
+        public override string Details
+        {
+            get
+            {
+                return (_hasAccount ? base.Details + string.Format("Username: {0}\n", Account.Username) : base.Details) + string.Format("Permissions: \n{0}", HumanReadablePermissions());
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the permissions.
         /// </summary>
         /// <value>
@@ -87,9 +84,22 @@ namespace Library
         /// </summary>
         public override string TABLE_NAME => "Users";
 
+        /// <summary>
+        /// determines if the user has an account.
+        /// </summary>
+        protected bool _hasAccount => Account != null;
+
+        /// <summary>
+        /// the inventory for the items in the library.
+        /// </summary>
+        /// <value>
+        /// The inventory.
+        /// </value>
+        private Inventory Inventory { get; set; }
+
         #region Authentication stuff
 
-        public bool IsAuthenticated { get => isAuthenticated; set => isAuthenticated = value; }
+        public bool IsAuthenticated { get => state == UserState.LoggedIN; }
 
         /// <summary>
         /// Creates the account.
@@ -103,7 +113,6 @@ namespace Library
             if (!_hasAccount)
             {
                 _account = new UserAccount(username, password);
-                _hasAccount = true;
                 state = UserState.LoggedOut;
             }
             else
@@ -122,13 +131,12 @@ namespace Library
         /// <exception cref="DoesNotHaveAccountException"></exception>
         public bool Login(string username, string password)
         {
-            if (!_hasAccount || state == UserState.Idle)
+            if (!_hasAccount && state == UserState.Idle)
             {
                 throw new DoesNotHaveAccountException();
             }
             state = UserState.LoggedIN;
-            IsAuthenticated = _account.VerifyPassword(username: username, pass: password);
-            return IsAuthenticated;
+            return _account.VerifyPassword(username: username, pass: password);
         }
 
         /// <summary>
@@ -139,7 +147,6 @@ namespace Library
         {
             if (state == UserState.LoggedIN)
             {
-                IsAuthenticated = false;
                 state = UserState.LoggedOut;
                 return true;
             }
@@ -154,46 +161,10 @@ namespace Library
         #region Permission Stuff
 
         /// <summary>
-        /// Gives the permission to user.
-        /// </summary>
-        /// <param name="permission">The permission.</param>
-        /// <returns></returns>
-        public bool GivePermission(Permissions permission)
-        {
-            Permissions.Add(permission);
-            return true;
-        }
-
-        /// <summary>
-        /// Determines whether the specified user has permission.
-        /// </summary>
-        /// <param name="perm">The permission.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified user has permission; otherwise, <c>false</c>.
-        /// </returns>
-        public bool HasPermission(Permissions perm)
-        {
-            return Permissions.Contains(perm);
-        }
-
-        /// <summary>
-        /// Converts Permissions to int.
-        /// </summary>
-        protected static int PermToInt(List<Permissions> permissions)
-        {
-            int final = 0;
-            foreach (var perm in permissions)
-            {
-                final += (int)perm;
-            }
-            return final;
-        }
-
-        /// <summary>
         /// converts Int to permissions.
         /// </summary>
         /// <param name="num">The number.</param>
-        protected static List<Permissions> IntToPerm(int num)
+        public static List<Permissions> IntToPerm(int num)
         {
             List<Permissions> permissions = new List<Permissions>();
             switch (num)
@@ -232,6 +203,56 @@ namespace Library
                     return null;
             }
             return permissions;
+        }
+
+        /// <summary>
+        /// Gives the permission to user.
+        /// </summary>
+        /// <param name="permission">The permission.</param>
+        /// <returns></returns>
+        public bool GivePermission(Permissions permission)
+        {
+            Permissions.Add(permission);
+            return true;
+        }
+
+        /// <summary>
+        /// Determines whether the specified user has permission.
+        /// </summary>
+        /// <param name="perm">The permission.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified user has permission; otherwise, <c>false</c>.
+        /// </returns>
+        public bool HasPermission(Permissions perm)
+        {
+            return Permissions.Contains(perm);
+        }
+
+        /// <summary>
+        /// Gives Human readable permissions.
+        /// </summary>
+        /// <returns></returns>
+        public string HumanReadablePermissions()
+        {
+            string final = "";
+            foreach (Permissions permission in Permissions)
+            {
+                final += "\t" + permission.ToString() + " \n";
+            }
+            return final;
+        }
+
+        /// <summary>
+        /// Converts Permissions to int.
+        /// </summary>
+        protected static int PermToInt(List<Permissions> permissions)
+        {
+            int final = 0;
+            foreach (var perm in permissions)
+            {
+                final += (int)perm;
+            }
+            return final;
         }
 
         #endregion Permission Stuff
@@ -289,5 +310,54 @@ namespace Library
         }
 
         #endregion Database Stuff
+
+        #region Interaction with items
+
+        /// <summary>
+        /// Determines whether the specified identifier has item.
+        /// </summary>
+        /// <param name="ID">The identifier.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified identifier has item; otherwise, <c>false</c>.
+        /// </returns>
+        public bool HasItem(int ID)
+        {
+            return Inventory.Has(ID);
+        }
+
+        /// <summary>
+        /// Issues the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        public void Issue(LibraryItem item)
+        {
+            if (IsAuthenticated)
+            {
+                Inventory.Put(item);
+            }
+            else
+            {
+                throw new UserNotAuthenticatedException(this);
+            }
+        }
+
+        /// <summary>
+        /// Returns the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <exception cref="InventoryDoesntHaveItemException"></exception>
+        public void Return(LibraryItem item)
+        {
+            if (Inventory.Has(item))
+            {
+                Inventory.Take(item);
+            }
+            else
+            {
+                throw new InventoryDoesntHaveItemException(item, this);
+            }
+        }
+
+        #endregion Interaction with items
     }
 }

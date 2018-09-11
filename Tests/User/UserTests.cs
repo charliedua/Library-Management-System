@@ -47,6 +47,35 @@ namespace Library.Tests
             Assert.IsTrue(user.IsAuthenticated);
             Assert.IsTrue(user.Logout());
             Assert.IsFalse(user.IsAuthenticated);
+            Assert.IsTrue(user.state == UserState.LoggedOut);
+        }
+
+        [TestMethod()]
+        public void IssueTest()
+        {
+            User user = GetAuthenticatedUser();
+            LibraryItem item = new LibraryItem("UCD");
+            user.Issue(item);
+            Assert.IsTrue(user.HasItem(item.ID));
+            user = null;
+        }
+
+        [TestMethod()]
+        public void ReturnTest()
+        {
+            LibraryItem item = new LibraryItem("UCD");
+            var user = GetAuthenticatedUser();
+            user.Issue(item);
+            user.Return(item);
+            Assert.IsFalse(user.HasItem(item.ID));
+            user = null;
+        }
+
+        private static User GetAuthenticatedUser()
+        {
+            User user = new User("charlie", 5, new UserAccount("A", "B"), UserState.LoggedIN, new List<Permissions>() { Permissions.None });
+            user.Login("A", "P");
+            return user;
         }
     }
 }

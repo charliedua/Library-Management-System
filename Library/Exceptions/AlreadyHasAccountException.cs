@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Library
+namespace Library.Exceptions
 {
     [Serializable]
     internal class AlreadyHasAccountException : Exception

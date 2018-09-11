@@ -19,7 +19,10 @@ namespace Library
         /// <param name="encrypt">if set to <c>true</c> [encrypt].</param>
         public UserAccount(string username, string password, bool encrypt = true)
         {
-            _username = username;
+            if (PerformUniqueCheck(username))
+                _username = username;
+            else
+                throw new NonUniqueEntityException("Username", username);
             _password = encrypt ? GetSha256Hash(password) : password;
         }
 
@@ -48,6 +51,19 @@ namespace Library
         public string Username => _username;
 
         #region Database stuff
+
+        /// <summary>
+        /// Performs the unique check on username in Users Table.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        public bool PerformUniqueCheck(string username)
+        {
+            Database database = new Database();
+            SQLiteDataReader reader = database.LoadReader("Users", string.Format("`Username` = '{0}'", username));
+            var temp = reader.HasRows;
+            reader.Close();
+            return !temp;
+        }
 
         /// <summary>
         /// Loads account from the specified reader.

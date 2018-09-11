@@ -79,7 +79,7 @@ namespace Library
         {
             Connect();
             IDbCommand cmd = conn.CreateCommand();
-            string query = string.Format("select max(ID) from `{0}`;", tableName);
+            string query = string.Format("select max(ID) from `{0}`", tableName);
             cmd.CommandText = query;
             int id;
             id = (int)((long)cmd.ExecuteScalar());

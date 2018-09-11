@@ -1,4 +1,5 @@
 using Library;
+using Library.Commands;
 using System;
 
 namespace CustomProgram__Library_Management
@@ -15,13 +16,14 @@ namespace CustomProgram__Library_Management
         private static void Main(string[] args)
         {
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            LibraryItem item = new LibraryItem("Katie");
-            item.Save();
-            item = null;
-            item = new LibraryItem("new");
-            Console.WriteLine(item.Name);
-            Console.WriteLine(item.ID);
-            Console.ReadLine();
+            Entity entity = null;
+            Command command = new CreateCommand();
+            while (true)
+            {
+                Console.Write("Write your command here $ ");
+                var text = Console.ReadLine();
+                Console.WriteLine(command.Execute(ref entity, text.Split(' ')));
+            }
         }
     }
 }

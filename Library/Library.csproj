@@ -41,9 +41,6 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -54,7 +51,7 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.109.1\lib\net46\System.Data.SQLite.dll</HintPath>
@@ -67,9 +64,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\CreateCommand.cs" />
+    <Compile Include="Commands\InvalidCommandSyntaxException.cs" />
     <Compile Include="Exceptions\DoesNotHavePermissionException.cs" />
     <Compile Include="ISavable.cs" />
     <Compile Include="Items\Entity.cs" />
+    <Compile Include="Exceptions\InventoryDoesntHaveItemException.cs" />
+    <Compile Include="Exceptions\NonUniqueEntityException.cs" />
+    <Compile Include="Exceptions\UserNotAuthenticatedException.cs" />
     <Compile Include="User\UserState.cs" />
     <Compile Include="Exceptions\AlreadyHasAccountException.cs" />
     <Compile Include="Exceptions\DoesNotHaveAccountException.cs" />
@@ -97,6 +100,7 @@
     <Content Include="Diagrams\LoadSequenceDiagram.JPG" />
     <Content Include="Diagrams\SaveSequenceDiagram.JPG" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.1\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

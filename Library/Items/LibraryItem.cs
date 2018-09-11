@@ -24,9 +24,30 @@ namespace Library
             database.Dispose();
         }
 
+        public override string Details
+        {
+            get
+            {
+                return base.Details + string.Format("Available: {0}\n", Available.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LibraryItem"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name.</param>
         public LibraryItem(int id, string name) : base(name, id)
         {
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="LibraryItem"/> is available.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if available; otherwise, <c>false</c>.
+        /// </value>
+        public bool Available { get; set; }
 
         /// <summary>
         /// The table name
@@ -38,7 +59,10 @@ namespace Library
         /// <summary>
         /// Loads this instance from db.
         /// </summary>
-        /// <param name="ident"></param>
+        /// <param name="reader">The reader.</param>
+        /// <returns>
+        /// the item
+        /// </returns>
         public static LibraryItem Load(SQLiteDataReader reader)
         {
             LibraryItem item = null;

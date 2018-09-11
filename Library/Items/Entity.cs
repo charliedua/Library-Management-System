@@ -63,6 +63,20 @@ namespace Library
         }
 
         /// <summary>
+        /// Gets the details.
+        /// </summary>
+        /// <value>
+        /// The details.
+        /// </value>
+        public virtual string Details
+        {
+            get
+            {
+                return string.Format("Name: {0} \nID: {1}\n", Name, ID);
+            }
+        }
+
+        /// <summary>
         /// Verifies the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
