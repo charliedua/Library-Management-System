@@ -106,7 +106,7 @@ namespace Library
         {
             Connect();
             IDbCommand cmd = conn.CreateCommand();
-            cmd.CommandText = string.Format("delete from `{0}` where `ID` = {1}", tableName, ID.ToString(0);
+            cmd.CommandText = string.Format("delete from `{0}` where `ID` = {1}", tableName, ID.ToString());
             int rowsAffected = cmd.ExecuteNonQuery();
             Disconnect();
             return rowsAffected;

@@ -18,10 +18,19 @@ namespace Library.Commands
     /// <seealso cref="Library.Commands.Command" />
     public class DeleteCommand : Command
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeleteCommand"/> class.
+        /// </summary>
         public DeleteCommand()
         {
         }
 
+        /// <summary>
+        /// Checks if valid.
+        /// </summary>
+        /// <param name="Text">The text.</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidCommandSyntaxException"></exception>
         public override bool CheckIfValid(string[] Text)
         {
             switch (Text.Length)
@@ -48,6 +57,12 @@ namespace Library.Commands
             }
         }
 
+        /// <summary>
+        /// Executes this command.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
         public override string Execute(ref Entity entity, string[] text)
         {
             bool valid;

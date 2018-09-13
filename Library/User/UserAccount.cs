@@ -8,22 +8,32 @@ namespace Library
 {
     public class UserAccount
     {
-        private string _password;
-        private string _username;
+        private readonly string _password;
+        private readonly string _username;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserAccount"/> class.
+        /// Initializes a new instance of the <see cref="UserAccount" /> class.
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
+        /// <param name="fromdb">if set to <c>true</c> [fromdb].</param>
         /// <param name="encrypt">if set to <c>true</c> [encrypt].</param>
-        public UserAccount(string username, string password, bool encrypt = true)
+        /// <exception cref="NonUniqueEntityException">Username</exception>
+        public UserAccount(string username, string password, bool fromdb = false, bool encrypt = true)
         {
-            if (PerformUniqueCheck(username))
+            if (fromdb)
+            {
                 _username = username;
+                _password = password;
+            }
             else
-                throw new NonUniqueEntityException("Username", username);
-            _password = encrypt ? GetSha256Hash(password) : password;
+            {
+                if (PerformUniqueCheck(username))
+                    _username = username;
+                else
+                    throw new NonUniqueEntityException("Username", username);
+                _password = encrypt ? GetSha256Hash(password) : password;
+            }
         }
 
         /// <summary>
@@ -77,7 +87,7 @@ namespace Library
             // the encrypted password from the database
             string _password = (string)reader["Password"];
 
-            return new UserAccount(_username, _password, encrypt: false);
+            return new UserAccount(_username, _password, fromdb: true, encrypt: false);
         }
 
         /// <summary>
