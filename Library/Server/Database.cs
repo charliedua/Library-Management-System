@@ -102,6 +102,16 @@ namespace Library
             return (SQLiteDataReader)cmd.ExecuteReader();
         }
 
+        public int Delete(string tableName, int ID)
+        {
+            Connect();
+            IDbCommand cmd = conn.CreateCommand();
+            cmd.CommandText = string.Format("delete from `{0}` where `ID` = {1}", tableName, ID.ToString(0);
+            int rowsAffected = cmd.ExecuteNonQuery();
+            Disconnect();
+            return rowsAffected;
+        }
+
         /// <summary>
         /// Saves to the specified table.
         /// </summary>

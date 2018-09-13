@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CreateCommand.cs" />
+    <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="Commands\InvalidCommandSyntaxException.cs" />
     <Compile Include="Exceptions\DoesNotHavePermissionException.cs" />
     <Compile Include="ISavable.cs" />

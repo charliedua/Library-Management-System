@@ -22,14 +22,7 @@ namespace Library
             Database database = new Database();
             _id = database.GetLastInsertedID(TABLE_NAME) + 1;
             database.Dispose();
-        }
-
-        public override string Details
-        {
-            get
-            {
-                return base.Details + string.Format("Available: {0}\n", Available.ToString());
-            }
+            Available = true;
         }
 
         /// <summary>
@@ -39,6 +32,7 @@ namespace Library
         /// <param name="name">The name.</param>
         public LibraryItem(int id, string name) : base(name, id)
         {
+            Available = true;
         }
 
         /// <summary>
@@ -48,6 +42,14 @@ namespace Library
         ///   <c>true</c> if available; otherwise, <c>false</c>.
         /// </value>
         public bool Available { get; set; }
+
+        public override string Details
+        {
+            get
+            {
+                return base.Details + string.Format("Available: {0}\n", Available.ToString());
+            }
+        }
 
         /// <summary>
         /// The table name
