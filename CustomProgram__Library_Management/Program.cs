@@ -2,7 +2,9 @@ using Library;
 using Library.Commands;
 using Library.Utils;
 using System;
+using System.Data.SQLite;
 using System.Security;
+using System.Text.RegularExpressions;
 
 namespace CustomProgram__Library_Management
 {
@@ -18,30 +20,38 @@ namespace CustomProgram__Library_Management
         private static void Main(string[] args)
         {
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            Console.Write("Login as: ");
-            string username = Console.ReadLine();
-            Console.Write($"Enter Password for {username}@Library: ");
-            string password = Utility.ReadPassword();
-            Database database = new Database();
-            var reader = database.LoadReader("Users", $"Username = '{username}'");
-            User user = User.Load(reader);
-            reader.Close();
-            database.Dispose();
-            if (user == null)
+            LibraryController controller = new LibraryController();
+            controller.LoadAllEntities();
+            string password;
+            string username;
+            string helpText = "";
+            bool verified;
+            do
             {
-                Console.WriteLine("Not Found.");
-            }
-            else
-            {
-                Console.WriteLine(user.Details);
-            }
-
+                do
+                {
+                    Console.Write("Login as: ");
+                    username = Console.ReadLine();
+                    helpText = Regex.IsMatch(username, @"^[A-Za-z0-9]+$") ? "" : "Wrong Format for username\n";
+                    Console.Write(helpText);
+                } while (!Regex.IsMatch(username, @"^[A-Za-z0-9]+$"));
+                Console.Write($"Enter Password for {username}@Library: ");
+                password = Utility.ReadPassword();
+                verified = controller.Login(username, password);
+                helpText = !verified ? "Wrong Credentials\n" : "Successfully logged in\n";
+                Console.Write(helpText);
+            } while (!verified);
             Command command = new CreateCommand();
+            string text = "";
             while (true)
             {
                 Console.Write("Write your command here $ ");
-                var text = Console.ReadLine();
-                Console.WriteLine(command.Execute(ref entity, text.Split(' ')));
+                text = Console.ReadLine();
+                if (text == "QUIT")
+                {
+                    break;
+                }
+                Console.WriteLine(command.Execute(ref controller, text.Split(' ')));
             }
         }
     }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SQLite;
 
 namespace Library.Tests
 {
@@ -17,7 +18,10 @@ namespace Library.Tests
             LibraryItem item = new LibraryItem("cat");
             item.Save();
             Database database = new Database();
-            item = LibraryItem.Load(database.LoadReader(item.TABLE_NAME, string.Format("ID = {0}", item.ID)));
+            SQLiteDataReader reader = database.LoadReader(item.TABLE_NAME, string.Format("ID = {0}", item.ID));
+            item = LibraryItem.Load(reader);
+            reader.Close();
+            database.Dispose();
             Assert.AreEqual(item.Name, "cat");
         }
     }

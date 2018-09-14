@@ -68,13 +68,11 @@ namespace Library
         public static LibraryItem Load(SQLiteDataReader reader)
         {
             LibraryItem item = null;
-            if (reader.HasRows)
+            if (reader.HasRows && reader.Read())
             {
-                reader.Read();
                 int _id = (int)(long)reader["ID"];
                 string _name = (string)reader["Name"];
                 item = new LibraryItem(_id, _name);
-                reader.Close();
             }
             return item;
         }

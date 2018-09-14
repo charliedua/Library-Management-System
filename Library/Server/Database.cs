@@ -22,10 +22,8 @@ namespace Library
         private IDbConnection conn;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Database{T}"/> class.
+        /// Initializes a new instance of the <see cref="Database" /> class.
         /// </summary>
-        /// <param name="save">The save.</param>
-        /// <param name="savload">The savload.</param>
         /// <param name="connStr">The connection string.</param>
         public Database(string connStr = "Data Source=.//Library.db;Version=3;")
         {
@@ -34,7 +32,7 @@ namespace Library
         }
 
         /// <summary>
-        /// The status of server.
+        /// The status of database server.
         /// </summary>
         private bool _connected => conn.State == ConnectionState.Open;
 
@@ -46,7 +44,10 @@ namespace Library
         /// </returns>
         public bool Connect()
         {
-            conn.Open();
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
             return true;
         }
 

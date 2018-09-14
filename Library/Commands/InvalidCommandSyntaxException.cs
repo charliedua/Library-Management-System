@@ -6,7 +6,7 @@ namespace Library.Commands
     [Serializable]
     internal class InvalidCommandSyntaxException : Exception
     {
-        public InvalidCommandSyntaxException(string expected) : base($"Invalid Command Syntax, Expected: {expected}")
+        public InvalidCommandSyntaxException(string expected) : base($"Invalid Command Syntax\n\tExpected: {expected}")
         {
         }
 

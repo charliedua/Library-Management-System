@@ -69,6 +69,7 @@
     <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="Commands\InvalidCommandParamatersException.cs" />
     <Compile Include="Commands\InvalidCommandSyntaxException.cs" />
+    <Compile Include="Entities.cs" />
     <Compile Include="Exceptions\DoesNotHavePermissionException.cs" />
     <Compile Include="ISavable.cs" />
     <Compile Include="Items\Entity.cs" />
@@ -92,7 +93,7 @@
     <None Include="App.config" />
     <None Include="ClassDiagram.cd" />
     <Resource Include="Library.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="packages.config" />
   </ItemGroup>

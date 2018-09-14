@@ -87,7 +87,7 @@ namespace Library
         /// <summary>
         /// determines if the user has an account.
         /// </summary>
-        protected bool _hasAccount => Account != null;
+        public bool _hasAccount => Account != null;
 
         /// <summary>
         /// the inventory for the items in the library.
@@ -267,9 +267,8 @@ namespace Library
         public static User Load(SQLiteDataReader reader)
         {
             User user = null;
-            if (reader.HasRows)
+            if (reader.HasRows && reader.Read())
             {
-                reader.Read();
                 int _id = (int)(long)reader["ID"];
                 string _name = (string)reader["Name"];
 
@@ -284,7 +283,6 @@ namespace Library
                     _account = UserAccount.Load(reader);
                 }
                 bool _hasAccount = _account != null;
-                reader.Close();
                 return new User(_name, _id, _account, state, Permissions);
             }
             return user;

@@ -28,6 +28,6 @@ namespace Library.Commands
         /// <param name="entity">The entity.</param>
         /// <param name="text">The text.</param>
         /// <returns></returns>
-        public abstract string Execute(ref Entity entity, string[] text);
+        public abstract string Execute(ref LibraryController controller, string[] text);
     }
 }

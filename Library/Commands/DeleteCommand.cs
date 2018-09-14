@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Library.Commands
 {
-    /*
-     * DELETE USER ID [INT]
-     * DELETE ITEM ID [INT]
-     * DELETE ITEM ID [INT] FROM USER ID [INT]
-     */
-
     /// <summary>
     /// The Delete command.
     /// </summary>
     /// <seealso cref="Library.Commands.Command" />
     public class DeleteCommand : Command
     {
+        /*
+         * DELETE USER ID [INT]
+         * DELETE ITEM ID [INT]
+         * DELETE ITEM ID [INT] FROM USER ID [INT]
+         */
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteCommand"/> class.
         /// </summary>
@@ -63,9 +63,10 @@ namespace Library.Commands
         /// <param name="entity">The entity.</param>
         /// <param name="text">The text.</param>
         /// <returns></returns>
-        public override string Execute(ref Entity entity, string[] text)
+        public override string Execute(ref LibraryController controller, string[] text)
         {
             bool valid;
+            Entity entity = null;
             try
             {
                 valid = CheckIfValid(text);
@@ -77,7 +78,25 @@ namespace Library.Commands
             Database database = new Database();
             if (valid)
             {
-                database.Delete(entity.TABLE_NAME, entity.ID);
+                bool found;
+                switch (text[1])
+                {
+                    case "ITEM":
+                        found = controller.DeleteEntityByID(Entities.User, int.Parse(text[3]));
+                        break;
+
+                    case "USER":
+                        found = controller.DeleteEntityByID(Entities.Item, int.Parse(text[3]));
+                        break;
+
+                    default:
+                        found = false;
+                        break;
+                }
+                if (found)
+                {
+                    database.Delete(entity.TABLE_NAME, entity.ID);
+                }
             }
             return entity.Details;
         }

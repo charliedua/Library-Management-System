@@ -54,14 +54,14 @@ namespace Library.Commands
                     if (Text[3] != "-P") throw new InvalidCommandSyntaxException(expected: "-P");
                     else
                     {
-                        var a = int.TryParse(Text[4], out int temp0);
-                        if (!a) throw new InvalidCommandSyntaxException("[INTEGER]");
+                        var b = int.TryParse(Text[4], out int temp0);
+                        if (!b) throw new InvalidCommandSyntaxException("[INTEGER]");
                         if (temp0 < 0 || temp0 > 7) throw new InvalidCommandSyntaxException("[INTEGER between 0 AND 7]");
                     }
                     return true;
 
                 default:
-                    throw new InvalidCommandSyntaxException("{CREATE [USER | ITEM] [Name] [-P [INTEGER] if User]} | {CREATE ACCOUNT [USERNAME] [PASSWORD]}");
+                    throw new InvalidCommandSyntaxException("{CREATE [USER | ITEM] [Name] [-P [INTEGER] if User]}\n\t{CREATE ACCOUNT [USERNAME] [PASSWORD] USER ID [INT]}");
             }
         }
 
@@ -71,10 +71,10 @@ namespace Library.Commands
         /// <param name="entity">The entity.</param>
         /// <param name="text">The text.</param>
         /// <returns></returns>
-        public override string Execute(ref Entity entity, string[] text)
+        public override string Execute(ref LibraryController controller, string[] text)
         {
             bool valid;
-
+            Entity entity = null;
             try
             {
                 valid = CheckIfValid(text);
@@ -99,9 +99,11 @@ namespace Library.Commands
                     break;
 
                 case "ACCOUNT" when valid:
-                    if (entity == null) return "CREATE a User | Item first";
-                    if (entity is User a) a.CreateAccount(text[2], text[3]);
-                    else throw new InvalidCommandParamatersException(typeof(User), entity.GetType());
+                    entity = controller.FindEntityByID(Entities.User, ID: int.Parse(text[6]));
+                    if ((entity as User)._hasAccount)
+                        return "Can't create Account.\nAlready have one.";
+                    else
+                        (entity as User).CreateAccount(username: text[2], password: text[3]);
                     break;
 
                 default:

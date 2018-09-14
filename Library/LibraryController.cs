@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,14 @@ namespace Library
         public List<LibraryItem> Items { get => _items; }
 
         /// <summary>
+        /// Gets or sets the user.
+        /// </summary>
+        /// <value>
+        /// The user.
+        /// </value>
+        public User CurrentUser { get; set; }
+
+        /// <summary>
         /// Gets the users.
         /// </summary>
         /// <value>
@@ -44,19 +53,78 @@ namespace Library
         /// </value>
         public List<User> Users { get => _users; }
 
-        private void LoadAllEntities()
+        /// <summary>
+        /// Deletes the entity by identifier.
+        /// </summary>
+        /// <param name="entities">The entities.</param>
+        /// <param name="ID">The identifier.</param>
+        /// <returns></returns>
+        public bool DeleteEntityByID(Entities entities, int ID)
+        {
+            return entities == Entities.User ? _users.RemoveAll(x => x.ID == ID) > 0 : _items.RemoveAll(x => x.ID == ID) > 0;
+        }
+
+        /// <summary>
+        /// Finds the user by identifier.
+        /// </summary>
+        /// <param name="ID">The identifier.</param>
+        /// <returns></returns>
+        public Entity FindEntityByID(Entities entities, int ID)
+        {
+            return entities == Entities.User ? _users.Find(x => x.ID == ID) : (Entity)_items.Find(x => x.ID == ID);
+        }
+
+        /// <summary>
+        /// Finds the user by username.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
+        public User FindUserByUsername(string username)
+        {
+            return _users.Find(x => x._hasAccount ? x.Account.Username == username : false);
+        }
+
+        /// <summary>
+        /// Logins the specified username.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
+        public bool Login(string username, string password)
+        {
+            User user = FindUserByUsername(username);
+            if (user != null)
+            {
+                return user.Login(username, password);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Loads all entities.
+        /// </summary>
+        public void LoadAllEntities()
         {
             Database database = new Database();
-            var UserReader = database.LoadReader("Users");
+            SQLiteDataReader UserReader = database.LoadReader("Users", "1");
             while (UserReader.HasRows)
             {
-                _users.Add(User.Load(UserReader));
+                User user = User.Load(UserReader);
+                if (user != null)
+                {
+                    _users.Add(user);
+                }
             }
             UserReader.Close();
-            var ItemsReader = database.LoadReader("Items");
+            database.Disconnect();
+            SQLiteDataReader ItemsReader = database.LoadReader("Items", "1");
             while (ItemsReader.HasRows)
             {
-                _items.Add(LibraryItem.Load(ItemsReader));
+                LibraryItem item = LibraryItem.Load(ItemsReader);
+                if (item != null)
+                {
+                    _items.Add(LibraryItem.Load(ItemsReader));
+                }
             }
             ItemsReader.Close();
             database.Dispose();
