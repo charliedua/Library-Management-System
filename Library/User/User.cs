@@ -19,17 +19,19 @@ namespace Library
         /// </summary>
         private UserAccount _account;
 
+        public bool Saved { get; set; } = false;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        public User(string name) : base(name)
+        public User(string name, int id) : base(name)
         {
             this.Inventory = new Inventory();
 
             COL_NAMES.AddRange(new string[] { "Permissions", "State" });
             Database database = new Database();
-            _id = database.GetLastInsertedID(TABLE_NAME) + 1;
+            _id = id; // BUG: it will always get the last one, we don't want that we have local storage as well.
             database.Dispose();
             Permissions = new List<Permissions>() { Library.Permissions.None };
             state = UserState.Idle;
@@ -42,8 +44,9 @@ namespace Library
         /// <param name="identifier">The identifier.</param>
         /// <param name="account">The account.</param>
         /// <param name="perms">The array of Permissions.</param>
-        public User(string name, int id, UserAccount account, UserState state, List<Permissions> perms) : this(name)
+        public User(string name, int id, UserAccount account, UserState state, List<Permissions> perms) : this(name, id)
         {
+            // FIXME: save it after the account is created
             Permissions = perms;
             this.state = state;
             _account = account;
@@ -63,13 +66,7 @@ namespace Library
         /// <value>
         /// The details.
         /// </value>
-        public override string Details
-        {
-            get
-            {
-                return (_hasAccount ? base.Details + string.Format("Username: {0}\n", Account.Username) : base.Details) + string.Format("Permissions: \n{0}", HumanReadablePermissions());
-            }
-        }
+        public override string Details => (_hasAccount ? base.Details + string.Format("Username: {0}\n", Account.Username) : base.Details) + string.Format("Permissions: \n{0}", HumanReadablePermissions());
 
         /// <summary>
         /// Gets or sets the permissions.
@@ -82,7 +79,7 @@ namespace Library
         /// <summary>
         /// The table name
         /// </summary>
-        public override string TABLE_NAME => "Users";
+        public const string TABLE_NAME = "Users";
 
         /// <summary>
         /// determines if the user has an account.
@@ -166,39 +163,58 @@ namespace Library
         /// <param name="num">The number.</param>
         public static List<Permissions> IntToPerm(int num)
         {
+            // TODO: Comment this method.
             List<Permissions> permissions = new List<Permissions>();
             switch (num)
             {
+                // CRD
+                // 000
                 case 0:
                     permissions.Add(Library.Permissions.None);
                     break;
 
+                // CRD
+                // 001
                 case 1:
                     permissions.Add(Library.Permissions.Delete);
                     break;
 
+                // CRD
+                // 010
                 case 2:
                     permissions.Add(Library.Permissions.Read);
                     break;
 
+                // CRD
+                // 011
                 case 3:
                     permissions.Add(Library.Permissions.Read);
                     goto case 1;
 
+                // CRD
+                // 100
                 case 4:
                     permissions.Add(Library.Permissions.Create);
                     break;
 
+                // CRD
+                // 101
                 case 5:
                     permissions.Add(Library.Permissions.Delete);
                     goto case 4;
 
+                // CRD
+                // 110
                 case 6:
                     permissions.Add(Library.Permissions.Create);
                     goto case 2;
+
+                // CRD
+                // 111
                 case 7:
                     permissions.Add(Library.Permissions.Create);
-                    goto case 6;
+                    goto case 3;
+
                 default:
                     return null;
             }
@@ -295,7 +311,7 @@ namespace Library
         /// <param name="colnames">The colnames.</param>
         /// <param name="colvalues">The colvalues.</param>
         /// <returns></returns>
-        public override void Save()
+        public void Save()
         {
             List<string> colvalues = new List<string>() { _id.ToString(), _name, PermToInt(Permissions).ToString(), ((int)state).ToString() };
             if (state != UserState.Idle && state != UserState.CreatingAccount)
@@ -305,6 +321,7 @@ namespace Library
             Database database = new Database();
             database.Save(TABLE_NAME, COL_NAMES, colvalues);
             database.Dispose();
+            Saved = true;
         }
 
         #endregion Database Stuff

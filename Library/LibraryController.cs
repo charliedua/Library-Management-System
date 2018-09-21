@@ -59,9 +59,20 @@ namespace Library
         /// <param name="entities">The entities.</param>
         /// <param name="ID">The identifier.</param>
         /// <returns></returns>
-        public bool DeleteEntityByID(Entities entities, int ID)
+        public Entity DeleteEntityByID(Entities entities, int ID)
         {
-            return entities == Entities.User ? _users.RemoveAll(x => x.ID == ID) > 0 : _items.RemoveAll(x => x.ID == ID) > 0;
+            Entity temp;
+            if (entities == Entities.User)
+            {
+                temp = _users.Find(x => x.ID == ID);
+                _users.RemoveAll(x => x.ID == ID);
+            }
+            else
+            {
+                temp = _items.Find(x => x.ID == ID);
+                _items.RemoveAll(x => x.ID == ID);
+            }
+            return temp;
         }
 
         /// <summary>
@@ -106,28 +117,84 @@ namespace Library
         public void LoadAllEntities()
         {
             Database database = new Database();
-            SQLiteDataReader UserReader = database.LoadReader("Users", "1");
+            SQLiteDataReader UserReader = database.LoadReader(User.TABLE_NAME, "1");
             while (UserReader.HasRows)
             {
                 User user = User.Load(UserReader);
                 if (user != null)
                 {
+                    user.Saved = true;
                     _users.Add(user);
                 }
             }
             UserReader.Close();
             database.Disconnect();
-            SQLiteDataReader ItemsReader = database.LoadReader("Items", "1");
+            SQLiteDataReader ItemsReader = database.LoadReader(LibraryItem.TABLE_NAME, "1");
             while (ItemsReader.HasRows)
             {
                 LibraryItem item = LibraryItem.Load(ItemsReader);
                 if (item != null)
                 {
-                    _items.Add(LibraryItem.Load(ItemsReader));
+                    item.Saved = true;
+                    _items.Add(item);
                 }
             }
             ItemsReader.Close();
             database.Dispose();
+        }
+
+        /// <summary>
+        /// Gets the next new entity identifier.
+        /// </summary>
+        /// <param name="entities">The entities.</param>
+        /// <returns></returns>
+        public int GetNextNewEntityID(Entities entities)
+        {
+            int toReturn;
+            using (Database database = new Database())
+            {
+                if (entities == Entities.User)
+                {
+                    toReturn = database.GetLastInsertedID(User.TABLE_NAME);
+                    int max = toReturn;
+                    foreach (var user in _users)
+                    {
+                        if (user.ID > toReturn)
+                        {
+                            toReturn = user.ID;
+                        }
+                    }
+                }
+                else
+                {
+                    toReturn = database.GetLastInsertedID(LibraryItem.TABLE_NAME);
+                    foreach (var item in _items)
+                    {
+                        if (item.ID > toReturn)
+                        {
+                            toReturn = item.ID;
+                        }
+                    }
+                }
+            }
+            return toReturn + 1;
+        }
+
+        /// <summary>
+        /// Saves the unsaved.
+        /// </summary>
+        /// <param name="_entities">The entities.</param>
+        /// <returns></returns>
+        public int SaveTheUnsaved(Entities _entities)
+        {
+            int num = 0;
+            List<ISavable> savables = _entities == Entities.User ? _users.ToList<ISavable>() : _items.ToList<ISavable>();
+            foreach (ISavable savable in savables.FindAll(x => !x.Saved))
+            {
+                savable.Save();
+                num++;
+            }
+            return num;
         }
     }
 }

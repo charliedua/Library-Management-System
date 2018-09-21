@@ -14,13 +14,20 @@ namespace Library
     public class LibraryItem : Entity, ISavable
     {
         /// <summary>
+        /// The table name
+        /// </summary>
+        public const string TABLE_NAME = "Items";
+
+        public bool Saved { get; set; } = false;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LibraryItem"/> class.
         /// </summary>
         /// <param name="name">The name of the item.</param>
-        public LibraryItem(string name) : base(name)
+        public LibraryItem(string name, int id) : base(name)
         {
             Database database = new Database();
-            _id = database.GetLastInsertedID(TABLE_NAME) + 1;
+            _id = id;
             database.Dispose();
             Available = true;
         }
@@ -51,11 +58,6 @@ namespace Library
             }
         }
 
-        /// <summary>
-        /// The table name
-        /// </summary>
-        public override string TABLE_NAME => "Items";
-
         #region Database Stuff
 
         /// <summary>
@@ -80,11 +82,12 @@ namespace Library
         /// <summary>
         /// Saves this instance to db.
         /// </summary>
-        public override void Save()
+        public void Save()
         {
             List<string> colVals = new List<string>() { _id.ToString(), _name };
             Database database = new Database();
             database.Save(TABLE_NAME, COL_NAMES, colVals);
+            Saved = true;
         }
 
         #endregion Database Stuff

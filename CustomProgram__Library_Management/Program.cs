@@ -41,17 +41,13 @@ namespace CustomProgram__Library_Management
                 helpText = !verified ? "Wrong Credentials\n" : "Successfully logged in\n";
                 Console.Write(helpText);
             } while (!verified);
-            Command command = new CreateCommand();
+            CommandProcessor processor = new CommandProcessor(controller);
             string text = "";
             while (true)
             {
                 Console.Write("Write your command here $ ");
                 text = Console.ReadLine();
-                if (text == "QUIT")
-                {
-                    break;
-                }
-                Console.WriteLine(command.Execute(ref controller, text.Split(' ')));
+                Console.WriteLine(processor.Invoke(text));
             }
         }
     }

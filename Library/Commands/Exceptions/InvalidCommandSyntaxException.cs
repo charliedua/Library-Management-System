@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Library.Commands
+namespace Library.Commands.Exceptions
 {
     [Serializable]
     internal class InvalidCommandSyntaxException : Exception

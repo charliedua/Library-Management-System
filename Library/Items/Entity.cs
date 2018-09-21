@@ -3,15 +3,10 @@ using System.Data.SQLite;
 
 namespace Library
 {
-    public abstract class Entity : ISavable
+    public abstract class Entity
     {
         protected int _id;
         protected string _name;
-
-        /// <summary>
-        /// The table name
-        /// </summary>
-        public virtual string TABLE_NAME { get; }
 
         /// <summary>
         /// The col names in the table
@@ -81,10 +76,5 @@ namespace Library
         /// </summary>
         /// <param name="id">The identifier.</param>
         public bool AreYou(int id) => id == _id;
-
-        /// <summary>
-        /// Saves this instance to db.
-        /// </summary>
-        public abstract void Save();
     }
 }

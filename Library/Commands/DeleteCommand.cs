@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Commands.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,35 +27,64 @@ namespace Library.Commands
         }
 
         /// <summary>
+        /// The help text
+        /// </summary>
+        private const string HELP_TEXT = "DELETE [USER | ITEM] ID [INTEGER]";
+
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public override string Name => "DELETE";
+
+        /// <summary>
+        /// Gets the description.
+        /// </summary>
+        /// <value>
+        /// The description.
+        /// </value>
+        public override string Description => "This is the command to delete entities.";
+
+        public override List<string> Identifiers => new List<string>() { "DELETE", "REMOVE" };
+
+        /// <summary>
         /// Checks if valid.
         /// </summary>
         /// <param name="Text">The text.</param>
         /// <returns></returns>
         /// <exception cref="InvalidCommandSyntaxException"></exception>
-        public override bool CheckIfValid(string[] Text)
+        public override (bool, string) CheckIfValid(string[] Text)
         {
+            (bool, string) errrmsg = (false, "Expected: \n\t" + HELP_TEXT);
+            if (Text.Length > 0)
+            {
+                if (!ContainsIdent(Text[0])) return errrmsg;
+                if (Text.Last() == "?") return (false, "Usage: \n\t" + HELP_TEXT);
+            }
             switch (Text.Length)
             {
-                case 3:
-                    if (Text[0] != "DELETE") throw new InvalidCommandSyntaxException("[DELETE]");
-                    if (Text[1] != "USER" && Text[1] != "ITEM") throw new InvalidCommandSyntaxException("'USER' or 'ITEM'");
-                    if (Text[2] != "ID") throw new InvalidCommandSyntaxException("[ID]");
-                    if (int.TryParse(Text[3], out int a)) throw new InvalidCommandSyntaxException("[INTEGER]");
-                    return true;
+                case 4:
+                    if (Text[1] != "USER" && Text[1] != "ITEM") return errrmsg;
+                    if (Text[2] != "ID") return errrmsg;
+                    if (!int.TryParse(Text[3], out int a)) return errrmsg;
+                    break;
 
                 case 8:
-                    if (Text[0] != "DELETE") throw new InvalidCommandSyntaxException("[DELETE]");
-                    if (Text[1] != "ITEM") throw new InvalidCommandSyntaxException("'USER' or 'ITEM'");
-                    if (int.TryParse(Text[3], out int b)) throw new InvalidCommandSyntaxException("[INTEGER]");
-                    if (Text[4] != "FROM") throw new InvalidCommandSyntaxException("[FROM]");
-                    if (Text[5] != "USER") throw new InvalidCommandSyntaxException("[USER]");
-                    if (Text[6] != "ID") throw new InvalidCommandSyntaxException("[ID]");
-                    if (int.TryParse(Text[7], out int c)) throw new InvalidCommandSyntaxException("[INTEGER]");
-                    return true;
+                    if (Text[0] != "DELETE") return errrmsg;
+                    if (Text[1] != "ITEM") return errrmsg;
+                    if (!int.TryParse(Text[3], out int b)) return errrmsg;
+                    if (Text[4] != "FROM") return errrmsg;
+                    if (Text[5] != "USER") return errrmsg;
+                    if (Text[6] != "ID") return errrmsg;
+                    if (!int.TryParse(Text[7], out int c)) return errrmsg;
+                    break;
 
                 default:
-                    throw new InvalidCommandSyntaxException("DELETE [USER | ITEM] ID [INTEGER]");
+                    return errrmsg;
             }
+            return (true, "");
         }
 
         /// <summary>
@@ -65,15 +95,12 @@ namespace Library.Commands
         /// <returns></returns>
         public override string Execute(ref LibraryController controller, string[] text)
         {
-            bool valid;
             Entity entity = null;
-            try
+            var data = CheckIfValid(text);
+            bool valid = data.Item1;
+            if (!valid)
             {
-                valid = CheckIfValid(text);
-            }
-            catch (InvalidCommandSyntaxException ex)
-            {
-                return ex.Message;
+                return data.Item2;
             }
             Database database = new Database();
             if (valid)
@@ -82,11 +109,13 @@ namespace Library.Commands
                 switch (text[1])
                 {
                     case "ITEM":
-                        found = controller.DeleteEntityByID(Entities.User, int.Parse(text[3]));
+                        entity = controller.DeleteEntityByID(Entities.User, int.Parse(text[3]));// REMOVES IT FROM THE CONTROLLER
+                        found = entity != null;
                         break;
 
                     case "USER":
-                        found = controller.DeleteEntityByID(Entities.Item, int.Parse(text[3]));
+                        entity = controller.DeleteEntityByID(Entities.Item, int.Parse(text[3]));
+                        found = entity != null;
                         break;
 
                     default:
@@ -95,10 +124,22 @@ namespace Library.Commands
                 }
                 if (found)
                 {
-                    database.Delete(entity.TABLE_NAME, entity.ID);
+                    switch (entity)
+                    {
+                        case User _:
+                            database.Delete(User.TABLE_NAME, entity.ID); // REMOVES IT FROMT THE DATABASE
+                            break;
+
+                        case LibraryItem _:
+                            database.Delete(LibraryItem.TABLE_NAME, entity.ID); // REMOVES IT FROMT THE DATABASE
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
             }
-            return entity.Details;
+            return entity != null ? entity.Details : "Can't find the entity";
         }
     }
 }
