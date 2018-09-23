@@ -25,7 +25,15 @@ namespace Library.Commands
         public CommandProcessor(LibraryController controller, Action quit)
         {
             Controller = controller;
-            _commands = new List<Command>() { new CreateCommand(), new DeleteCommand(), new SaveCommand(), new QuitCommand(quit) };
+            _commands = new List<Command>()
+            {
+                new CreateCommand(),
+                new DeleteCommand(),
+                new SaveCommand  (),
+                new QuitCommand  (quit),
+                new IssueCommand(),
+                new ShowCommand()
+            };
             _commands.Add(new HelpCommand(_commands));
         }
 

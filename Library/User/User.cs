@@ -353,6 +353,7 @@ namespace Library
             if (IsAuthenticated)
             {
                 Inventory.Put(item);
+                item.Available = false;
             }
             else
             {

@@ -74,8 +74,10 @@
     <Compile Include="Commands\Exceptions\InvalidCommandParamatersException.cs" />
     <Compile Include="Commands\Exceptions\InvalidCommandSyntaxException.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
+    <Compile Include="Commands\IssueCommand.cs" />
     <Compile Include="Commands\QuitCommand.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
+    <Compile Include="Commands\ShowCommand.cs" />
     <Compile Include="Entities.cs" />
     <Compile Include="Exceptions\DoesNotHavePermissionException.cs" />
     <Compile Include="ISavable.cs" />

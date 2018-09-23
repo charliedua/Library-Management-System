@@ -14,7 +14,6 @@ namespace Library.Commands
          * SAVE ITEM ALL
          * SAVE ITEM ID [INT]
          * SAVE ALL
-         * SAVE ?
         */
 
         public SaveCommand()
@@ -27,7 +26,7 @@ namespace Library.Commands
 
         public override List<string> Identifiers => new List<string>() { "SAVE" };
 
-        public override string Usage => throw new NotImplementedException();
+        public override string Usage => "{SAVE [ITEM | USER] ALL} \n {SAVE ALL} \n {SAVE [ITEM | USER] ID [INT]}";
 
         public override (bool, string) CheckIfValid(ref string[] text)
         {
@@ -66,7 +65,7 @@ namespace Library.Commands
         {
             var data = CheckIfValid(ref text);
             bool valid = data.Item1;
-            if (valid)
+            if (!valid)
             {
                 return data.Item2;
             }
