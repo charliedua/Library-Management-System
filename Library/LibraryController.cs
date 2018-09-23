@@ -104,11 +104,16 @@ namespace Library
         public bool Login(string username, string password)
         {
             User user = FindUserByUsername(username);
+            bool isUservalid = false;
             if (user != null)
             {
-                return user.Login(username, password);
+                isUservalid = user.Login(username, password);
+                if (isUservalid)
+                {
+                    CurrentUser = user;
+                }
             }
-            return false;
+            return isUservalid;
         }
 
         /// <summary>

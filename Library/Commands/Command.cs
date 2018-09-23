@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Library.Commands
 {
@@ -50,11 +51,21 @@ namespace Library.Commands
         /// </summary>
         /// <param name="text">The text.</param>
         /// <returns></returns>
-        public virtual (bool, string) CheckIfValid(string[] text)
+        public virtual (bool, string) CheckIfValid(ref string[] text)
         {
+            PriorityUpgrade(ref text, new int[] { 0 });
             if (!(text.Length > 0)) return (false, Usage);
             if (!ContainsIdent(text[0])) return (false, Usage);
+            if (text.Last() == "?") return (false, Usage);
             return (true, "");
+        }
+
+        public virtual void PriorityUpgrade(ref string[] text, int[] vs)
+        {
+            foreach (var item in vs)
+            {
+                text[item] = text[item].ToUpper();
+            }
         }
 
         /// <summary>

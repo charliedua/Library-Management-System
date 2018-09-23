@@ -17,7 +17,7 @@ namespace Library.Commands
         /// <summary>
         /// The help text
         /// </summary>
-        private const string HELP_TEXT = "[HELP | ?]";
+        public override string Usage => "[HELP | ?]";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HelpCommand"/> class.
@@ -61,10 +61,9 @@ namespace Library.Commands
         /// </summary>
         /// <param name="text">The text.</param>
         /// <returns></returns>
-        public override (bool, string) CheckIfValid(string[] text)
+        public override (bool, string) CheckIfValid(ref string[] text)
         {
-            if (text.Length != 1) return (false, HELP_TEXT);
-            if (!ContainsIdent(text[0])) return (false, HELP_TEXT);
+            base.CheckIfValid(ref text);
             return (true, "");
         }
 
@@ -76,7 +75,7 @@ namespace Library.Commands
         /// <returns></returns>
         public override string Execute(ref LibraryController controller, string[] text)
         {
-            var data = CheckIfValid(text);
+            var data = CheckIfValid(ref text);
             bool valid = data.Item1;
             if (!valid)
             {

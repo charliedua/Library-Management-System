@@ -29,7 +29,7 @@ namespace Library.Commands
         /// <summary>
         /// The help text
         /// </summary>
-        private const string HELP_TEXT = "DELETE [USER | ITEM] ID [INTEGER]";
+        public override string Usage => "DELETE [USER | ITEM] ID [INTEGER]";
 
         /// <summary>
         /// Gets the name.
@@ -52,33 +52,35 @@ namespace Library.Commands
         /// <summary>
         /// Checks if valid.
         /// </summary>
-        /// <param name="Text">The text.</param>
+        /// <param name="text">The text.</param>
         /// <returns></returns>
         /// <exception cref="InvalidCommandSyntaxException"></exception>
-        public override (bool, string) CheckIfValid(string[] Text)
+        public override (bool, string) CheckIfValid(ref string[] text)
         {
-            (bool, string) errrmsg = (false, "Expected: \n\t" + HELP_TEXT);
-            if (Text.Length > 0)
+            (bool, string) errrmsg = (false, "Expected: \n\t" + Usage);
+            if (text.Length > 0)
             {
-                if (!ContainsIdent(Text[0])) return errrmsg;
-                if (Text.Last() == "?") return (false, "Usage: \n\t" + HELP_TEXT);
+                if (!ContainsIdent(text[0])) return errrmsg;
+                if (text.Last() == "?") return (false, "Usage: \n\t" + Usage);
             }
-            switch (Text.Length)
+            switch (text.Length)
             {
                 case 4:
-                    if (Text[1] != "USER" && Text[1] != "ITEM") return errrmsg;
-                    if (Text[2] != "ID") return errrmsg;
-                    if (!int.TryParse(Text[3], out int a)) return errrmsg;
+                    PriorityUpgrade(ref text, new int[] { 1, 2 });
+                    if (text[1] != "USER" && text[1] != "ITEM") return errrmsg;
+                    if (text[2] != "ID") return errrmsg;
+                    if (!int.TryParse(text[3], out int a)) return errrmsg;
                     break;
 
                 case 8:
-                    if (Text[0] != "DELETE") return errrmsg;
-                    if (Text[1] != "ITEM") return errrmsg;
-                    if (!int.TryParse(Text[3], out int b)) return errrmsg;
-                    if (Text[4] != "FROM") return errrmsg;
-                    if (Text[5] != "USER") return errrmsg;
-                    if (Text[6] != "ID") return errrmsg;
-                    if (!int.TryParse(Text[7], out int c)) return errrmsg;
+                    PriorityUpgrade(ref text, new int[] { 0, 1, 4, 5, 6 });
+                    if (text[0] != "DELETE") return errrmsg;
+                    if (text[1] != "ITEM") return errrmsg;
+                    if (!int.TryParse(text[3], out int b)) return errrmsg;
+                    if (text[4] != "FROM") return errrmsg;
+                    if (text[5] != "USER") return errrmsg;
+                    if (text[6] != "ID") return errrmsg;
+                    if (!int.TryParse(text[7], out int c)) return errrmsg;
                     break;
 
                 default:
@@ -96,7 +98,7 @@ namespace Library.Commands
         public override string Execute(ref LibraryController controller, string[] text)
         {
             Entity entity = null;
-            var data = CheckIfValid(text);
+            var data = CheckIfValid(ref text);
             bool valid = data.Item1;
             if (!valid)
             {

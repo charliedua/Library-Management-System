@@ -27,11 +27,11 @@ namespace Library
         /// <param name="name">The name.</param>
         public User(string name, int id) : base(name)
         {
-            this.Inventory = new Inventory();
+            this.Inventory = new Inventory(this);
 
             COL_NAMES.AddRange(new string[] { "Permissions", "State" });
             Database database = new Database();
-            _id = id; // BUG: it will always get the last one, we don't want that we have local storage as well.
+            _id = id;
             database.Dispose();
             Permissions = new List<Permissions>() { Library.Permissions.None };
             state = UserState.Idle;
@@ -92,7 +92,7 @@ namespace Library
         /// <value>
         /// The inventory.
         /// </value>
-        private Inventory Inventory { get; set; }
+        public Inventory Inventory { get; set; }
 
         #region Authentication stuff
 
@@ -320,6 +320,10 @@ namespace Library
             }
             Database database = new Database();
             database.Save(TABLE_NAME, COL_NAMES, colvalues);
+            if ((Inventory.Saved || Inventory.IsEmpty) || Inventory.IsChanged)
+            {
+                Inventory.Save();
+            }
             database.Dispose();
             Saved = true;
         }

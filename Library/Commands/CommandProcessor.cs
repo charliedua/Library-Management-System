@@ -22,10 +22,10 @@ namespace Library.Commands
         /// Initializes a new instance of the <see cref="CommandProcessor"/> class.
         /// </summary>
         /// <param name="controller">The controller.</param>
-        public CommandProcessor(LibraryController controller)
+        public CommandProcessor(LibraryController controller, Action quit)
         {
             Controller = controller;
-            _commands = new List<Command>() { new CreateCommand(), new DeleteCommand() };
+            _commands = new List<Command>() { new CreateCommand(), new DeleteCommand(), new SaveCommand(), new QuitCommand(quit) };
             _commands.Add(new HelpCommand(_commands));
         }
 

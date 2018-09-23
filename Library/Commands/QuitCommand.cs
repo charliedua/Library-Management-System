@@ -21,12 +21,12 @@ namespace Library.Commands
 
         public override List<string> Identifiers => new List<string>() { "QUIT", "EXIT", "BYE" };
 
-        public override string Usage => throw new NotImplementedException();
+        public override string Usage => "[ QUIT | BYE | EXIT ]";
 
         public override string Execute(ref LibraryController controller, string[] text)
         {
-            (bool, string) data = CheckIfValid(text);
-            if (data.Item1)
+            (bool, string) data = CheckIfValid(ref text);
+            if (!data.Item1)
             {
                 return data.Item2;
             }

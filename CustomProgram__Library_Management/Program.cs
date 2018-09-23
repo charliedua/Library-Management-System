@@ -41,7 +41,7 @@ namespace CustomProgram__Library_Management
                 helpText = !verified ? "Wrong Credentials\n" : "Successfully logged in\n";
                 Console.Write(helpText);
             } while (!verified);
-            CommandProcessor processor = new CommandProcessor(controller);
+            CommandProcessor processor = new CommandProcessor(controller, Quit);
             string text = "";
             while (true)
             {
@@ -49,6 +49,11 @@ namespace CustomProgram__Library_Management
                 text = Console.ReadLine();
                 Console.WriteLine(processor.Invoke(text));
             }
+        }
+
+        private static void Quit()
+        {
+            System.Environment.Exit(Environment.ExitCode);
         }
     }
 }
