@@ -21,6 +21,8 @@ namespace Library.Commands
         /// </value>
         public abstract string Usage { get; }
 
+        public virtual Permissions RequiredPermissions => Permissions.None;
+
         /// <summary>
         /// Gets the description.
         /// </summary>

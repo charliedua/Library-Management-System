@@ -45,6 +45,8 @@ namespace Library.Commands
 
         public override List<string> Identifiers => new List<string>() { "CREATE", "MAKE", "INTITIALIZE" };
 
+        public override Permissions RequiredPermissions => Permissions.Create;
+
         /// <summary>
         /// Checks if valid.
         /// </summary>

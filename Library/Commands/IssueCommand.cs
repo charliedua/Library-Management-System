@@ -22,6 +22,8 @@ namespace Library.Commands
 
         public override string Description => "Command to issue items";
 
+        public override Permissions RequiredPermissions => Permissions.Read;
+
         public override List<string> Identifiers => new List<string>() { "ISSUE", "TAKE", "BORROW" };
 
         public override (bool, string) CheckIfValid(ref string[] text)
@@ -55,8 +57,12 @@ namespace Library.Commands
                 return data.Item2;
             }
             LibraryItem item = (LibraryItem)controller.FindEntityByID(Entities.Item, int.Parse(text[3]));
-            controller.CurrentUser.Issue(item);
-            return $"Item Issued Successfully.\nDetails: \n{item.Details}";
+            if (item != null && item.Available)
+            {
+                controller.CurrentUser.Issue(item);
+                return $"Item Issued Successfully.\nDetails: \n{item.Details}";
+            }
+            return "Can't issue item, ID not found OR unavailable";
         }
     }
 }

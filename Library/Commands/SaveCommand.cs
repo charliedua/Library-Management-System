@@ -21,7 +21,7 @@ namespace Library.Commands
         }
 
         public override string Name => "SAVE";
-
+        public override Permissions RequiredPermissions => Permissions.Create;
         public override string Description => "This Command lets you save stuff to the database";
 
         public override List<string> Identifiers => new List<string>() { "SAVE" };

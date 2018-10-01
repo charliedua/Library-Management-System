@@ -49,6 +49,8 @@ namespace Library.Commands
 
         public override List<string> Identifiers => new List<string>() { "DELETE", "REMOVE" };
 
+        public override Permissions RequiredPermissions => Permissions.Delete;
+
         /// <summary>
         /// Checks if valid.
         /// </summary>

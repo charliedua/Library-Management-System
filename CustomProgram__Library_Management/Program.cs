@@ -21,7 +21,34 @@ namespace CustomProgram__Library_Management
         {
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
             LibraryController controller = new LibraryController();
+            CommandProcessor processor = new CommandProcessor(controller, Quit, Clear);
+            string userInput = "";
             controller.LoadAllEntities();
+            AskForLogin(controller);
+            while (true)
+            {
+                while (controller._authenticated)
+                {
+                    Console.Write("Write your command here $ ");
+                    userInput = Console.ReadLine();
+                    Console.WriteLine(processor.Invoke(userInput));
+                }
+                AskForLogin(controller);
+            }
+        }
+
+        private static void Quit()
+        {
+            Environment.Exit(Environment.ExitCode);
+        }
+
+        private static void Clear()
+        {
+            Console.Clear();
+        }
+
+        private static void AskForLogin(LibraryController controller)
+        {
             string password;
             string username;
             string helpText = "";
@@ -30,6 +57,7 @@ namespace CustomProgram__Library_Management
             {
                 do
                 {
+                    Console.Clear();
                     Console.Write("Login as: ");
                     username = Console.ReadLine();
                     helpText = Regex.IsMatch(username, @"^[A-Za-z0-9]+$") ? "" : "Wrong Format for username\n";
@@ -41,19 +69,6 @@ namespace CustomProgram__Library_Management
                 helpText = !verified ? "Wrong Credentials\n" : "Successfully logged in\n";
                 Console.Write(helpText);
             } while (!verified);
-            CommandProcessor processor = new CommandProcessor(controller, Quit);
-            string text = "";
-            while (true)
-            {
-                Console.Write("Write your command here $ ");
-                text = Console.ReadLine();
-                Console.WriteLine(processor.Invoke(text));
-            }
-        }
-
-        private static void Quit()
-        {
-            System.Environment.Exit(Environment.ExitCode);
         }
     }
 }

@@ -3,10 +3,10 @@
   <Class Name="Library.User">
     <Position X="5.5" Y="4.75" Width="2.5" />
     <Members>
-      <Property Name="TABLE_NAME" Hidden="true" />
+      <Field Name="TABLE_NAME" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAEAgoAIAAABQEQIAAAQBAIiAAAAAAAEEAAYEgAAAEA=</HashCode>
+      <HashCode>AAEAgoAIAAABQEQIAAAYBAIiAAAAAAAEEAAYEgAAAEA=</HashCode>
       <FileName>User\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -28,9 +28,10 @@
   <Class Name="Library.Inventory">
     <Position X="3.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAAAAAAAAAACAABAAAAAAAAEAAAAAAAg=</HashCode>
+      <HashCode>AABBoIAAAAACAAAAAAAIAACAABAAAAAAAAEAAAAAAAg=</HashCode>
       <FileName>User\Inventory.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.Database">
     <Position X="6.5" Y="0.5" Width="2.5" />
@@ -46,24 +47,20 @@
   <Class Name="Library.LibraryItem">
     <Position X="2" Y="4.75" Width="3" />
     <Members>
-      <Property Name="TABLE_NAME" Hidden="true" />
+      <Field Name="TABLE_NAME" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAABAEAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgIAAAAABAEAAAAAIAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Items\LibraryItem.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.Entity">
     <Position X="3.5" Y="0.5" Width="2.5" />
-    <Members>
-      <Property Name="TABLE_NAME" Hidden="true" />
-    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAIIAAAAABgEAAAABAAAQIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAIIAAAAABgAAAAABAAAQIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Items\Entity.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.Commands.CommandProcessor">
     <Position X="13.25" Y="0.75" Width="2.5" />
@@ -75,35 +72,35 @@
   <Class Name="Library.Commands.CreateCommand">
     <Position X="14.5" Y="6.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgEAQAAAAAAAQAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAAAAAAAIAAAA=</HashCode>
       <FileName>Commands\CreateCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Commands.DeleteCommand">
     <Position X="16.75" Y="6.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgEAQAAAAAAAQAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAAAAAAAIAAAA=</HashCode>
       <FileName>Commands\DeleteCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.LibraryController">
     <Position X="12.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAIAACAAAAAAAEEAAABAAAICAAAAQAAAAAIA=</HashCode>
+      <HashCode>AAAAACAAAIABCAAAAAIAEUIAABAAAICAAAAQAAAAAIA=</HashCode>
       <FileName>LibraryController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Commands.Command">
-    <Position X="15.75" Y="4.25" Width="1.5" />
+    <Position X="16.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgEAQAAAAAAAQAAAAAAAAAAAAAAAoAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAQAAAAAoAAAA=</HashCode>
       <FileName>Commands\Command.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Library.ISavable">
     <Position X="9.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ISavable.cs</FileName>
     </TypeIdentifier>
   </Interface>

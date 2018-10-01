@@ -46,7 +46,6 @@ namespace Library
         /// <param name="perms">The array of Permissions.</param>
         public User(string name, int id, UserAccount account, UserState state, List<Permissions> perms) : this(name, id)
         {
-            // FIXME: save it after the account is created
             Permissions = perms;
             this.state = state;
             _account = account;
@@ -241,6 +240,7 @@ namespace Library
         /// </returns>
         public bool HasPermission(Permissions perm)
         {
+            if (perm == Library.Permissions.None) return true;
             return Permissions.Contains(perm);
         }
 

@@ -12,6 +12,8 @@ namespace Library
     /// </summary>
     public class LibraryController
     {
+        public bool _authenticated = false;
+
         /// <summary>
         /// The items
         /// </summary>
@@ -30,20 +32,20 @@ namespace Library
         }
 
         /// <summary>
-        /// Gets the items.
-        /// </summary>
-        /// <value>
-        /// The items.
-        /// </value>
-        public List<LibraryItem> Items { get => _items; }
-
-        /// <summary>
         /// Gets or sets the user.
         /// </summary>
         /// <value>
         /// The user.
         /// </value>
         public User CurrentUser { get; set; }
+
+        /// <summary>
+        /// Gets the items.
+        /// </summary>
+        /// <value>
+        /// The items.
+        /// </value>
+        public List<LibraryItem> Items { get => _items; }
 
         /// <summary>
         /// Gets the users.
@@ -96,24 +98,40 @@ namespace Library
         }
 
         /// <summary>
-        /// Logins the specified username.
+        /// Gets the next new entity identifier.
         /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
+        /// <param name="entities">The entities.</param>
         /// <returns></returns>
-        public bool Login(string username, string password)
+        public int GetNextNewEntityID(Entities entities)
         {
-            User user = FindUserByUsername(username);
-            bool isUservalid = false;
-            if (user != null)
+            int toReturn;
+            using (Database database = new Database())
             {
-                isUservalid = user.Login(username, password);
-                if (isUservalid)
+                if (entities == Entities.User)
                 {
-                    CurrentUser = user;
+                    toReturn = database.GetLastInsertedID(User.TABLE_NAME);
+                    int max = toReturn;
+                    foreach (var user in _users)
+                    {
+                        if (user.ID > toReturn)
+                        {
+                            toReturn = user.ID;
+                        }
+                    }
+                }
+                else
+                {
+                    toReturn = database.GetLastInsertedID(LibraryItem.TABLE_NAME);
+                    foreach (var item in _items)
+                    {
+                        if (item.ID > toReturn)
+                        {
+                            toReturn = item.ID;
+                        }
+                    }
                 }
             }
-            return isUservalid;
+            return toReturn + 1;
         }
 
         /// <summary>
@@ -149,40 +167,35 @@ namespace Library
         }
 
         /// <summary>
-        /// Gets the next new entity identifier.
+        /// Logins the specified username.
         /// </summary>
-        /// <param name="entities">The entities.</param>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
         /// <returns></returns>
-        public int GetNextNewEntityID(Entities entities)
+        public bool Login(string username, string password)
         {
-            int toReturn;
-            using (Database database = new Database())
+            if (_authenticated)
             {
-                if (entities == Entities.User)
+                return false;
+            }
+            User user = FindUserByUsername(username);
+            bool isUservalid = false;
+            if (user != null)
+            {
+                isUservalid = user.Login(username, password);
+                if (isUservalid)
                 {
-                    toReturn = database.GetLastInsertedID(User.TABLE_NAME);
-                    int max = toReturn;
-                    foreach (var user in _users)
-                    {
-                        if (user.ID > toReturn)
-                        {
-                            toReturn = user.ID;
-                        }
-                    }
-                }
-                else
-                {
-                    toReturn = database.GetLastInsertedID(LibraryItem.TABLE_NAME);
-                    foreach (var item in _items)
-                    {
-                        if (item.ID > toReturn)
-                        {
-                            toReturn = item.ID;
-                        }
-                    }
+                    CurrentUser = user;
+                    _authenticated = true;
                 }
             }
-            return toReturn + 1;
+            return isUservalid;
+        }
+
+        public bool Logout()
+        {
+            _authenticated = !CurrentUser.Logout();
+            return _authenticated;
         }
 
         /// <summary>

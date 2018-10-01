@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ClearCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandProcessor.cs" />
     <Compile Include="Commands\CreateCommand.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Commands\Exceptions\InvalidCommandSyntaxException.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\IssueCommand.cs" />
+    <Compile Include="Commands\LogoutCommand.cs" />
     <Compile Include="Commands\QuitCommand.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\ShowCommand.cs" />

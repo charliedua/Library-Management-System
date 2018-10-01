@@ -15,6 +15,8 @@ namespace Library.Commands
          * SHOW ALL USERS
          */
 
+        public override Permissions RequiredPermissions { get => Permissions.Read; }
+
         public ShowCommand()
         {
         }

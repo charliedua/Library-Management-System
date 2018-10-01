@@ -22,7 +22,7 @@ namespace Library.Commands
         /// Initializes a new instance of the <see cref="CommandProcessor"/> class.
         /// </summary>
         /// <param name="controller">The controller.</param>
-        public CommandProcessor(LibraryController controller, Action quit)
+        public CommandProcessor(LibraryController controller, Action quit, Action clear)
         {
             Controller = controller;
             _commands = new List<Command>()
@@ -31,8 +31,10 @@ namespace Library.Commands
                 new DeleteCommand(),
                 new SaveCommand  (),
                 new QuitCommand  (quit),
-                new IssueCommand(),
-                new ShowCommand()
+                new IssueCommand (),
+                new ShowCommand  (),
+                new LogoutCommand(),
+                new ClearCommand (clear)
             };
             _commands.Add(new HelpCommand(_commands));
         }
@@ -78,6 +80,8 @@ namespace Library.Commands
             int index = GetIndexFromCommandText(cmdTxtArr);
             if (index != -1)
             {
+                if (!Controller.CurrentUser.HasPermission(_commands[index].RequiredPermissions))
+                    return "You don't have permissions to do this task \nRequired permissions" + _commands[index].RequiredPermissions.ToString();
                 return _commands[index].Execute(ref Controller, cmdTxtArr.ToArray());
             }
             return "There is something That this Library is not Capable of YET. \n";
