@@ -56,6 +56,19 @@ namespace Library
         public List<User> Users { get => _users; }
 
         /// <summary>
+        /// Finds the name of the entity by.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public List<Entity> FindEntityByName(string name)
+        {
+            List<Entity> entities = new List<Entity>();
+            entities.AddRange(Users.FindAll(x => x.Name == name));
+            entities.AddRange(Items.FindAll(x => x.Name == name));
+            return entities;
+        }
+
+        /// <summary>
         /// Deletes the entity by identifier.
         /// </summary>
         /// <param name="entities">The entities.</param>
@@ -94,7 +107,7 @@ namespace Library
         /// <returns></returns>
         public User FindUserByUsername(string username)
         {
-            return _users.Find(x => x._hasAccount ? x.Account.Username == username : false);
+            return _users.Find(x => x.HasAccount ? x.Account.Username == username : false);
         }
 
         /// <summary>
@@ -163,6 +176,10 @@ namespace Library
                 }
             }
             ItemsReader.Close();
+            foreach (User user in _users)
+            {
+                Inventory.Load(database, user, this);
+            }
             database.Dispose();
         }
 
@@ -180,9 +197,9 @@ namespace Library
             }
             User user = FindUserByUsername(username);
             bool isUservalid = false;
-            if (user != null)
+            if (user != null && user.HasAccount)
             {
-                isUservalid = user.Login(username, password);
+                isUservalid = user.Account.Login(username, password);
                 if (isUservalid)
                 {
                     CurrentUser = user;
@@ -192,10 +209,13 @@ namespace Library
             return isUservalid;
         }
 
-        public bool Logout()
+        /// <summary>
+        /// Logouts the user associated.
+        /// </summary>
+        /// <returns></returns>
+        public void Logout()
         {
-            _authenticated = !CurrentUser.Logout();
-            return _authenticated;
+            _authenticated = !CurrentUser.Account.Logout();
         }
 
         /// <summary>

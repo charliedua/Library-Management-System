@@ -120,7 +120,7 @@ namespace Library.Commands
                     entity = new User(text[2], controller.GetNextNewEntityID(Entities.User));
                     if (text.Length > 3 && text[3] == "-P")
                     {
-                        ((User)entity).Permissions = User.IntToPerm(int.Parse(text[4]));
+                        ((User)entity).Permissions = Utils.Utility.IntToPerm(int.Parse(text[4]));
                     }
                     break;
 
@@ -132,7 +132,7 @@ namespace Library.Commands
                     entity = controller.FindEntityByID(Entities.User, ID: int.Parse(text[6]));
                     if (entity != null)
                     {
-                        if ((entity as User)._hasAccount)
+                        if ((entity as User).HasAccount)
                             return "Can't create Account. Already have one.";
                         else
                             (entity as User).CreateAccount(username: text[2], password: text[3]);

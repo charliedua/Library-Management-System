@@ -78,9 +78,7 @@ namespace Library.Commands
             var data = CheckIfValid(ref text);
             bool valid = data.Item1;
             if (!valid)
-            {
                 return data.Item2;
-            }
             return this.data;
         }
     }

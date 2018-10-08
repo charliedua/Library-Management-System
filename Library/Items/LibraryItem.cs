@@ -58,6 +58,8 @@ namespace Library
             }
         }
 
+        public bool Changed { get; set; }
+
         #region Database Stuff
 
         /// <summary>

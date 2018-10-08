@@ -8,32 +8,39 @@ namespace Library
 {
     public class UserAccount
     {
-        private readonly string _password;
-        private readonly string _username;
+        private string _password;
+        private string _username;
+        public User user;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserAccount" /> class.
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
-        /// <param name="fromdb">if set to <c>true</c> [fromdb].</param>
-        /// <param name="encrypt">if set to <c>true</c> [encrypt].</param>
+        /// <param name="user">The user.</param>
         /// <exception cref="NonUniqueEntityException">Username</exception>
-        public UserAccount(string username, string password, bool fromdb = false, bool encrypt = true)
+        public UserAccount(string username, string password, User user)
         {
-            if (fromdb)
-            {
+            if (PerformUniqueCheck(username))
                 _username = username;
-                _password = password;
-            }
             else
-            {
-                if (PerformUniqueCheck(username))
-                    _username = username;
-                else
-                    throw new NonUniqueEntityException("Username", username);
-                _password = encrypt ? GetSha256Hash(password) : password;
-            }
+                throw new NonUniqueEntityException("Username", username);
+            _password = GetSha256Hash(password);
+            State = UserState.Idle;
+            this.user = user;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserAccount"/> class.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="encrypt">if set to <c>true</c> [encrypt].</param>
+        public UserAccount(string username, string password, bool encrypt = true)
+        {
+            _username = username;
+            _password = encrypt ? GetSha256Hash(password) : password;
+            State = UserState.Idle;
         }
 
         /// <summary>
@@ -58,7 +65,12 @@ namespace Library
         /// <value>
         /// The username.
         /// </value>
-        public string Username => _username;
+        public string Username
+        {
+            get => _username;
+        }
+
+        public bool IsAuthenticated { get => State == UserState.LoggedIN; }
 
         #region Database stuff
 
@@ -75,6 +87,22 @@ namespace Library
             return !temp;
         }
 
+        public void SetPassword(string password)
+        {
+            _password = GetSha256Hash(password);
+        }
+
+        public bool SetUsername(string username)
+        {
+            if (PerformUniqueCheck(username))
+            {
+                _username = username;
+                return true;
+            }
+            else
+                return false;
+        }
+
         /// <summary>
         /// Loads account from the specified reader.
         /// </summary>
@@ -87,7 +115,7 @@ namespace Library
             // the encrypted password from the database
             string _password = (string)reader["Password"];
 
-            return new UserAccount(_username, _password, fromdb: true, encrypt: false);
+            return new UserAccount(_username, _password, encrypt: false);
         }
 
         /// <summary>
@@ -97,8 +125,8 @@ namespace Library
         /// <param name="colvalues">The colvalues.</param>
         public void Save(List<string> COL_NAMES, List<string> colvalues)
         {
-            COL_NAMES.AddRange(new string[] { "Username", "Password" });
-            colvalues.AddRange(new string[] { Username, Password });
+            COL_NAMES.AddRange(new string[] { "Username", "Password", "State" });
+            colvalues.AddRange(new string[] { Username, Password, ((int)State).ToString() });
         }
 
         #endregion Database stuff
@@ -112,6 +140,40 @@ namespace Library
         public bool VerifyPassword(string username, string pass)
         {
             return username == _username & VerifySha256Hash(pass, _password);
+        }
+
+        /// <summary>
+        /// Authenticates user with the specified username and password.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>status</returns>
+        /// <exception cref="DoesNotHaveAccountException"></exception>
+        public bool Login(string username, string password)
+        {
+            if (!user.HasAccount && State == UserState.Idle)
+            {
+                throw new DoesNotHaveAccountException();
+            }
+            State = UserState.LoggedIN;
+            return VerifyPassword(username: username, pass: password);
+        }
+
+        /// <summary>
+        /// Logouts this user.
+        /// </summary>
+        /// <returns>success status</returns>
+        public bool Logout()
+        {
+            if (State == UserState.LoggedIN)
+            {
+                State = UserState.LoggedOut;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #region Encryption Stuff

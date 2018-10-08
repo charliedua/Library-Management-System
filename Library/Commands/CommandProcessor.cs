@@ -22,7 +22,7 @@ namespace Library.Commands
         /// Initializes a new instance of the <see cref="CommandProcessor"/> class.
         /// </summary>
         /// <param name="controller">The controller.</param>
-        public CommandProcessor(LibraryController controller, Action quit, Action clear)
+        public CommandProcessor(LibraryController controller, Action quit, Action clear, Func<string, string> askFunc, Action<Entity, Entities> editFunc)
         {
             Controller = controller;
             _commands = new List<Command>()
@@ -34,8 +34,11 @@ namespace Library.Commands
                 new IssueCommand (),
                 new ShowCommand  (),
                 new LogoutCommand(),
-                new ClearCommand (clear)
+                new ClearCommand (clear),
+                new FindCommand  (),
+                new EditCommand  (editFunc)
             };
+            _commands.Add(new SudoCommand(this, askFunc));
             _commands.Add(new HelpCommand(_commands));
         }
 

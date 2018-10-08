@@ -69,7 +69,7 @@ namespace Library
             }
         }
 
-        public static Inventory Load(Database database, User user, LibraryController controller)
+        public static void Load(Database database, User user, LibraryController controller)
         {
             Inventory inventory = new Inventory(user);
             var reader = database.LoadReader("Orders", string.Format("UserID = {0}", user.ID.ToString()));
@@ -78,7 +78,7 @@ namespace Library
                 int ItemID = (int)(long)reader["ItemID"];
                 inventory.Put((LibraryItem)controller.FindEntityByID(Entities.Item, ItemID));
             }
-            return inventory;
+            user.Inventory = inventory;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Library
         ///   <c>true</c> if saved; otherwise, <c>false</c>.
         /// </value>
         bool Saved { get; set; }
+        bool Changed { get; set; }
 
         /// <summary>
         /// Saves this instance to db.

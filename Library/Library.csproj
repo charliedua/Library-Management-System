@@ -72,14 +72,18 @@
     <Compile Include="Commands\CommandProcessor.cs" />
     <Compile Include="Commands\CreateCommand.cs" />
     <Compile Include="Commands\DeleteCommand.cs" />
+    <Compile Include="Commands\EditCommand.cs" />
     <Compile Include="Commands\Exceptions\InvalidCommandParamatersException.cs" />
     <Compile Include="Commands\Exceptions\InvalidCommandSyntaxException.cs" />
+    <Compile Include="Commands\FindCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\IssueCommand.cs" />
     <Compile Include="Commands\LogoutCommand.cs" />
     <Compile Include="Commands\QuitCommand.cs" />
+    <Compile Include="Commands\ReturnCommand.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\ShowCommand.cs" />
+    <Compile Include="Commands\SudoCommand.cs" />
     <Compile Include="Entities.cs" />
     <Compile Include="Exceptions\DoesNotHavePermissionException.cs" />
     <Compile Include="ISavable.cs" />
@@ -113,7 +117,6 @@
     <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Allfiles.cs" />
     <Content Include="Diagrams\LoadSequenceDiagram.JPG" />
     <Content Include="Diagrams\Login.JPG" />
     <Content Include="Diagrams\SaveSequenceDiagram.JPG" />

@@ -1,4 +1,5 @@
 ﻿using Library.Exceptions;
+using Library.Utils;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
@@ -10,14 +11,11 @@ namespace Library
     public class User : Entity, ISavable
     {
         /// <summary>
-        /// The state of user.
-        /// </summary>
-        public UserState state;
-
-        /// <summary>
         /// The account
         /// </summary>
         private UserAccount _account;
+
+        public bool Changed { get; set; } = false;
 
         public bool Saved { get; set; } = false;
 
@@ -29,12 +27,11 @@ namespace Library
         {
             this.Inventory = new Inventory(this);
 
-            COL_NAMES.AddRange(new string[] { "Permissions", "State" });
+            COL_NAMES.AddRange(new string[] { "Permissions" });
             Database database = new Database();
             _id = id;
             database.Dispose();
             Permissions = new List<Permissions>() { Library.Permissions.None };
-            state = UserState.Idle;
         }
 
         /// <summary>
@@ -44,10 +41,9 @@ namespace Library
         /// <param name="identifier">The identifier.</param>
         /// <param name="account">The account.</param>
         /// <param name="perms">The array of Permissions.</param>
-        public User(string name, int id, UserAccount account, UserState state, List<Permissions> perms) : this(name, id)
+        public User(string name, int id, UserAccount account, List<Permissions> perms) : this(name, id)
         {
             Permissions = perms;
-            this.state = state;
             _account = account;
         }
 
@@ -65,7 +61,7 @@ namespace Library
         /// <value>
         /// The details.
         /// </value>
-        public override string Details => (_hasAccount ? base.Details + string.Format("Username: {0}\n", Account.Username) : base.Details) + string.Format("Permissions: \n{0}", HumanReadablePermissions());
+        public override string Details => (HasAccount ? base.Details + string.Format("Username: {0}\n", Account.Username) : base.Details) + string.Format("Permissions: \n{0}", Utility.HumanReadablePermissions(Permissions));
 
         /// <summary>
         /// Gets or sets the permissions.
@@ -83,7 +79,7 @@ namespace Library
         /// <summary>
         /// determines if the user has an account.
         /// </summary>
-        public bool _hasAccount => Account != null;
+        public bool HasAccount => Account != null;
 
         /// <summary>
         /// the inventory for the items in the library.
@@ -95,130 +91,28 @@ namespace Library
 
         #region Authentication stuff
 
-        public bool IsAuthenticated { get => state == UserState.LoggedIN; }
-
         /// <summary>
         /// Creates the account.
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
+        /// <exception cref="AlreadyHasAccountException"></exception>
         /// <exception cref="Library.AlreadyHasAccountException"></exception>
         public void CreateAccount(string username, string password)
         {
-            state = UserState.CreatingAccount;
-            if (!_hasAccount)
+            if (!HasAccount)
             {
-                _account = new UserAccount(username, password);
-                state = UserState.LoggedOut;
+                _account = new UserAccount(username, password, this);
             }
             else
             {
-                state = UserState.LoggedOut;
                 throw new AlreadyHasAccountException(this);
-            }
-        }
-
-        /// <summary>
-        /// Authenticates user with the specified username and password.
-        /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        /// <returns>status</returns>
-        /// <exception cref="DoesNotHaveAccountException"></exception>
-        public bool Login(string username, string password)
-        {
-            if (!_hasAccount && state == UserState.Idle)
-            {
-                throw new DoesNotHaveAccountException();
-            }
-            state = UserState.LoggedIN;
-            return _account.VerifyPassword(username: username, pass: password);
-        }
-
-        /// <summary>
-        /// Logouts this user.
-        /// </summary>
-        /// <returns>success status</returns>
-        public bool Logout()
-        {
-            if (state == UserState.LoggedIN)
-            {
-                state = UserState.LoggedOut;
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
 
         #endregion Authentication stuff
 
         #region Permission Stuff
-
-        /// <summary>
-        /// converts Int to permissions.
-        /// </summary>
-        /// <param name="num">The number.</param>
-        public static List<Permissions> IntToPerm(int num)
-        {
-            // TODO: Comment this method.
-            List<Permissions> permissions = new List<Permissions>();
-            switch (num)
-            {
-                // CRD
-                // 000
-                case 0:
-                    permissions.Add(Library.Permissions.None);
-                    break;
-
-                // CRD
-                // 001
-                case 1:
-                    permissions.Add(Library.Permissions.Delete);
-                    break;
-
-                // CRD
-                // 010
-                case 2:
-                    permissions.Add(Library.Permissions.Read);
-                    break;
-
-                // CRD
-                // 011
-                case 3:
-                    permissions.Add(Library.Permissions.Read);
-                    goto case 1;
-
-                // CRD
-                // 100
-                case 4:
-                    permissions.Add(Library.Permissions.Create);
-                    break;
-
-                // CRD
-                // 101
-                case 5:
-                    permissions.Add(Library.Permissions.Delete);
-                    goto case 4;
-
-                // CRD
-                // 110
-                case 6:
-                    permissions.Add(Library.Permissions.Create);
-                    goto case 2;
-
-                // CRD
-                // 111
-                case 7:
-                    permissions.Add(Library.Permissions.Create);
-                    goto case 3;
-
-                default:
-                    return null;
-            }
-            return permissions;
-        }
 
         /// <summary>
         /// Gives the permission to user.
@@ -244,33 +138,6 @@ namespace Library
             return Permissions.Contains(perm);
         }
 
-        /// <summary>
-        /// Gives Human readable permissions.
-        /// </summary>
-        /// <returns></returns>
-        public string HumanReadablePermissions()
-        {
-            string final = "";
-            foreach (Permissions permission in Permissions)
-            {
-                final += "\t" + permission.ToString() + " \n";
-            }
-            return final;
-        }
-
-        /// <summary>
-        /// Converts Permissions to int.
-        /// </summary>
-        protected static int PermToInt(List<Permissions> permissions)
-        {
-            int final = 0;
-            foreach (var perm in permissions)
-            {
-                final += (int)perm;
-            }
-            return final;
-        }
-
         #endregion Permission Stuff
 
         #region Database Stuff
@@ -289,17 +156,21 @@ namespace Library
                 string _name = (string)reader["Name"];
 
                 // gets the int from db and converts to perm
-                List<Permissions> Permissions = IntToPerm((int)(long)reader["Permissions"]);
+                List<Permissions> Permissions = Utility.IntToPerm((int)(long)reader["Permissions"]);
 
                 // gets the int from db and converts to state
                 UserState state = (UserState)(int)(long)reader["State"];
                 UserAccount _account = null;
-                if (state != UserState.Idle && state != UserState.CreatingAccount)
+                if (state != UserState.Idle)
                 {
                     _account = UserAccount.Load(reader);
                 }
-                bool _hasAccount = _account != null;
-                return new User(_name, _id, _account, state, Permissions);
+                user = new User(_name, _id, _account, Permissions);
+
+                if (_account != null)
+                {
+                    _account.user = user;
+                }
             }
             return user;
         }
@@ -313,8 +184,8 @@ namespace Library
         /// <returns></returns>
         public void Save()
         {
-            List<string> colvalues = new List<string>() { _id.ToString(), _name, PermToInt(Permissions).ToString(), ((int)state).ToString() };
-            if (state != UserState.Idle && state != UserState.CreatingAccount)
+            List<string> colvalues = new List<string>() { _id.ToString(), _name, Utility.PermToInt(Permissions).ToString() };
+            if (HasAccount)
             {
                 Account.Save(COL_NAMES, colvalues);
             }
@@ -350,7 +221,7 @@ namespace Library
         /// <param name="item">The item.</param>
         public void Issue(LibraryItem item)
         {
-            if (IsAuthenticated)
+            if (_account.IsAuthenticated)
             {
                 Inventory.Put(item);
                 item.Available = false;

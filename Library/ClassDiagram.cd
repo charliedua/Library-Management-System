@@ -1,12 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="Library.User">
-    <Position X="5.5" Y="4.75" Width="2.5" />
-    <Members>
-      <Field Name="TABLE_NAME" Hidden="true" />
-    </Members>
+    <Position X="5.5" Y="5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAEAgoAIAAABQEQIAAAYBAIiAAAAAAAEEAAYEgAAAEA=</HashCode>
+      <HashCode>AIEAgoAAAAABQEQIAAAIBAAAAAAAAAAAEAAAEgAAAEA=</HashCode>
       <FileName>User\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -21,12 +18,12 @@
       <Method Name="VerifySha256Hash" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAQEgIAAAAAAAAAAAQACIAAAAAAAAAACAAIABAAAAgA=</HashCode>
+      <HashCode>AAQEgIAAAAAAAAAAARACIAIgAAAAAAACAAIQhAAAAwA=</HashCode>
       <FileName>User\UserAccount.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Inventory">
-    <Position X="3.5" Y="7.75" Width="1.5" />
+    <Position X="2.75" Y="7.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AABBoIAAAAACAAAAAAAIAACAABAAAAAAAAEAAAAAAAg=</HashCode>
       <FileName>User\Inventory.cs</FileName>
@@ -84,9 +81,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Library.LibraryController">
-    <Position X="12.25" Y="4.75" Width="1.5" />
+    <Position X="12.25" Y="4.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAIABCAAAAAIAEUIAABAAAICAAAAQAAAAAIA=</HashCode>
+      <HashCode>AAAAACAAAIABCAAAAAIAEUIAABAAAICAAAAQAAAAAYA=</HashCode>
       <FileName>LibraryController.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -95,6 +92,13 @@
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAQAAAAAoAAAA=</HashCode>
       <FileName>Commands\Command.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Utils.Utility">
+    <Position X="11.75" Y="9.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAEAAQAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Utility.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Library.ISavable">
