@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SQLite;
@@ -18,28 +19,22 @@ namespace Library
         /// </summary>
         public const string TABLE_NAME = "Items";
 
-        public bool Saved { get; set; } = false;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LibraryItem"/> class.
-        /// </summary>
-        /// <param name="name">The name of the item.</param>
-        public LibraryItem(string name, int id) : base(name)
-        {
-            Database database = new Database();
-            _id = id;
-            database.Dispose();
-            Available = true;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LibraryItem"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name.</param>
-        public LibraryItem(int id, string name) : base(name, id)
+        public LibraryItem(long id, string name) : base(name, Convert.ToInt32(id))
         {
             Available = true;
+            COL_NAMES.AddRange(new string[] { "Available" });
+        }
+
+        public LibraryItem(long ID, string Name, long MaximumLoanPeriod, bool Available, DateTime IssuedOn) : this(ID, Name)
+        {
+            this.MaximumLoanPeriod = Convert.ToInt32(MaximumLoanPeriod);
+            this.Available = Available;
+            this.IssuedOn = IssuedOn;
         }
 
         /// <summary>
@@ -50,15 +45,23 @@ namespace Library
         /// </value>
         public bool Available { get; set; }
 
+        public bool Changed { get; set; }
+
         public override string Details
         {
             get
             {
-                return base.Details + string.Format("Available: {0}\n", Available.ToString());
+                return base.Details + string.Format("Available: {0}\nMaximum Loan Period (in Days) : {1}\n", Available.ToString(), MaximumLoanPeriod.ToString());
             }
         }
 
-        public bool Changed { get; set; }
+        public User IssuedBy { get; set; }
+        public DateTime IssuedOn { get; set; }
+
+        // days
+        public int MaximumLoanPeriod { get; set; }
+
+        public bool Saved { get; set; } = false;
 
         #region Database Stuff
 

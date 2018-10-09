@@ -19,28 +19,12 @@ namespace Library
         /// <param name="password">The password.</param>
         /// <param name="user">The user.</param>
         /// <exception cref="NonUniqueEntityException">Username</exception>
-        public UserAccount(string username, string password, User user)
-        {
-            if (PerformUniqueCheck(username))
-                _username = username;
-            else
-                throw new NonUniqueEntityException("Username", username);
-            _password = GetSha256Hash(password);
-            State = UserState.Idle;
-            this.user = user;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserAccount"/> class.
-        /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        /// <param name="encrypt">if set to <c>true</c> [encrypt].</param>
-        public UserAccount(string username, string password, bool encrypt = true)
+        public UserAccount(string username, string password, User user, bool encrypt = true)
         {
             _username = username;
             _password = encrypt ? GetSha256Hash(password) : password;
-            State = UserState.Idle;
+            State = UserState.LoggedOut;
+            this.user = user;
         }
 
         /// <summary>
@@ -57,7 +41,7 @@ namespace Library
         /// <value>
         /// The state.
         /// </value>
-        public UserState State { get; private set; }
+        public UserState State { get; set; }
 
         /// <summary>
         /// Gets the username.
@@ -115,7 +99,7 @@ namespace Library
             // the encrypted password from the database
             string _password = (string)reader["Password"];
 
-            return new UserAccount(_username, _password, encrypt: false);
+            return new UserAccount(_username, _password, null, encrypt: false);
         }
 
         /// <summary>
@@ -151,7 +135,7 @@ namespace Library
         /// <exception cref="DoesNotHaveAccountException"></exception>
         public bool Login(string username, string password)
         {
-            if (!user.HasAccount && State == UserState.Idle)
+            if (!user.HasAccount)
             {
                 throw new DoesNotHaveAccountException();
             }

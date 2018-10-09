@@ -5,6 +5,6 @@
         None = 0,
         Create = 4,
         Read = 2,
-        Delete = 1,
+        Delete = 1
     }
 }

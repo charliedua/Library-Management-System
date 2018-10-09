@@ -7,9 +7,7 @@ namespace Library
 {
     public enum UserState
     {
-        Idle,
         LoggedIN,
-        LoggedOut,
-        CreatingAccount
+        LoggedOut
     }
 }

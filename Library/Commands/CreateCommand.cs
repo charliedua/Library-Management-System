@@ -125,7 +125,7 @@ namespace Library.Commands
                     break;
 
                 case "ITEM" when valid:
-                    entity = new LibraryItem(text[2], controller.GetNextNewEntityID(Entities.Item));
+                    entity = new LibraryItem(controller.GetNextNewEntityID(Entities.Item), text[2]);
                     break;
 
                 case "ACCOUNT" when valid:

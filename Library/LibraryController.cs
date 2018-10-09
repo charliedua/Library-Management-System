@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Utils;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
@@ -117,34 +118,28 @@ namespace Library
         /// <returns></returns>
         public int GetNextNewEntityID(Entities entities)
         {
-            int toReturn;
-            using (Database database = new Database())
+            int max = 0;
+            if (entities == Entities.User)
             {
-                if (entities == Entities.User)
+                foreach (var user in _users)
                 {
-                    toReturn = database.GetLastInsertedID(User.TABLE_NAME);
-                    int max = toReturn;
-                    foreach (var user in _users)
+                    if (user.ID > max)
                     {
-                        if (user.ID > toReturn)
-                        {
-                            toReturn = user.ID;
-                        }
-                    }
-                }
-                else
-                {
-                    toReturn = database.GetLastInsertedID(LibraryItem.TABLE_NAME);
-                    foreach (var item in _items)
-                    {
-                        if (item.ID > toReturn)
-                        {
-                            toReturn = item.ID;
-                        }
+                        max = user.ID;
                     }
                 }
             }
-            return toReturn + 1;
+            else
+            {
+                foreach (var item in _items)
+                {
+                    if (item.ID > max)
+                    {
+                        max = item.ID;
+                    }
+                }
+            }
+            return max + 1;
         }
 
         /// <summary>
@@ -152,35 +147,9 @@ namespace Library
         /// </summary>
         public void LoadAllEntities()
         {
-            Database database = new Database();
-            SQLiteDataReader UserReader = database.LoadReader(User.TABLE_NAME, "1");
-            while (UserReader.HasRows)
-            {
-                User user = User.Load(UserReader);
-                if (user != null)
-                {
-                    user.Saved = true;
-                    _users.Add(user);
-                }
-            }
-            UserReader.Close();
-            database.Disconnect();
-            SQLiteDataReader ItemsReader = database.LoadReader(LibraryItem.TABLE_NAME, "1");
-            while (ItemsReader.HasRows)
-            {
-                LibraryItem item = LibraryItem.Load(ItemsReader);
-                if (item != null)
-                {
-                    item.Saved = true;
-                    _items.Add(item);
-                }
-            }
-            ItemsReader.Close();
-            foreach (User user in _users)
-            {
-                Inventory.Load(database, user, this);
-            }
-            database.Dispose();
+            _items.AddRange(Utility.LoadAllItems());
+            _users.AddRange(Utility.LoadAllUsers());
+            Utility.LoadInventory(_users, _items);
         }
 
         /// <summary>

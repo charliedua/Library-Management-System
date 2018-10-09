@@ -13,6 +13,7 @@ namespace Library
         public bool Saved { get; set; } = false;
         public bool IsEmpty { get => _items.Count == 0; }
         public bool IsChanged { get; private set; } = false;
+        public bool Changed { get; set; }
 
         public Inventory(User user)
         {

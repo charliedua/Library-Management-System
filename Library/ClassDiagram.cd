@@ -3,7 +3,7 @@
   <Class Name="Library.User">
     <Position X="5.5" Y="5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AIEAgoAAAAABQEQIAAAIBAAAAAAAAAAAEAAAEgAAAEA=</HashCode>
+      <HashCode>AIEAioAAAAABQEQIBAAIBAAAAAAAAAAAEAAAEgAAAEA=</HashCode>
       <FileName>User\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -23,9 +23,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Library.Inventory">
-    <Position X="2.75" Y="7.75" Width="2.25" />
+    <Position X="2" Y="8.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AABBoIAAAAACAAAAAAAIAACAABAAAAAAAAEAAAAAAAg=</HashCode>
+      <HashCode>AABBoIAAAAACAAAABAAIAACAABAAAAAAAAEAAAAAAAg=</HashCode>
       <FileName>User\Inventory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -47,7 +47,7 @@
       <Field Name="TABLE_NAME" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAABAEAAAAAIAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgIAAAAABAEAABAAIAgBAAAAAAAAAAAEAAAAACAA=</HashCode>
       <FileName>Items\LibraryItem.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -97,14 +97,14 @@
   <Class Name="Library.Utils.Utility">
     <Position X="11.75" Y="9.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAIAAAAAAAAEAAQAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <HashCode>AAAAIAAIAAAAAAAAEQAQAAAAAAAAAAAAAAAIAAAAAgA=</HashCode>
       <FileName>Utility.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Library.ISavable">
     <Position X="9.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAABAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ISavable.cs</FileName>
     </TypeIdentifier>
   </Interface>

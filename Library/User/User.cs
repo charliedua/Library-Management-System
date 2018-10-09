@@ -1,6 +1,7 @@
 ﻿using Library.Exceptions;
 using Library.Utils;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,26 +12,23 @@ namespace Library
     public class User : Entity, ISavable
     {
         /// <summary>
+        /// The table name
+        /// </summary>
+        public const string TABLE_NAME = "Users";
+
+        /// <summary>
         /// The account
         /// </summary>
-        private UserAccount _account;
-
-        public bool Changed { get; set; } = false;
-
-        public bool Saved { get; set; } = false;
+        private UserAccount _account = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        public User(string name, int id) : base(name)
+        public User(string name, int id) : base(name, id)
         {
-            this.Inventory = new Inventory(this);
-
+            Inventory = new Inventory(this);
             COL_NAMES.AddRange(new string[] { "Permissions" });
-            Database database = new Database();
-            _id = id;
-            database.Dispose();
             Permissions = new List<Permissions>() { Library.Permissions.None };
         }
 
@@ -47,6 +45,15 @@ namespace Library
             _account = account;
         }
 
+        public User(long ID, string Name, long Permissions, long State, string Username, string Password, long MaximumItems) : base(Name, Convert.ToInt32(ID))
+        {
+            this.Permissions = Utility.IntToPerm(Convert.ToInt32(Permissions));
+            CreateAccount(Username, Password, false);
+            Account.State = (UserState)(int)State;
+            MaxItems = Convert.ToInt32(MaximumItems);
+            Inventory = new Inventory(this);
+        }
+
         /// <summary>
         /// Gets or sets the account.
         /// </summary>
@@ -55,6 +62,8 @@ namespace Library
         /// </value>
         public UserAccount Account { get => _account; set => _account = value; }
 
+        public bool Changed { get; set; } = false;
+
         /// <summary>
         /// Gets the details.
         /// </summary>
@@ -62,19 +71,6 @@ namespace Library
         /// The details.
         /// </value>
         public override string Details => (HasAccount ? base.Details + string.Format("Username: {0}\n", Account.Username) : base.Details) + string.Format("Permissions: \n{0}", Utility.HumanReadablePermissions(Permissions));
-
-        /// <summary>
-        /// Gets or sets the permissions.
-        /// </summary>
-        /// <value>
-        /// The permissions.
-        /// </value>
-        public List<Permissions> Permissions { get; set; }
-
-        /// <summary>
-        /// The table name
-        /// </summary>
-        public const string TABLE_NAME = "Users";
 
         /// <summary>
         /// determines if the user has an account.
@@ -89,6 +85,24 @@ namespace Library
         /// </value>
         public Inventory Inventory { get; set; }
 
+        /// <summary>
+        /// Gets or sets the maximum items.
+        /// </summary>
+        /// <value>
+        /// The maximum items.
+        /// </value>
+        public int MaxItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the permissions.
+        /// </summary>
+        /// <value>
+        /// The permissions.
+        /// </value>
+        public List<Permissions> Permissions { get; set; }
+
+        public bool Saved { get; set; } = false;
+
         #region Authentication stuff
 
         /// <summary>
@@ -98,11 +112,11 @@ namespace Library
         /// <param name="password">The password.</param>
         /// <exception cref="AlreadyHasAccountException"></exception>
         /// <exception cref="Library.AlreadyHasAccountException"></exception>
-        public void CreateAccount(string username, string password)
+        public void CreateAccount(string username, string password, bool encrypt = true)
         {
             if (!HasAccount)
             {
-                _account = new UserAccount(username, password, this);
+                _account = new UserAccount(username, password, this, encrypt);
             }
             else
             {
@@ -140,6 +154,8 @@ namespace Library
 
         #endregion Permission Stuff
 
+        /*
+
         #region Database Stuff
 
         /// <summary>
@@ -166,7 +182,7 @@ namespace Library
                     _account = UserAccount.Load(reader);
                 }
                 user = new User(_name, _id, _account, Permissions);
-
+                _account.user = user;
                 if (_account != null)
                 {
                     _account.user = user;
@@ -201,6 +217,8 @@ namespace Library
 
         #endregion Database Stuff
 
+    */
+
         #region Interaction with items
 
         /// <summary>
@@ -225,6 +243,8 @@ namespace Library
             {
                 Inventory.Put(item);
                 item.Available = false;
+                item.IssuedBy = this;
+                item.IssuedOn = DateTime.Now;
             }
             else
             {
@@ -242,6 +262,8 @@ namespace Library
             if (Inventory.Has(item))
             {
                 Inventory.Take(item);
+                item.Available = true;
+                item.IssuedBy = null;
             }
             else
             {
