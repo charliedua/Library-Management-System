@@ -3,13 +3,12 @@
   <Class Name="Library.User">
     <Position X="5.5" Y="5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AIEAioAAAAABQEQIBAAIBAAAAAAAAAAAEAAAEgAAAEA=</HashCode>
+      <HashCode>AIEACgAAAAABQEQIBAAIBAAAAAAAAAAAEAAAEgAAAEA=</HashCode>
       <FileName>User\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Account" />
     </ShowAsAssociation>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.UserAccount">
     <Position X="9.25" Y="5.25" Width="2.25" />
@@ -18,7 +17,7 @@
       <Method Name="VerifySha256Hash" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAQEgIAAAAAAAAAAARACIAIgAAAAAAACAAIQhAAAAwA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAAAAAQACIAIgAAAAAAACAAIQhAAAAwA=</HashCode>
       <FileName>User\UserAccount.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -28,18 +27,6 @@
       <HashCode>AABBoIAAAAACAAAABAAIAACAABAAAAAAAAEAAAAAAAg=</HashCode>
       <FileName>User\Inventory.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Library.Database">
-    <Position X="6.5" Y="0.5" Width="2.5" />
-    <Members>
-      <Method Name="AggreegateAllInStrArr" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AAQAAIAAACAABAAAAEAAgIAAAAUAAAAIAAABAAAAAAA=</HashCode>
-      <FileName>Server\Database.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.LibraryItem">
     <Position X="2" Y="4.75" Width="3" />
@@ -47,10 +34,9 @@
       <Field Name="TABLE_NAME" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAABAEAABAAIAgBAAAAAAAAAAAEAAAAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAABAEAABAAIAgBAAAAAAAAAAAEAAAAACAA=</HashCode>
       <FileName>Items\LibraryItem.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Library.Entity">
     <Position X="3.5" Y="0.5" Width="2.5" />
@@ -97,17 +83,10 @@
   <Class Name="Library.Utils.Utility">
     <Position X="11.75" Y="9.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAIAAAAAAAAEQAQAAAAAAAAAAAAAAAIAAAAAgA=</HashCode>
+      <HashCode>AAAAIAAIAAAAAAAAEQAQAAAAAAAQAACAAAAIAAAAAgA=</HashCode>
       <FileName>Utility.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Library.ISavable">
-    <Position X="9.75" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAABAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ISavable.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Enum Name="Library.Permissions">
     <Position X="11.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
@@ -118,7 +97,7 @@
   <Enum Name="Library.UserState">
     <Position X="9.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAIAAAAAAAAAAAAAAAAEAAAABAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>User\UserState.cs</FileName>
     </TypeIdentifier>
   </Enum>

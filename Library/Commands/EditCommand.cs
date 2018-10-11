@@ -95,7 +95,6 @@ namespace Library.Commands
             {
                 EntityToEdit = controller.FindEntityByID(Entities.User, int.Parse(id));
                 EditFunc(EntityToEdit, Entities.User);
-                (EntityToEdit as ISavable).Changed = true;
             }
             else if (text[1] == "ITEM")
             {

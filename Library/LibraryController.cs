@@ -91,6 +91,11 @@ namespace Library
             return temp;
         }
 
+        public bool CheckForUniquenessInUsername(string username)
+        {
+            return _users.Find(x => x.HasAccount ? username == x.Account.Username : false) == null;
+        }
+
         /// <summary>
         /// Finds the user by identifier.
         /// </summary>
@@ -185,23 +190,6 @@ namespace Library
         public void Logout()
         {
             _authenticated = !CurrentUser.Account.Logout();
-        }
-
-        /// <summary>
-        /// Saves the unsaved.
-        /// </summary>
-        /// <param name="_entities">The entities.</param>
-        /// <returns></returns>
-        public int SaveTheUnsaved(Entities _entities)
-        {
-            int num = 0;
-            List<ISavable> savables = _entities == Entities.User ? _users.ToList<ISavable>() : _items.ToList<ISavable>();
-            foreach (ISavable savable in savables.FindAll(x => !x.Saved))
-            {
-                savable.Save();
-                num++;
-            }
-            return num;
         }
     }
 }

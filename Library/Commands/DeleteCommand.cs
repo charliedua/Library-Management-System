@@ -106,41 +106,20 @@ namespace Library.Commands
             {
                 return data.Item2;
             }
-            Database database = new Database();
             if (valid)
             {
-                bool found;
                 switch (text[1])
                 {
                     case "ITEM":
                         entity = controller.DeleteEntityByID(Entities.User, int.Parse(text[3]));// REMOVES IT FROM THE CONTROLLER
-                        found = entity != null;
                         break;
 
                     case "USER":
                         entity = controller.DeleteEntityByID(Entities.Item, int.Parse(text[3]));
-                        found = entity != null;
                         break;
 
                     default:
-                        found = false;
                         break;
-                }
-                if (found)
-                {
-                    switch (entity)
-                    {
-                        case User _:
-                            database.Delete(User.TABLE_NAME, entity.ID); // REMOVES IT FROMT THE DATABASE
-                            break;
-
-                        case LibraryItem _:
-                            database.Delete(LibraryItem.TABLE_NAME, entity.ID); // REMOVES IT FROMT THE DATABASE
-                            break;
-
-                        default:
-                            break;
-                    }
                 }
             }
             return entity != null ? entity.Details : "Can't find the entity";

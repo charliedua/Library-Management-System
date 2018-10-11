@@ -33,7 +33,17 @@ namespace Library
         /// <value>
         /// The password.
         /// </value>
-        public string Password => _password;
+        public string Password
+        {
+            get
+            {
+                return _password;
+            }
+            set
+            {
+                _password = GetSha256Hash(value);
+            }
+        }
 
         /// <summary>
         /// Gets the state.
@@ -52,68 +62,15 @@ namespace Library
         public string Username
         {
             get => _username;
+            set => _username = value;
         }
 
         public bool IsAuthenticated { get => State == UserState.LoggedIN; }
-
-        #region Database stuff
-
-        /// <summary>
-        /// Performs the unique check on username in Users Table.
-        /// </summary>
-        /// <param name="username">The username.</param>
-        public bool PerformUniqueCheck(string username)
-        {
-            Database database = new Database();
-            SQLiteDataReader reader = database.LoadReader("Users", string.Format("`Username` = '{0}'", username));
-            var temp = reader.HasRows;
-            reader.Close();
-            return !temp;
-        }
 
         public void SetPassword(string password)
         {
             _password = GetSha256Hash(password);
         }
-
-        public bool SetUsername(string username)
-        {
-            if (PerformUniqueCheck(username))
-            {
-                _username = username;
-                return true;
-            }
-            else
-                return false;
-        }
-
-        /// <summary>
-        /// Loads account from the specified reader.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>the account</returns>
-        public static UserAccount Load(SQLiteDataReader reader)
-        {
-            string _username = (string)reader["Username"];
-
-            // the encrypted password from the database
-            string _password = (string)reader["Password"];
-
-            return new UserAccount(_username, _password, null, encrypt: false);
-        }
-
-        /// <summary>
-        /// changes the colnames and colvalues to accomodate the account details.
-        /// </summary>
-        /// <param name="COL_NAMES">The col names.</param>
-        /// <param name="colvalues">The colvalues.</param>
-        public void Save(List<string> COL_NAMES, List<string> colvalues)
-        {
-            COL_NAMES.AddRange(new string[] { "Username", "Password", "State" });
-            colvalues.AddRange(new string[] { Username, Password, ((int)State).ToString() });
-        }
-
-        #endregion Database stuff
 
         /// <summary>
         /// Verifies the password.
@@ -195,7 +152,7 @@ namespace Library
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="hash">The hash.</param>
-        /// <returns></returns>
+        /// <returns>the validity</returns>
         private static bool VerifySha256Hash(string input, string hash)
         {
             // Hash the input.

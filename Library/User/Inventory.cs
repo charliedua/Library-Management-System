@@ -3,17 +3,14 @@ using System.Linq;
 
 namespace Library
 {
-    public class Inventory : ISavable
+    public class Inventory
     {
         private readonly List<LibraryItem> _items;
 
         private User User { get; set; }
 
         public int NumberOfItems { get => _items.Count; }
-        public bool Saved { get; set; } = false;
         public bool IsEmpty { get => _items.Count == 0; }
-        public bool IsChanged { get; private set; } = false;
-        public bool Changed { get; set; }
 
         public Inventory(User user)
         {
@@ -47,7 +44,6 @@ namespace Library
         public void Put(LibraryItem item)
         {
             _items.Add(item);
-            IsChanged = true;
         }
 
         public void Take(LibraryItem item)
@@ -55,31 +51,7 @@ namespace Library
             if (Has(item.ID))
             {
                 _items.Remove(item);
-                IsChanged = true;
             }
-        }
-
-        public void Save()
-        {
-            using (Database database = new Database())
-            {
-                foreach (var item in _items)
-                {
-                    database.Save("Orders", new List<string>() { "UserID", "ItemID" }, new List<string>() { User.ID.ToString(), item.ID.ToString() });
-                }
-            }
-        }
-
-        public static void Load(Database database, User user, LibraryController controller)
-        {
-            Inventory inventory = new Inventory(user);
-            var reader = database.LoadReader("Orders", string.Format("UserID = {0}", user.ID.ToString()));
-            while (reader.Read())
-            {
-                int ItemID = (int)(long)reader["ItemID"];
-                inventory.Put((LibraryItem)controller.FindEntityByID(Entities.Item, ItemID));
-            }
-            user.Inventory = inventory;
         }
     }
 }

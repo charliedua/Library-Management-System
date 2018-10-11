@@ -29,7 +29,6 @@ namespace Library.Commands
             {
                 new CreateCommand(),
                 new DeleteCommand(),
-                new SaveCommand  (),
                 new QuitCommand  (quit),
                 new IssueCommand (),
                 new ShowCommand  (),
@@ -72,7 +71,7 @@ namespace Library.Commands
         }
 
         /// <summary>
-        /// Invokes the specified text.
+        /// Invokes command found with the specified text.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <returns></returns>

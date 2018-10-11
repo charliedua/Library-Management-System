@@ -190,7 +190,7 @@ namespace Library.Utils
                     }
                     else
                     {
-                        db.Query(sql, new { ID, user.Name, Permissions = perms, State = (long)UserState.Idle, MaximumItems = user.MaxItems, Username = (string)null, Password = (string)null });
+                        db.Query(sql, new { ID, user.Name, Permissions = perms, State = (long?)null, MaximumItems = user.MaxItems, Username = (string)null, Password = (string)null });
                     }
                 }
             }

@@ -12,7 +12,7 @@ namespace Library
     /// <summary>
     /// The base Class for almost everything in this library.
     /// </summary>
-    public class LibraryItem : Entity, ISavable
+    public class LibraryItem : Entity
     {
         /// <summary>
         /// The table name
@@ -30,11 +30,10 @@ namespace Library
             COL_NAMES.AddRange(new string[] { "Available" });
         }
 
-        public LibraryItem(long ID, string Name, long MaximumLoanPeriod, bool Available, DateTime IssuedOn) : this(ID, Name)
+        public LibraryItem(long ID, string Name, long MaximumLoanPeriod, bool Available) : this(ID, Name)
         {
             this.MaximumLoanPeriod = Convert.ToInt32(MaximumLoanPeriod);
             this.Available = Available;
-            this.IssuedOn = IssuedOn;
         }
 
         /// <summary>
@@ -44,8 +43,6 @@ namespace Library
         ///   <c>true</c> if available; otherwise, <c>false</c>.
         /// </value>
         public bool Available { get; set; }
-
-        public bool Changed { get; set; }
 
         public override string Details
         {
@@ -60,41 +57,5 @@ namespace Library
 
         // days
         public int MaximumLoanPeriod { get; set; }
-
-        public bool Saved { get; set; } = false;
-
-        #region Database Stuff
-
-        /// <summary>
-        /// Loads this instance from db.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>
-        /// the item
-        /// </returns>
-        public static LibraryItem Load(SQLiteDataReader reader)
-        {
-            LibraryItem item = null;
-            if (reader.HasRows && reader.Read())
-            {
-                int _id = (int)(long)reader["ID"];
-                string _name = (string)reader["Name"];
-                item = new LibraryItem(_id, _name);
-            }
-            return item;
-        }
-
-        /// <summary>
-        /// Saves this instance to db.
-        /// </summary>
-        public void Save()
-        {
-            List<string> colVals = new List<string>() { _id.ToString(), _name };
-            Database database = new Database();
-            database.Save(TABLE_NAME, COL_NAMES, colVals);
-            Saved = true;
-        }
-
-        #endregion Database Stuff
     }
 }

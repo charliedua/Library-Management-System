@@ -9,7 +9,7 @@ using System.Data.SQLite;
 
 namespace Library
 {
-    public class User : Entity, ISavable
+    public class User : Entity
     {
         /// <summary>
         /// The table name
@@ -62,8 +62,6 @@ namespace Library
         /// </value>
         public UserAccount Account { get => _account; set => _account = value; }
 
-        public bool Changed { get; set; } = false;
-
         /// <summary>
         /// Gets the details.
         /// </summary>
@@ -100,8 +98,6 @@ namespace Library
         /// The permissions.
         /// </value>
         public List<Permissions> Permissions { get; set; }
-
-        public bool Saved { get; set; } = false;
 
         #region Authentication stuff
 

@@ -14,6 +14,8 @@ namespace CustomProgram__Library_Management
     /// </summary>
     internal class Program
     {
+        public static LibraryController controller;
+
         /// <summary>
         /// Defines the entry point of the application.
         /// </summary>
@@ -21,9 +23,12 @@ namespace CustomProgram__Library_Management
         private static void Main(string[] args)
         {
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            LibraryController controller = new LibraryController();
+            controller = new LibraryController();
             CommandProcessor processor = new CommandProcessor(controller, Quit, Clear, AskFunc, EditFunc);
             string userInput = "";
+            //pass = root
+            User RootUser = new User(0, "root", 7, 1, "root", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2", 999);
+            controller.Users.Add(RootUser);
             controller.LoadAllEntities();
             AskForLogin(controller);
             while (true)
@@ -62,7 +67,7 @@ namespace CustomProgram__Library_Management
                     case 2:
                         if (user.HasAccount)
                         {
-                            if (!user.Account.SetUsername(Console.ReadLine()))
+                            if (!controller.CheckForUniquenessInUsername(Console.ReadLine()))
                                 Console.WriteLine("Somneone has a same username as you.");
                             else
                                 Console.Write("Worked");
