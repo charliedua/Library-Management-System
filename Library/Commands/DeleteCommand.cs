@@ -14,9 +14,9 @@ namespace Library.Commands
     public class DeleteCommand : Command
     {
         /*
-         * DELETE USER ID [INT]
-         * DELETE ITEM ID [INT]
-         * DELETE ITEM ID [INT] FROM USER ID [INT]
+         * private DELETE USER ID[INT]
+         * private DELETE ITEM ID[IN
+         * DELETE ITEM ID[INT] FROM USER ID[INT]
          */
 
         /// <summary>
@@ -60,10 +60,10 @@ namespace Library.Commands
         public override (bool, string) CheckIfValid(ref string[] text)
         {
             (bool, string) errrmsg = (false, "Expected: \n\t" + Usage);
-            if (text.Length > 0)
+            (bool, string) data = base.CheckIfValid(ref text);
+            if (!data.Item1)
             {
-                if (!ContainsIdent(text[0])) return errrmsg;
-                if (text.Last() == "?") return (false, "Usage: \n\t" + Usage);
+                return data;
             }
             switch (text.Length)
             {
@@ -111,11 +111,11 @@ namespace Library.Commands
                 switch (text[1])
                 {
                     case "ITEM":
-                        entity = controller.DeleteEntityByID(Entities.User, int.Parse(text[3]));// REMOVES IT FROM THE CONTROLLER
+                        entity = controller.DeleteEntityByID(Entities.Item, int.Parse(text[3]));// REMOVES IT FROM THE CONTROLLER
                         break;
 
                     case "USER":
-                        entity = controller.DeleteEntityByID(Entities.Item, int.Parse(text[3]));
+                        entity = controller.DeleteEntityByID(Entities.User, int.Parse(text[3]));
                         break;
 
                     default:

@@ -88,6 +88,7 @@
     <Compile Include="Commands\LogoutCommand.cs" />
     <Compile Include="Commands\QuitCommand.cs" />
     <Compile Include="Commands\ReturnCommand.cs" />
+    <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\ShowCommand.cs" />
     <Compile Include="Commands\SudoCommand.cs" />
     <Compile Include="Entities.cs" />
@@ -114,6 +115,7 @@
     <Resource Include="Library.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

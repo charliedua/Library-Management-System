@@ -27,8 +27,11 @@ namespace CustomProgram__Library_Management
             CommandProcessor processor = new CommandProcessor(controller, Quit, Clear, AskFunc, EditFunc);
             string userInput = "";
             //pass = root
-            User RootUser = new User(0, "root", 7, 1, "root", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2", 999);
-            controller.Users.Add(RootUser);
+            //User RootUser = new User(0, "root", 7, 1, "root", "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2", 999);
+            //if (controller.Users.Find(x => x.HasAccount ? x.Account.Username == RootUser.Account.Username : false) == null)
+            //{
+            //    controller.Users.Add(RootUser);
+            //}
             controller.LoadAllEntities();
             AskForLogin(controller);
             while (true)

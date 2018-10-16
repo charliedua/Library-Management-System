@@ -30,7 +30,7 @@ namespace Library
             COL_NAMES.AddRange(new string[] { "Available" });
         }
 
-        public LibraryItem(long ID, string Name, long MaximumLoanPeriod, bool Available) : this(ID, Name)
+        public LibraryItem(long ID, string Name, long MaximumLoanPeriod, bool Available = true) : this(ID, Name)
         {
             this.MaximumLoanPeriod = Convert.ToInt32(MaximumLoanPeriod);
             this.Available = Available;

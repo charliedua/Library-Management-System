@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Library.Commands.ClearCommand">
+    <Position X="1.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAJAAAA=</HashCode>
+      <FileName>Commands\ClearCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.Command">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAQAAAAAoAAAA=</HashCode>
+      <FileName>Commands\Command.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.CommandProcessor">
+    <Position X="34.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAIAAAAAAAAAAAAAAAAAACAAAgAABAAAAA=</HashCode>
+      <FileName>Commands\CommandProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.CreateCommand">
+    <Position X="15.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Commands\CreateCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.DeleteCommand">
+    <Position X="19.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Commands\DeleteCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.EditCommand">
+    <Position X="24.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAgEAQAAAAAAAQEBAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Commands\EditCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.FindCommand">
+    <Position X="4" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Commands\FindCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.HelpCommand">
+    <Position X="8.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAAAAQAAIAAAA=</HashCode>
+      <FileName>Commands\HelpCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.IssueCommand">
+    <Position X="13" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Commands\IssueCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.LogoutCommand">
+    <Position X="17.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Commands\LogoutCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.QuitCommand">
+    <Position X="22" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAIAAQA=</HashCode>
+      <FileName>Commands\QuitCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.ReturnCommand">
+    <Position X="26.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Commands\ReturnCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.ShowCommand">
+    <Position X="6.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAgEAQAAAAAAAQEAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Commands\ShowCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Commands.SudoCommand">
+    <Position X="10.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAQAAAAAAAAAAAAIEAAA=</HashCode>
+      <FileName>Commands\SudoCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Entity">
+    <Position X="5.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIIAAAAABgAAAAABAAAQIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Items\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.LibraryItem">
+    <Position X="8" Y="14.25" Width="1.5" />
+    <InheritanceLine Type="Library.Entity" FixedFromPoint="true">
+      <Path>
+        <Point X="6" Y="12.468" />
+        <Point X="6" Y="13.625" />
+        <Point X="8.75" Y="13.625" />
+        <Point X="8.75" Y="14.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAEAAAAAAAgBAAAAAAAAAAAEAAAAACAA=</HashCode>
+      <FileName>Items\LibraryItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.LibraryController">
+    <Position X="29.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAIAACAAAAAIAEUIAQBAAAICAAAAQAAAAAYA=</HashCode>
+      <FileName>LibraryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Inventory">
+    <Position X="36.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABBAAAAAAACAAAAAAAAAACAABAAAAAAAAEAAAAAAAg=</HashCode>
+      <FileName>User\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.User">
+    <Position X="2.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIEACgAAAAABQEQIAAAABAAAAAAAAAAAEAAAEgAAAEA=</HashCode>
+      <FileName>User\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.UserAccount">
+    <Position X="31" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAQACIAIgAAAAAAACAAIQhAAAAwA=</HashCode>
+      <FileName>User\UserAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Library.Utils.Utility">
+    <Position X="32.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAIAAAAAAAAEQAQAAAAAAAQAACAAAAIAAAAAgA=</HashCode>
+      <FileName>Utility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Library.Entities">
+    <Position X="29" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Library.Permissions">
+    <Position X="30.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAEAAEAAAAAAAAEAAAA=</HashCode>
+      <FileName>User\Permissions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Library.UserState">
+    <Position X="32.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>User\UserState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

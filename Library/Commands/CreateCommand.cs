@@ -11,14 +11,13 @@ namespace Library.Commands
     public class CreateCommand : Command
     {
         /*
-         * CREATE USER name
-         * CREATE USER ?
-         * CREATE ?
-         * CREATE USER name -P [1-7]
-         * CREATE ITEM name
+         * CREATE USER [STRING]
+         * CREATE USER [STRING] -P [1-7]
+         * CREATE ITEM [STRING]
+         * CREATE ITEM [STRING] [INT]
          * CREATE ACCOUNT username password USER ID [INT]
          */
-        public override string Usage => "{CREATE [USER | ITEM] [Name] [-P [INTEGER] if User]}\n{CREATE ACCOUNT [USERNAME] [PASSWORD] USER ID [INT]}";
+        public override string Usage => "{CREATE [USER | ITEM] [Name] [MaxLoanPeriod [INT] ] [-P [INT] if User]}\n{CREATE ACCOUNT [USERNAME] [PASSWORD] USER ID [INT]}";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateCommand"/> class.
@@ -64,6 +63,12 @@ namespace Library.Commands
             base.CheckIfValid(ref text);
             switch (text.Length)
             {
+                case 4:
+                    PriorityUpgrade(ref text, new int[] { 1 });
+                    if (text[1] != "ITEM") return errMsg;
+                    var b = int.TryParse(text[3], out int temp3);
+                    break;
+
                 case 3:
                     PriorityUpgrade(ref text, new int[] { 1 });
                     if (text[1] != "USER" && text[1] != "ITEM") return errMsg;
@@ -87,8 +92,8 @@ namespace Library.Commands
                     if (text[3] != "-P") return (false, Help + Usage);
                     else
                     {
-                        var b = int.TryParse(text[4], out int temp0);
-                        if (!b) return errMsg;
+                        bool valid = int.TryParse(text[4], out int temp0);
+                        if (!valid) return errMsg;
                         if (temp0 < 0 || temp0 > 7) return (false, Expected + "[INTEGER between 0 AND 7]" + splitHelpText[0]);
                     }
                     break;
@@ -125,7 +130,22 @@ namespace Library.Commands
                     break;
 
                 case "ITEM" when valid:
-                    entity = new LibraryItem(controller.GetNextNewEntityID(Entities.Item), text[2]);
+                    // CREATE ITEM [STRING]
+                    // CREATE ITEM [STRING] [INT]
+                    switch (text.Length)
+                    {
+                        case 4:
+                            int maxLoanPeriod = int.Parse(text[3]);
+                            entity = new LibraryItem(controller.GetNextNewEntityID(Entities.Item), text[2], maxLoanPeriod);
+                            break;
+
+                        case 3:
+                            entity = new LibraryItem(controller.GetNextNewEntityID(Entities.Item), text[2]);
+                            break;
+
+                        default:
+                            break;
+                    }
                     break;
 
                 case "ACCOUNT" when valid:

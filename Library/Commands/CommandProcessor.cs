@@ -35,7 +35,8 @@ namespace Library.Commands
                 new LogoutCommand(),
                 new ClearCommand (clear),
                 new FindCommand  (),
-                new EditCommand  (editFunc)
+                new EditCommand  (editFunc),
+                new SaveCommand  ()
             };
             _commands.Add(new SudoCommand(this, askFunc));
             _commands.Add(new HelpCommand(_commands));

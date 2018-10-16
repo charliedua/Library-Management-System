@@ -166,7 +166,7 @@ namespace Library.Utils
 
         public static void SaveAllItems(List<LibraryItem> items)
         {
-            string sql = "INSERT INTO Items (ID, Name, Available, MaximumLoanPeriod) VALUES (@ID, @Name, @Available, @MaximumLoanPeriod)";
+            string sql = "INSERT or replace INTO Items (ID, Name, Available, MaximumLoanPeriod) VALUES (@ID, @Name, @Available, @MaximumLoanPeriod)";
             using (IDbConnection db = new SQLiteConnection("Data Source=.//Library.db;Version=3;"))
             {
                 db.Open();
@@ -176,7 +176,7 @@ namespace Library.Utils
 
         public static void SaveAllUsers(List<User> users)
         {
-            string sql = "INSERT INTO Users (ID, Name, Permissions, State, MaximumItems, Username, Password) VALUES (@ID, @Name, @Permissions, @State, @MaximumItems, @Username, @Password)";
+            string sql = "INSERT or replace INTO Users (ID, Name, Permissions, State, MaximumItems, Username, Password) VALUES (@ID, @Name, @Permissions, @State, @MaximumItems, @Username, @Password)";
             using (IDbConnection db = new SQLiteConnection("Data Source=.//Library.db;Version=3;"))
             {
                 foreach (var user in users)
@@ -190,7 +190,7 @@ namespace Library.Utils
                     }
                     else
                     {
-                        db.Query(sql, new { ID, user.Name, Permissions = perms, State = (long?)null, MaximumItems = user.MaxItems, Username = (string)null, Password = (string)null });
+                        db.Query(sql, new { ID, user.Name, Permissions = perms, State = 0, MaximumItems = user.MaxItems, Username = (string)null, Password = (string)null });
                     }
                 }
             }
