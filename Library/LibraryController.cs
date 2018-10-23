@@ -56,17 +56,9 @@ namespace Library
         /// </value>
         public List<User> Users { get => _users; }
 
-        /// <summary>
-        /// Finds the name of the entity by.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns></returns>
-        public List<Entity> FindEntityByName(string name)
+        public bool CheckForUniquenessInUsername(string username)
         {
-            List<Entity> entities = new List<Entity>();
-            entities.AddRange(Users.FindAll(x => x.Name == name));
-            entities.AddRange(Items.FindAll(x => x.Name == name));
-            return entities;
+            return _users.Find(x => x.HasAccount ? username == x.Account.Username : false) == null;
         }
 
         /// <summary>
@@ -91,11 +83,6 @@ namespace Library
             return temp;
         }
 
-        public bool CheckForUniquenessInUsername(string username)
-        {
-            return _users.Find(x => x.HasAccount ? username == x.Account.Username : false) == null;
-        }
-
         /// <summary>
         /// Finds the user by identifier.
         /// </summary>
@@ -104,6 +91,19 @@ namespace Library
         public Entity FindEntityByID(Entities entities, int ID)
         {
             return entities == Entities.User ? _users.Find(x => x.ID == ID) : (Entity)_items.Find(x => x.ID == ID);
+        }
+
+        /// <summary>
+        /// Finds the name of the entity by.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public List<Entity> FindEntityByName(string name)
+        {
+            List<Entity> entities = new List<Entity>();
+            entities.AddRange(Users.FindAll(x => x.Name == name));
+            entities.AddRange(Items.FindAll(x => x.Name == name));
+            return entities;
         }
 
         /// <summary>

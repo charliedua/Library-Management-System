@@ -80,7 +80,7 @@ namespace Library
         /// <returns></returns>
         public bool VerifyPassword(string username, string pass)
         {
-            return username == _username & VerifySha256Hash(pass, _password);
+            return username == _username && VerifySha256Hash(pass, _password);
         }
 
         /// <summary>
