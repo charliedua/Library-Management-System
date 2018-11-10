@@ -1,0 +1,637 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type='text/xml' href='documentation.xsl'?>
+<doc>
+    <assembly>
+        <name>Library</name>
+    </assembly>
+    <members>
+        <member name="P:Library.Commands.Command.Name">
+            <summary>
+            Gets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:Library.Commands.Command.Usage">
+            <summary>
+            Gets the usage.
+            </summary>
+            <value>
+            The usage.
+            </value>
+        </member>
+        <member name="P:Library.Commands.Command.Description">
+            <summary>
+            Gets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="P:Library.Commands.Command.Identifiers">
+            <summary>
+            Gets the identifiers.
+            </summary>
+            <value>
+            The identifiers.
+            </value>
+        </member>
+        <member name="M:Library.Commands.Command.ContainsIdent(System.String)">
+            <summary>
+            Determines whether this instance contains ident.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Library.Commands.Command.CheckIfValid(System.String[]@)">
+            <summary>
+            Checks if valid.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.Commands.Command.Execute(Library.LibraryController@,System.String[])">
+            <summary>
+            Executes the specified controller.
+            </summary>
+            <param name="controller">The controller.</param>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="F:Library.Commands.CommandProcessor._commands">
+            <summary>
+            The commands
+            </summary>
+        </member>
+        <member name="F:Library.Commands.CommandProcessor.Controller">
+            <summary>
+            The controller
+            </summary>
+        </member>
+        <member name="M:Library.Commands.CommandProcessor.#ctor(Library.LibraryController,System.Action,System.Action,System.Func{System.String,System.String},System.Action{Library.Entity,Library.Entities})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.Commands.CommandProcessor"/> class.
+            </summary>
+            <param name="controller">The controller.</param>
+        </member>
+        <member name="M:Library.Commands.CommandProcessor.GetIndexFromCommandText(System.Collections.Generic.List{System.String})">
+            <summary>
+            Gets the index from command text.
+            </summary>
+            <returns>
+            The Index
+            </returns>
+        </member>
+        <member name="M:Library.Commands.CommandProcessor.ToList(System.String)">
+            <summary>
+            converts the text To the list of string.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.Commands.CommandProcessor.Invoke(System.String)">
+            <summary>
+            Invokes command found with the specified text.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.Commands.CreateCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.Commands.CreateCommand"/> class.
+            </summary>
+        </member>
+        <member name="P:Library.Commands.CreateCommand.Name">
+            <summary>
+            Gets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:Library.Commands.CreateCommand.Description">
+            <summary>
+            Gets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="M:Library.Commands.CreateCommand.CheckIfValid(System.String[]@)">
+            <summary>
+            Checks if valid.
+            </summary>
+            <param name="text">The text.</param>
+            <returns>
+            Validity
+            </returns>
+            <exception cref="T:Library.Commands.Exceptions.InvalidCommandSyntaxException"></exception>
+        </member>
+        <member name="M:Library.Commands.CreateCommand.Execute(Library.LibraryController@,System.String[])">
+            <summary>
+            Executes this command.
+            </summary>
+            <param name="entity">The entity.</param>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Library.Commands.DeleteCommand">
+            <summary>
+            The Delete command.
+            </summary>
+            <seealso cref="T:Library.Commands.Command" />
+        </member>
+        <member name="M:Library.Commands.DeleteCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.Commands.DeleteCommand"/> class.
+            </summary>
+        </member>
+        <member name="P:Library.Commands.DeleteCommand.Usage">
+            <summary>
+            The help text
+            </summary>
+        </member>
+        <member name="P:Library.Commands.DeleteCommand.Name">
+            <summary>
+            Gets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:Library.Commands.DeleteCommand.Description">
+            <summary>
+            Gets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="M:Library.Commands.DeleteCommand.CheckIfValid(System.String[]@)">
+            <summary>
+            Checks if valid.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+            <exception cref="T:Library.Commands.Exceptions.InvalidCommandSyntaxException"></exception>
+        </member>
+        <member name="M:Library.Commands.DeleteCommand.Execute(Library.LibraryController@,System.String[])">
+            <summary>
+            Executes this command.
+            </summary>
+            <param name="entity">The entity.</param>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="F:Library.Commands.HelpCommand.data">
+            <summary>
+            The data
+            </summary>
+        </member>
+        <member name="P:Library.Commands.HelpCommand.Usage">
+            <summary>
+            The help text
+            </summary>
+        </member>
+        <member name="M:Library.Commands.HelpCommand.#ctor(System.Collections.Generic.List{Library.Commands.Command})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.Commands.HelpCommand"/> class.
+            </summary>
+            <param name="commands">The commands.</param>
+        </member>
+        <member name="P:Library.Commands.HelpCommand.Description">
+            <summary>
+            Gets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="P:Library.Commands.HelpCommand.Name">
+            <summary>
+            Gets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:Library.Commands.HelpCommand.Identifiers">
+            <summary>
+            Gets the identifiers.
+            </summary>
+            <value>
+            The identifiers.
+            </value>
+        </member>
+        <member name="M:Library.Commands.HelpCommand.CheckIfValid(System.String[]@)">
+            <summary>
+            Checks if valid.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.Commands.HelpCommand.Execute(Library.LibraryController@,System.String[])">
+            <summary>
+            Executes the specified controller.
+            </summary>
+            <param name="controller">The controller.</param>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="F:Library.Entity.COL_NAMES">
+            <summary>
+            The col names in the table
+            </summary>
+        </member>
+        <member name="M:Library.Entity.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.Entity"/> class.
+            </summary>
+            <param name="name">The name.</param>
+        </member>
+        <member name="M:Library.Entity.#ctor(System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.Entity"/> class.
+            with complete params.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="ident">The ident.</param>
+        </member>
+        <member name="P:Library.Entity.ID">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>
+            The identifier.
+            </value>
+        </member>
+        <member name="P:Library.Entity.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:Library.Entity.Details">
+            <summary>
+            Gets the details.
+            </summary>
+            <value>
+            The details.
+            </value>
+        </member>
+        <member name="M:Library.Entity.AreYou(System.Int32)">
+            <summary>
+            Verifies the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+        </member>
+        <member name="T:Library.LibraryController">
+            <summary>
+            The controller for the whole library
+            </summary>
+        </member>
+        <member name="F:Library.LibraryController._items">
+            <summary>
+            The items
+            </summary>
+        </member>
+        <member name="F:Library.LibraryController._users">
+            <summary>
+            The users
+            </summary>
+        </member>
+        <member name="M:Library.LibraryController.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.LibraryController"/> class.
+            </summary>
+        </member>
+        <member name="P:Library.LibraryController.CurrentUser">
+            <summary>
+            Gets or sets the user.
+            </summary>
+            <value>
+            The user.
+            </value>
+        </member>
+        <member name="P:Library.LibraryController.Items">
+            <summary>
+            Gets the items.
+            </summary>
+            <value>
+            The items.
+            </value>
+        </member>
+        <member name="P:Library.LibraryController.Users">
+            <summary>
+            Gets the users.
+            </summary>
+            <value>
+            The users.
+            </value>
+        </member>
+        <member name="M:Library.LibraryController.DeleteEntityByID(Library.Entities,System.Int32)">
+            <summary>
+            Deletes the entity by identifier.
+            </summary>
+            <param name="entities">The entities.</param>
+            <param name="ID">The identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.LibraryController.FindEntityByID(Library.Entities,System.Int32)">
+            <summary>
+            Finds the user by identifier.
+            </summary>
+            <param name="ID">The identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.LibraryController.FindEntityByName(System.String)">
+            <summary>
+            Finds the name of the entity by.
+            </summary>
+            <param name="name">The name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.LibraryController.FindUserByUsername(System.String)">
+            <summary>
+            Finds the user by username.
+            </summary>
+            <param name="username">The username.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.LibraryController.GetNextNewEntityID(Library.Entities)">
+            <summary>
+            Gets the next new entity identifier.
+            </summary>
+            <param name="entities">The entities.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.LibraryController.LoadAllEntities">
+            <summary>
+            Loads all entities.
+            </summary>
+        </member>
+        <member name="M:Library.LibraryController.Login(System.String,System.String)">
+            <summary>
+            Logins the specified username.
+            </summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.LibraryController.Logout">
+            <summary>
+            Logouts the user associated.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Library.Inventory.#ctor(System.Collections.Generic.List{Library.LibraryItem},Library.User)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.Inventory"/> class From the database.
+            </summary>
+            <param name="items">The items.</param>
+        </member>
+        <member name="M:Library.UserAccount.#ctor(System.String,System.String,Library.User,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.UserAccount" /> class.
+            </summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+            <param name="user">The user.</param>
+            <exception cref="T:Library.NonUniqueEntityException">Username</exception>
+        </member>
+        <member name="P:Library.UserAccount.Password">
+            <summary>
+            Gets the password.
+            </summary>
+            <value>
+            The password.
+            </value>
+        </member>
+        <member name="P:Library.UserAccount.State">
+            <summary>
+            Gets the state.
+            </summary>
+            <value>
+            The state.
+            </value>
+        </member>
+        <member name="P:Library.UserAccount.Username">
+            <summary>
+            Gets the username.
+            </summary>
+            <value>
+            The username.
+            </value>
+        </member>
+        <member name="M:Library.UserAccount.VerifyPassword(System.String,System.String)">
+            <summary>
+            Verifies the password.
+            </summary>
+            <param name="username">The username.</param>
+            <param name="pass">The pass.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.UserAccount.Login(System.String,System.String)">
+            <summary>
+            Authenticates user with the specified username and password.
+            </summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+            <returns>status</returns>
+            <exception cref="T:Library.DoesNotHaveAccountException"></exception>
+        </member>
+        <member name="M:Library.UserAccount.Logout">
+            <summary>
+            Logouts this user.
+            </summary>
+            <returns>success status</returns>
+        </member>
+        <member name="M:Library.UserAccount.GetSha256Hash(System.String)">
+            <summary>
+            Gets the sha256 hash.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.UserAccount.VerifySha256Hash(System.String,System.String)">
+            <summary>
+            Verifies the sha256 hash against a string.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="hash">The hash.</param>
+            <returns>the validity</returns>
+        </member>
+        <member name="T:Library.LibraryItem">
+            <summary>
+            The base Class for almost everything in this library.
+            </summary>
+        </member>
+        <member name="F:Library.LibraryItem.TABLE_NAME">
+            <summary>
+            The table name
+            </summary>
+        </member>
+        <member name="M:Library.LibraryItem.#ctor(System.Int64,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.LibraryItem"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="name">The name.</param>
+        </member>
+        <member name="P:Library.LibraryItem.Available">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Library.LibraryItem"/> is available.
+            </summary>
+            <value>
+              <c>true</c> if available; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="F:Library.User.TABLE_NAME">
+            <summary>
+            The table name
+            </summary>
+        </member>
+        <member name="F:Library.User._account">
+            <summary>
+            The account
+            </summary>
+        </member>
+        <member name="M:Library.User.#ctor(System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.User"/> class.
+            </summary>
+            <param name="name">The name.</param>
+        </member>
+        <member name="M:Library.User.#ctor(System.String,System.Int32,Library.UserAccount,System.Collections.Generic.List{Library.Permissions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.User"/> class from the database.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="identifier">The identifier.</param>
+            <param name="account">The account.</param>
+            <param name="perms">The array of Permissions.</param>
+        </member>
+        <member name="P:Library.User.Account">
+            <summary>
+            Gets or sets the account.
+            </summary>
+            <value>
+            The account.
+            </value>
+        </member>
+        <member name="P:Library.User.Details">
+            <summary>
+            Gets the details.
+            </summary>
+            <value>
+            The details.
+            </value>
+        </member>
+        <member name="P:Library.User.HasAccount">
+            <summary>
+            determines if the user has an account.
+            </summary>
+        </member>
+        <member name="P:Library.User.Inventory">
+            <summary>
+            the inventory for the items in the library.
+            </summary>
+            <value>
+            The inventory.
+            </value>
+        </member>
+        <member name="P:Library.User.MaxItems">
+            <summary>
+            Gets or sets the maximum items.
+            </summary>
+            <value>
+            The maximum items.
+            </value>
+        </member>
+        <member name="P:Library.User.Permissions">
+            <summary>
+            Gets or sets the permissions.
+            </summary>
+            <value>
+            The permissions.
+            </value>
+        </member>
+        <member name="M:Library.User.CreateAccount(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates the account.
+            </summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+            <exception cref="T:Library.Exceptions.AlreadyHasAccountException"></exception>
+            <exception cref="!:Library.AlreadyHasAccountException"></exception>
+        </member>
+        <member name="M:Library.User.GivePermission(Library.Permissions)">
+            <summary>
+            Gives the permission to user.
+            </summary>
+            <param name="permission">The permission.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Library.User.HasPermission(Library.Permissions)">
+            <summary>
+            Determines whether the specified user has permission.
+            </summary>
+            <param name="perm">The permission.</param>
+            <returns>
+              <c>true</c> if the specified user has permission; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Library.User.HasItem(System.Int32)">
+            <summary>
+            Determines whether the specified identifier has item.
+            </summary>
+            <param name="ID">The identifier.</param>
+            <returns>
+              <c>true</c> if the specified identifier has item; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Library.User.Issue(Library.LibraryItem)">
+            <summary>
+            Issues the specified item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:Library.User.Return(Library.LibraryItem)">
+            <summary>
+            Returns the specified item.
+            </summary>
+            <param name="item">The item.</param>
+            <exception cref="T:Library.InventoryDoesntHaveItemException"></exception>
+        </member>
+        <member name="T:Library.Utils.Utility">
+            <summary>
+            Contains utility methods
+            </summary>
+        </member>
+        <member name="M:Library.Utils.Utility.ReadPassword">
+            <summary>
+            Reads the password from console in a secure way.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Library.Utils.Utility.HumanReadablePermissions(System.Collections.Generic.List{Library.Permissions})">
+            <summary>
+            Gives Human readable permissions.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Library.Utils.Utility.IntToPerm(System.Int32)">
+            <summary>
+            converts Int to permissions.
+            </summary>
+            <param name="num">The number.</param>
+        </member>
+        <member name="M:Library.Utils.Utility.PermToInt(System.Collections.Generic.List{Library.Permissions})">
+            <summary>
+            Converts Permissions to int.
+            </summary>
+        </member>
+    </members>
+</doc>

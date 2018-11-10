@@ -7,11 +7,6 @@ namespace Library
     {
         private readonly List<LibraryItem> _items;
 
-        private User User { get; set; }
-
-        public int NumberOfItems { get => _items.Count; }
-        public bool IsEmpty { get => _items.Count == 0; }
-
         public Inventory(User user)
         {
             User = user;
@@ -19,14 +14,19 @@ namespace Library
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Inventory"/> class From the database.
+        /// Initializes a new instance of the <see cref="Inventory" /> class From the database.
         /// </summary>
         /// <param name="items">The items.</param>
+        /// <param name="user">The user.</param>
         public Inventory(List<LibraryItem> items, User user)
         {
             User = user;
             _items = items;
         }
+
+        public bool IsEmpty { get => _items.Count == 0; }
+        public int NumberOfItems { get => _items.Count; }
+        private User User { get; set; }
 
         public bool Has(int id)
         {

@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Library
 {
+    /// <summary>
+    /// This is the account for the user.
+    /// </summary>
     public class UserAccount
     {
         private string _password;
@@ -18,7 +21,7 @@ namespace Library
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <param name="user">The user.</param>
-        /// <exception cref="NonUniqueEntityException">Username</exception>
+        /// <param name="encrypt">if set to <c>true</c> [encrypt].</param>
         public UserAccount(string username, string password, User user, bool encrypt = true)
         {
             _username = username;

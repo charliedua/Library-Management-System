@@ -44,6 +44,9 @@ namespace Library.Commands
 
         public override List<string> Identifiers => new List<string>() { "CREATE", "MAKE", "INTITIALIZE" };
 
+        /// <summary>
+        /// Gets the required permissions to execute this command.
+        /// </summary>
         public override Permissions RequiredPermissions => Permissions.Create;
 
         /// <summary>
@@ -107,7 +110,7 @@ namespace Library.Commands
         /// <summary>
         /// Executes this command.
         /// </summary>
-        /// <param name="entity">The entity.</param>
+        /// <param name="controller">The controller.</param>
         /// <param name="text">The text.</param>
         /// <returns></returns>
         public override string Execute(ref LibraryController controller, string[] text)
@@ -130,8 +133,6 @@ namespace Library.Commands
                     break;
 
                 case "ITEM" when valid:
-                    // CREATE ITEM [STRING]
-                    // CREATE ITEM [STRING] [INT]
                     switch (text.Length)
                     {
                         case 4:

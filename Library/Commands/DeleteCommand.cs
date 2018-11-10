@@ -94,9 +94,9 @@ namespace Library.Commands
         /// <summary>
         /// Executes this command.
         /// </summary>
-        /// <param name="entity">The entity.</param>
+        /// <param name="controller">The controller.</param>
         /// <param name="text">The text.</param>
-        /// <returns></returns>
+        /// <returns>the Result to be printed after the command has been executed.</returns>
         public override string Execute(ref LibraryController controller, string[] text)
         {
             Entity entity = null;

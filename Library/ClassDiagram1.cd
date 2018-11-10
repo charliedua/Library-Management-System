@@ -172,21 +172,21 @@
     </TypeIdentifier>
   </Class>
   <Enum Name="Library.Entities">
-    <Position X="29" Y="4.75" Width="2.5" />
+    <Position X="26.75" Y="4.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Library.Permissions">
-    <Position X="30.75" Y="4.75" Width="2.5" />
+    <Position X="29.5" Y="4.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAEAAEAAAAAAAAEAAAA=</HashCode>
       <FileName>User\Permissions.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Library.UserState">
-    <Position X="32.5" Y="4.75" Width="2.5" />
+    <Position X="32.25" Y="4.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>User\UserState.cs</FileName>
